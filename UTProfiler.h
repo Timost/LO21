@@ -2,11 +2,15 @@
 
 #ifndef UT_PROFILER_h
 #define UT_PROFILER_h
-
+#include <sstream>
+#include <QFile>
+#include <QTextCodec>
+#include <QtXml>
 #include <QString>
 #include <QTextStream>
 #include <type_traits>
 #include <iostream>
+#include <map>
 using namespace std;
 
 class UTProfilerException{
@@ -66,7 +70,7 @@ class Semestre {
 	Saison saison;
 	unsigned int annee;
 public:
-	Semestre(Saison s, unsigned int a):saison(s),annee(a){ if (annee<1972||annee>2099) throw UTProfilerException("annee non valide"); }
+    Semestre(Saison s, unsigned int a):saison(s),annee(a){ if (annee<1972||annee>2099) throw UTProfilerException("annee non valide"); }
 	Saison getSaison() const { return saison; }
 	unsigned int getAnnee() const { return annee; }
 };
@@ -85,6 +89,7 @@ class UV {
     UV(const QString& c, const QString& t, unsigned int nbc, Categorie cat, bool a, bool p):
       code(c),titre(t),nbCredits(nbc),categorie(cat),automne(a),printemps(p){}
 	friend class UVManager;
+    friend class UVManager2;
 public:
     QString getCode() const { return code; }
     QString getTitre() const { return titre; }
@@ -102,8 +107,65 @@ public:
 
 QTextStream& operator<<(QTextStream& f, const UV& uv);
 
+/*
+ *
+ *
+ *
+ *
+ *
+ *
+ * Regarde après je t'ai mis mes idées pour le manager universel
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 
-class UVManager {
+
+template <class T>
+class Manager{// manage un tableau de T*, doit inclure les fonctionnaltés suivantes :
+    //Singleton (Celle ci j'ai un doute... mettre le constructeur en privé et tout... est-ce vraiment souhaitable ?): pour rendre un singleton héritable (utiliser un pointeur à la place d'une variable statique) cf : http://www.codeproject.com/Articles/4750/Singleton-Pattern-A-review-and-analysis-of-existin
+    //Iterator : pour pouvoir naviguer le tableau d'entier
+    //Load et Save du tableau dans une base de donnée à priori
+
+    //Petit rappel pour les classes template :
+    //Toutes les définitions de fonctions doivent être dans la mêm untité de compilation (à priori dans ce fichier, mais on peut aussi faire dans plusieurs fichiers .h).
+
+    // ci-dessous mes idées :
+protected:// ou privé à voir
+    T** tab;
+    unsigned int sizeMaxTab;
+    unsigned int nbElements;
+    //plus les attributs pour la base de donnée
+    //QString username;
+    //QString password;
+    //QString DatabaseName;
+    //QString Url ???
+
+public:
+    Manager();//à mettre en protected/privée ??? pour le singleton
+    ~Manager();//doit gérer la sauvegarde si nécessaire
+    unsigned int getSizeMaxTab()const{return sizeMaxTab;}//faire une version const unsigned int aussi ??
+    unsigned int getNbElements()const{return nbElements;}
+    T* getElement(unsigned int index);
+    void addElement(T* e);//virtuelle pure ??? ajoute un élément au tableau
+    void remove(unsigned int index);//virtuelle pure ??? enlêve l'élément à l'index index dans tab//faire une version avec un pointeur pour paramêtre??
+    //void connect(QString ...);//se connecter à la base de données
+    //void save();//Sauvegarder le tableau d'objet dans la base de données
+    //void load();//Charger dans tab les champs de la base de données
+
+    //Iterator
+    //Cf ce qu'à fait le prof dans la classe UVManager
+
+    //Singleton
+    //Aucune idée...
+
+
+};
+
+class UVManager{
 private:
 	UV** uvs;
 	unsigned int nbUV;
@@ -111,9 +173,9 @@ private:
 	void addItem(UV* uv);
 	bool modification;
     UV* trouverUV(const QString& c) const;
-	UVManager(const UVManager& um);
-	UVManager& operator=(const UVManager& um);
-	UVManager();
+    UVManager(const UVManager& um);
+    UVManager& operator=(const UVManager& um);
+    UVManager();
     ~UVManager();
     QString file;
     friend struct Handler;
@@ -133,6 +195,7 @@ public:
     void ajouterUV(const QString& c, const QString& t, unsigned int nbc, Categorie cat, bool a, bool p);
     const UV& getUV(const QString& code) const;
     UV& getUV(const QString& code);
+
 	class Iterator {
 		friend class UVManager;
 		UV** currentUV;
@@ -167,7 +230,7 @@ public:
 		bool operator!=(iterator it) const { return current!=it.current; }
 		iterator& operator++(){ ++current; return *this; }
 	};
-	iterator begin() { return iterator(uvs); }
+    iterator begin() { return iterator(uvs); }
 	iterator end() { return iterator(uvs+nbUV); }
 
 	class FilterIterator {
@@ -214,10 +277,267 @@ public:
 	void setResultat(Note newres) { resultat=newres; }
 };
 
-class Dossier {
+class Formation{
+    QString nom;
+    QString description;
+    UV** uvs;//contient les Uvs Faisant partie de la formation
+    UV** uvsObligatoires;//contient les UVS obligatoires pour une formation donnée
+    std::map<Categorie, int> nbCredits;//Contient le nombre de crédits à valider pour chaque catégories d'UVS
+public:
+    /*A faire
+        Formation(QString n,QString d,UV** uvs,UV** uvsO,std::map<Categorie, int> nbCred):nom(n),description(d),uvs(uvs),uvsObligatoires(uvsO),nbCredits(nbCred){}
+
+        QString getNom() const;
+        QString getDescription()const;
+        int getNbCreditsCat(const Categorie cat) const;
+        int getNbCreditsTotal()const;
+        void addUv(UV* uv);
+        void removeUv(UV* uv);
+        void addRequiredUV(UV* uv);
+        void removeRequiredUV(UV* uv);
+    */
 };
 
-class Formation{
+class FormationManager{
+    Formation** formations;
+    unsigned int nbFormations;
+    unsigned int nbMaxFormations;
+    FormationManager(const FormationManager& fm);
+    FormationManager& operator=(const FormationManager& fm);
+    FormationManager();
+    ~FormationManager();
+    QString file;
 };
+
+
+class Dossier {//dossier d'un étudiant cf. etuProfiler
+    Inscription** inscri;
+    Formation** forma;
+    unsigned int nbInsc;
+    unsigned int nbMaxInsc;
+    unsigned int nbForm;
+    unsigned int nbMaxForm;
+    Dossier(Inscription** i,int nbi, int nbimax, Formation** f, int nbf, int nbfmax ){}
+
+
+public:
+
+    Dossier(){
+        nbInsc=0;
+        nbMaxInsc=7;
+        nbForm=0;
+        nbMaxForm=7;
+        inscri=new Inscription*[nbMaxInsc];
+        forma=new Formation*[nbMaxInsc];
+    }
+    /*A faire
+        bool formationExists(const QString name);
+        void addFormation(Formation* f);//ajoute une formation
+        void deleteFormation(const unsigned int index);//supprime la formation à l'index i dans le tableau forma
+        Formation* getFormation(const QString name);//retourne un pointeur sur la formation de nom name
+        int getFormationIndex(const QString name);//retourne l'index d'une formation de nom name
+
+        void addInscription(Inscription* f);//ajoute une inscription
+        void deleteInscription(const unsigned int index);//supprime l'inscription à l'index i dans le tableau inscri
+        Formation* getInscription(const UV* uv, const Semestre s);//retourne un pointeur sur la formation correspondante
+        int getInscriptionIndex(const UV* uv, const Semestre s);//retourne l'index d'une formation de nom name
+
+        class InscIterator {//iterator sur les inscriptions
+            friend class Dossier;
+            Inscription** inscri;
+            unsigned int index;
+            unsigned int nbMax;
+            InscIterator(Inscription** i):inscri(i){}
+        public:
+            Inscription* first();
+            Inscription* next ();
+            Inscription* current ();
+            bool isDone();
+        };
+
+        InscIterator getInscrIterator(){return InscIterator(inscri);}
+
+        class FormIterator {//iterator sur les formations
+            friend class Dossier;
+            Formation** forma;
+            int index;
+            int nbMax;
+        public:
+
+        };
+    */
+
+};
+
+
 
 #endif
+
+
+//class UVManager2 : public ManagerFile<UV>{
+//private:
+//    friend struct Handler;
+//    struct Handler{
+//        UVManager2* instance;
+//        Handler():instance(0){}
+//        ~Handler(){ if (instance) delete instance; instance=0; }
+//    };
+//   public:
+//    static Handler handler;
+//    static UVManager2 <T> & getInstance(){
+//        if (!handler.instance) handler.instance = new BaseManager; /* instance créée une seule fois lors de la première utilisation*/
+//        return *handler.instance;
+//    }
+
+//    static void libererInstance(){
+//        if (handler.instance) { delete handler.instance; handler.instance=0; }
+//    }
+//public:
+
+//    void load(const QString& f);
+//    virtual void save(const QString& f){
+
+//        /*QMessageBox msgBox;
+//         msgBox.setText("Debut The document has been saved.");
+//         msgBox.exec();*/
+
+//        file=f;
+
+//        QFile newfile( file);
+//        if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text)) throw UTProfilerException(QString("erreur ouverture fichier xml"));
+//         QXmlStreamWriter stream(&newfile);
+//         stream.setAutoFormatting(true);
+//         stream.writeStartDocument();
+//         stream.writeStartElement("uvs");
+//         for(unsigned int i=0; i<nbItems; i++){
+//             stream.writeStartElement("uv");
+//             stream.writeAttribute("automne", (items[i]->ouvertureAutomne())?"true":"false");
+//             stream.writeAttribute("printemps", (items[i]->ouverturePrintemps())?"true":"false");
+//             stream.writeTextElement("code",items[i]->getCode());
+//             stream.writeTextElement("titre",items[i]->getTitre());
+//             QString cr; cr.setNum(items[i]->getNbCredits());
+//             stream.writeTextElement("credits",cr);
+//             stream.writeTextElement("categorie",CategorieToString(items[i]->getCategorie()));
+//             stream.writeEndElement();
+//         }
+//         stream.writeEndElement();
+//         stream.writeEndDocument();
+
+//         newfile.close();
+
+//    }
+//    void ajouterUV(const QString& c, const QString& t, unsigned int nbc, Categorie cat, bool a, bool p);
+//    const UV& getUV(const QString& code) const;
+//    UV& getUV(const QString& code);
+
+//    class FilterIterator {
+//        friend class UVManager2;
+//        UV** currentUV;
+//        unsigned int nbRemain;
+//        Categorie categorie;
+//        FilterIterator(UV** u, unsigned int nb, Categorie c):currentUV(u),nbRemain(nb),categorie(c){
+//            while(nbRemain>0 && (*currentUV)->getCategorie()!=categorie){
+//                nbRemain--; currentUV++;
+//            }
+//        }
+//    public:
+//        FilterIterator():nbRemain(0),currentUV(0){}
+//        bool isDone() const { return nbRemain==0; }
+//        void next() {
+//            if (isDone())
+//                throw UTProfilerException("error, next on an iterator which is done");
+//            do {
+//                nbRemain--; currentUV++;
+//            }while(nbRemain>0 && (*currentUV)->getCategorie()!=categorie);
+//        }
+//        UV& current() const {
+//            if (isDone())
+//                throw UTProfilerException("error, indirection on an iterator which is done");
+//            return **currentUV;
+//        }
+//    };
+//    FilterIterator getFilterIterator(Categorie c) {
+//        return FilterIterator(items,nbItems,c);
+//    }
+//private:
+//    UV* trouverUV(const QString& c) const;
+//    ~UVManager2();
+//};
+
+//template<class T>
+//class BaseManager{
+//protected:
+//    T** items;
+//    unsigned int nbItems;
+//    unsigned int nbMaxItems;
+//    bool modification;
+//    void addItem(T* item){
+//        if (nbItems==nbMaxItems){
+//            T** newtab=new T*[nbMaxItems+10];
+//            for(unsigned int i=0; i<nbItems; i++) newtab[i]=items[i];
+//            nbMaxItems+=10;
+//            T** old=items;
+//            items=newtab;
+//            delete[] old;
+//        }
+//        items[nbItems++]=item;
+//    }
+//    BaseManager(const BaseManager& um);
+//    BaseManager& operator=(const BaseManager& um);
+//    ~BaseManager(){
+//        for(unsigned int i=0; i<nbItems; i++) delete items[i];
+//        delete[] items;
+//    }
+
+//public :
+//    BaseManager():items(0),nbItems(0),nbMaxItems(0),modification(false){}
+
+//    class Iterator {
+//        friend class BaseManager;
+//        T** currentItem;
+//        unsigned int nbRemain;
+//        Iterator(T** i, unsigned int nb):currentItem(i),nbRemain(nb){}
+//    public:
+//        Iterator():nbRemain(0),currentItem(0){}
+//        bool isDone() const { return nbRemain==0; }
+//        void next() {
+//            if (isDone())
+//                throw UTProfilerException("error, next on an iterator which is done");
+//            nbRemain--;
+//            currentItem++;
+//        }
+//        T& current() const {
+//            if (isDone())
+//                throw UTProfilerException("error, indirection on an iterator which is done");
+//            return **currentItem;
+//        }
+//    };
+//    Iterator getIterator() {
+//        return Iterator(items,nbItems);
+//    }
+
+//    class iterator {
+//        T** current;
+//        iterator(T** u):current(u){}
+//        friend class BaseManager;
+//    public:
+//        iterator():current(0){}
+//        T& operator*() const { return **current; }
+//        bool operator!=(iterator it) const { return current!=it.current; }
+//        iterator& operator++(){ ++current; return *this; }
+//    };
+//    iterator begin() { return iterator(items); }
+//    iterator end() { return iterator(items+nbItems); }
+//};
+
+//template<class T>
+//class ManagerFile : public BaseManager <T>{
+//protected:
+//    QString file;
+//    ManagerFile():file(""){}
+//    ~ManagerFile(){
+//        if (file!="") save(file);
+//    }
+//public:
+//    virtual void save(const QString& f){throw UTProfilerException("This function should not be called");}//doit être redéfini en fonction de T
+//};

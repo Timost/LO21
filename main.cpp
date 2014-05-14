@@ -19,38 +19,18 @@ int todo(int argc, char *argv[])
 {
     try
         {
-            //cout<<"test";
-            QApplication app(argc, argv);
-
-            //m.load("E:\\sauvegarde\\ordi_tim\\autres\\Tim\\UTC\\P14\\LO21\\TDs\\TD6\\Exercice2\\build-exercice2-Desktop_Qt_5_2_1_MinGW_32bit-Debug\\debug\\UV_XML.xml");
-            //UV& mUv= m.getUV("NF16");
-
-
-
-            //UVEditeur fenetre(mUv);
-            //fenetre.show();
+            //Dossier d();
+           // BaseManager m()
+            UVManager2& m= UVManager2::getInstance();
+            /*QApplication app(argc, argv);
             Profiler p;
             p.show();
-            return app.exec();
-//            QWidget fenetre;
-//            fenetre.setFixedSize(200, 200);
-//            QLineEdit *code = new QLineEdit(mUv.getCode());
-//            QTextEdit *titre = new QTextEdit(mUv.getTitre());
-//            QPushButton *save = new QPushButton("Sauver");
+            return app.exec();*/
 
-//            QVBoxLayout *layout = new QVBoxLayout;
-
-//            layout->addWidget(code);
-//            layout->addWidget(titre);
-//            layout->addWidget(save);
-
-//            fenetre.setLayout(layout);
-//            fenetre.show();
-//            return app.exec();
         }
         catch(UTProfilerException& e)
         {
-           std::cout<<e.getInfo().toStdString()<<"\n";
+           cout<<e.getInfo().toStdString()<<"\n";
         }
         catch(std::exception& e)
         {
