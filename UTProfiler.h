@@ -123,7 +123,7 @@ QTextStream& operator<<(QTextStream& f, const UV& uv);
  *
  */
 
-
+/*
 template <class T>
 class Manager{// manage un tableau de T*, doit inclure les fonctionnaltés suivantes :
     //Singleton (Celle ci j'ai un doute... mettre le constructeur en privé et tout... est-ce vraiment souhaitable ?): pour rendre un singleton héritable (utiliser un pointeur à la place d'une variable statique) cf : http://www.codeproject.com/Articles/4750/Singleton-Pattern-A-review-and-analysis-of-existin
@@ -165,7 +165,7 @@ public:
 
 };
 
-class UVManager{
+/*class UVManager{
 private:
 	UV** uvs;
 	unsigned int nbUV;
@@ -296,8 +296,8 @@ public:
         void addRequiredUV(UV* uv);
         void removeRequiredUV(UV* uv);
     */
-};
 
+/*
 class FormationManager{
     Formation** formations;
     unsigned int nbFormations;
@@ -367,7 +367,8 @@ public:
         };
     */
 
-};
+//};
+
 
 
 

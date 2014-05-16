@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QMenuBar>
 #include "UTProfiler.h"
-
+/*
 class Profiler : public QMainWindow
 {
     Q_OBJECT
@@ -25,5 +25,5 @@ public slots:
     void chargeUVs();
     void editUV();
 };
-
+*/
 #endif // PROFILER_H

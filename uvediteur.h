@@ -15,7 +15,7 @@
 #include <QString>
 #define CREDITS_MAX 30
 #define CREDITS_MIN 0
-
+/*
 class UVEditeur : public QWidget
 {
     Q_OBJECT
@@ -45,6 +45,6 @@ public slots:
     void saveUV();
 
 
-};
+};*/
 
 #endif // UVEDITEUR_H

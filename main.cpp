@@ -12,35 +12,38 @@
 #include "UTProfiler.h"
 #include "uvediteur.h"
 #include "profiler.h"
+#include "database.h"
 #include <iostream>
 
 
-int todo(int argc, char *argv[])
-{
-    try
-        {
-            //Dossier d();
-           // BaseManager m()
-            UVManager2& m= UVManager2::getInstance();
-            /*QApplication app(argc, argv);
-            Profiler p;
-            p.show();
-            return app.exec();*/
+//int todo(int argc, char *argv[])
+//{
+//    try
+//        {
+//            //Dossier d();
+//           // BaseManager m()
+//            //UVManager2& m= UVManager2::getInstance();
+//            /*QApplication app(argc, argv);
+//            Profiler p;
+//            p.show();
+//            return app.exec();*/
 
-        }
-        catch(UTProfilerException& e)
-        {
-           cout<<e.getInfo().toStdString()<<"\n";
-        }
-        catch(std::exception& e)
-        {
-            qDebug()<<e.what()<<"\n";
-        }
-    return -1;
-}
+//        }
+//        catch(UTProfilerException& e)
+//        {
+//           cout<<e.getInfo().toStdString()<<"\n";
+//        }
+//        catch(std::exception& e)
+//        {
+//            qDebug()<<e.what()<<"\n";
+//        }
+//    return -1;
+//}
 int main(int argc, char *argv[]) {
-
-     return todo(argc,argv);
+     QCoreApplication app(argc, argv);
+     Database& db=Database::getInstance();
+     //db.query("CREATE TABLE test(test char(1));");
+     return 0;
 }
 
 //première partie
