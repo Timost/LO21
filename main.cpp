@@ -13,6 +13,8 @@
 #include "uvediteur.h"
 #include "profiler.h"
 #include "database.h"
+#include "templatemanager.h"
+#include "templatestd.h"
 #include <iostream>
 
 
@@ -39,10 +41,17 @@
 //        }
 //    return -1;
 //}
+
+//il faut init tout les handler de tempalte std (crade mais pas de meilleures sol)
+template<> TemplateManager<TemplateStd>* TemplateManager<TemplateStd>::handler=0;
 int main(int argc, char *argv[]) {
      QCoreApplication app(argc, argv);
      Database& db=Database::getInstance();
-     //db.query("CREATE TABLE test(test char(1));");
+     db.destroyInstance();
+     TemplateManager<TemplateStd>& t=TemplateManager<TemplateStd>::getInstance();
+     TemplateStd eletest(3);
+     t.New(eletest);
+     t.getElement("3").display();
      return 0;
 }
 

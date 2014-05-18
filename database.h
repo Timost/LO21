@@ -18,7 +18,7 @@ class Database
     string databaseName;
     Database(string dbname);
 
-    ~Database();
+    ~Database(){}
     bool open()
     {
         return this->db.open();
