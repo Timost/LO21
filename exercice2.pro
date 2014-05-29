@@ -12,7 +12,8 @@ SOURCES += \
     profiler.cpp \
     templatemanager.cpp \
     database.cpp \
-    templatestd.cpp
+    EntityStd.cpp \
+    uv.cpp
 
 HEADERS += \
     UTProfiler.h \
@@ -20,4 +21,5 @@ HEADERS += \
     profiler.h \
     templatemanager.h \
     database.h \
-    templatestd.h
+    EntityStd.h \
+    uv.h
