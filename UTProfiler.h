@@ -13,27 +13,27 @@
 #include <map>
 using namespace std;
 
-class UTProfilerException{
-public:
-    UTProfilerException(const QString& message):info(message){}
-    QString getInfo() const { return info; }
-private:
-    QString info;
-};
+//class UTProfilerException{
+//public:
+//    UTProfilerException(const QString& message):info(message){}
+//    QString getInfo() const { return info; }
+//private:
+//    QString info;
+//};
 
-enum class Categorie {
-	/* Connaissances Scientifiques */ CS,  /* Techniques et Méthodes */ TM, 
-    /* Technologies et Sciences de l'Homme */ TSH, /* Stage et Projet */ SP,
-    first=CS, last=SP
-};
+//enum class Categorie {
+//	/* Connaissances Scientifiques */ CS,  /* Techniques et Méthodes */ TM,
+//    /* Technologies et Sciences de l'Homme */ TSH, /* Stage et Projet */ SP,
+//    first=CS, last=SP
+//};
 
-QTextStream& operator<<(QTextStream& f, const Categorie& s);
+//QTextStream& operator<<(QTextStream& f, const Categorie& s);
 
-Categorie StringToCategorie(const QString& s);
-QString CategorieToString(Categorie c);
-QTextStream& operator>>(QTextStream& f, Categorie& cat);
+//Categorie StringToCategorie(const QString& s);
+//QString CategorieToString(Categorie c);
+//QTextStream& operator>>(QTextStream& f, Categorie& cat);
 
-enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
+//enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
 
 
 /*class NoteIterator {
@@ -46,37 +46,36 @@ public:
     void next() { std::underlying_type<Note>::type(value)++; }
 };*/
 
-enum class Saison { Automne, Printemps, first=Automne, last=Printemps };
-inline QTextStream& operator<<(QTextStream& f, const Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
+//enum class Saison { Automne, Printemps, first=Automne, last=Printemps };
+//inline QTextStream& operator<<(QTextStream& f, const Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
 
-template<typename EnumType>
-class EnumIterator {
-    static_assert(is_enum<EnumType>::value, "EnumType has to be an enum");
-    EnumType value;
-    EnumIterator(EnumType val):value(val){}
-public:
-    static EnumIterator getFirst() { return EnumIterator(EnumType::first); }
-    bool isDone() const { return value>EnumType::last; }
-    EnumType operator*() const { return value; }
-    void next() { value=(EnumType)(std::underlying_type<EnumType>::type(value)+1); }
-};
+//template<typename EnumType>
+//class EnumIterator {
+//    static_assert(is_enum<EnumType>::value, "EnumType has to be an enum");
+//    EnumType value;
+//    EnumIterator(EnumType val):value(val){}
+//public:
+//    static EnumIterator getFirst() { return EnumIterator(EnumType::first); }
+//    bool isDone() const { return value>EnumType::last; }
+//    EnumType operator*() const { return value; }
+//    void next() { value=(EnumType)(std::underlying_type<EnumType>::type(value)+1); }
+//};
 
-typedef EnumIterator<Note> NoteIterator;
-typedef EnumIterator<Categorie> CategorieIterator;
-typedef EnumIterator<Saison> SaisonIterator;
+//typedef EnumIterator<Note> NoteIterator;
+//typedef EnumIterator<Categorie> CategorieIterator;
+//typedef EnumIterator<Saison> SaisonIterator;
 
 
-class Semestre {
-	Saison saison;
-	unsigned int annee;
-public:
-    Semestre(Saison s, unsigned int a):saison(s),annee(a){ if (annee<1972||annee>2099) throw UTProfilerException("annee non valide"); }
-	Saison getSaison() const { return saison; }
-	unsigned int getAnnee() const { return annee; }
-};
+//class Semestre {
+//	Saison saison;
+//	unsigned int annee;
+//public:
+//    Semestre(Saison s, unsigned int a):saison(s),annee(a){ if (annee<1972||annee>2099) throw UTProfilerException("annee non valide"); }
+//	Saison getSaison() const { return saison; }
+//	unsigned int getAnnee() const { return annee; }
+//};
 
-inline QTextStream& operator<<(QTextStream& f, const Semestre& s) { return f<<s.getSaison()<<s.getAnnee()%100; }
-
+/*
 class UV {
     QString code;
     QString titre;

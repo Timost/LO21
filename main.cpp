@@ -15,6 +15,10 @@
 #include "database.h"
 #include "templatemanager.h"
 #include "EntityStd.h"
+#include "uv.h"
+#include "Formation.h"
+#include "enums.h"
+#include <string>
 #include <iostream>
 
 
@@ -44,11 +48,33 @@
 
 //il faut init tout les handler de tempalte std (crade mais pas de meilleures sol)
 template<> TemplateManager<UV>* TemplateManager<UV>::handler=0;
+template<> TemplateManager<Formation>* TemplateManager<Formation>::handler=0;
 int main(int argc, char *argv[]) {
-     QCoreApplication app(argc, argv);
-     Database& db=Database::getInstance();
-     db.destroyInstance();
-     TemplateManager<UV>& t=TemplateManager<UV>::getInstance();
+    try
+    {
+        QCoreApplication app(argc, argv);
+        Database& db=Database::getInstance();
+        db.destroyInstance();
+        TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+        TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+
+        map<Categorie,unsigned int> m;
+        m.insert(pair<Categorie, unsigned int> (Categorie::CS,12));
+        std::string s1="EE32";
+        std::string s2="titre";
+        UV newUV(s1,s2,m,true,true);
+
+        //qDebug<<newUV;
+
+    }
+    catch(UException& e)
+    {
+        std::cout<<e.getInfo().toStdString()<<"\n";
+    }
+    catch(std::exception& e)
+    {
+        qDebug()<<e.what()<<"\n";
+    }
      return 0;
 }
 

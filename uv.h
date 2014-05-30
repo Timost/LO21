@@ -3,19 +3,20 @@
 #include <string>
 #include <map>
 #include "EntityStd.h"
-
+#include "enums.h"
+#include <QTextStream>
+#include <QString>
 class UV : public EntityStd
 {
-    enum Type {CS, TM, TSH, SP};
     std::string code;
     std::string titre;
-    std::map<Type, unsigned int> credits;
+    std::map<Categorie, unsigned int> credits;//voirs enums.h pour Categorie
 
     bool automne;
     bool printemps;
 
 public:
-    UV(std::string c, std::string t, std::map<Type, unsigned int> cre, bool a, bool p):code(c), titre(t), credits(cre), automne(a), printemps(p){}
+    UV(std::string c, std::string t, std::map<Categorie, unsigned int> cre, bool a, bool p):code(c), titre(t), credits(cre), automne(a), printemps(p){}
     ~UV(){credits.clear();}
 
     std::string getCode() const
@@ -33,10 +34,12 @@ public:
         return titre;
     }
 
-    const std::map<Type, unsigned int> getCredits() const
+    const std::map<Categorie, unsigned int> getCredits() const
     {
         return credits;
     }
+
+
 
     bool ouvertureAutomne() const
     {
@@ -54,7 +57,7 @@ public:
         titre=t;
     }
 
-    void setCredits(Type t, unsigned int nb)
+    void setCredits(Categorie t, unsigned int nb)
     {
         credits[t]=nb;
     }
@@ -68,6 +71,9 @@ public:
     {
         printemps=b;
     }
+
 };
+
+QTextStream& operator<<(QTextStream& f, const UV& uv);
 
 #endif // UV_H

@@ -7,11 +7,9 @@
 class EntityStd
 {
 public:
-    EntityStd()
-    {
-    }
+    EntityStd(){}
     virtual ~EntityStd(){}
-    virtual std::string getStrLabel()=0;
+    virtual std::string getStrLabel() const =0;
 };
 
 #endif // TEMPLATESTD_H

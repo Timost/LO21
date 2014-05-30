@@ -13,7 +13,10 @@ SOURCES += \
     templatemanager.cpp \
     database.cpp \
     EntityStd.cpp \
-    uv.cpp
+    uv.cpp \
+    Formation.cpp \
+    Exception.cpp \
+    enums.cpp
 
 HEADERS += \
     UTProfiler.h \
@@ -22,4 +25,8 @@ HEADERS += \
     templatemanager.h \
     database.h \
     EntityStd.h \
-    uv.h
+    uv.h \
+    Formation.h \
+    enums.h \
+    Semestre.h \
+    Exception.h
