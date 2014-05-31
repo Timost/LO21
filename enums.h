@@ -28,6 +28,7 @@ enum class Categorie {
 QTextStream& operator<<(QTextStream& f, const Categorie& s);
 
 Categorie StringToCategorie(const QString& s);
+Categorie IntToCategorie(const int n);
 QString CategorieToString(Categorie c);
 QTextStream& operator>>(QTextStream& f, Categorie& cat);
 

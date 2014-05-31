@@ -53,6 +53,16 @@ public:
         return elements.begin();
     }
 
+    typename vector<T>::const_iterator getIterator() const
+    {
+        return elements.begin();
+    }
+
+    typename vector<T>::const_iterator end() const
+    {
+        return elements.end();
+    }
+
     void New(T element)
     {
         elements.push_back(element);

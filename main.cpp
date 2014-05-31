@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
         uv2.setCredits(Categorie::TM,2);
         uv2.setTitre("titre2");
         UV* pUV2= &uv2;
-
+        tUV.New(*pUV2);
         //pour afficher dans la console...
         newUV.display();
 
@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
        QDate date(2014,5,3);
        Etudiant e1(dos,1320123,"nom","prenom",date);
        Database db=Database("c:/sqlite/lo21");
-       db.init();
+       db.save();
     }
     catch(std::exception& e)
     {

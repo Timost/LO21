@@ -40,15 +40,16 @@ public:
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
         TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
         Database& db;
+        void init();
 
     public:
         SaverLoader(Database& database):db(database){}
-        bool init();
+        void save();
     };
 
-    bool init()
+    bool save()
     {
-        SaverLoader(*this).init();
+        SaverLoader(*this).save();
     }
 };
 

@@ -31,7 +31,7 @@ QSqlQuery Database::query(string q)
     return query;
 }
 
-bool Database::SaverLoader::init()
+void Database::SaverLoader::init()
 {
     //on drop toutes les tables
     try
@@ -106,4 +106,22 @@ bool Database::SaverLoader::init()
     db.query("CREATE TABLE CreditsFormation (formation varchar(255), categorie varchar(255), nbCresits int);");
     db.query("CREATE TABLE Inscription (login varchar(255), code varchar(255), saison varchar(20), annee int, resultat varchar(3));");
     db.query("CREATE TABLE FormationEtudiant (login varchar(255), formation varchar(255));");
+}
+
+void Database::SaverLoader::save()
+{
+    init();
+    vector<UV>::const_iterator it=tUV.getIterator();
+    for(int i=0; i<tUV.size(); i++)
+    {
+        string q="INSERT INTO UV (code, titre, automne, printemps) VALUES ('"+it[i].getCode()+"', '"+it[i].getTitre()+"', '"+to_string(int(it[i].ouvertureAutomne()))+"', '"+to_string(int(it[i].ouverturePrintemps()))+"');";
+        map<Categorie, unsigned int> it2=it[i].getCredits();
+        db.query(q);
+        for(int j=0; j<4; j++)
+        {
+            q="INSERT INTO CreditsUV (code, categorie, nbCredits) VALUES ('"+it[i].getCode()+"', '"+CategorieToString(IntToCategorie(j)).toStdString()+"', '"+to_string(it2[IntToCategorie(j)])+"');";
+            db.query(q);
+        }
+
+    }
 }

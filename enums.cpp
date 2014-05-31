@@ -15,6 +15,20 @@ Categorie StringToCategorie(const QString& str){
     }
 }
 
+Categorie IntToCategorie(const int n){
+    if (n==0) return Categorie::CS;
+    else
+    if (n==1) return Categorie::TM;
+    else
+    if (n==2) return Categorie::SP;
+    else
+    if (n==3) return Categorie::TSH;
+    else {
+        QString s="erreur, StringToCategorie, categorie inexistante";
+        throw EnumException(s.toStdString());
+    }
+}
+
 
 QTextStream& operator>>(QTextStream& f, Categorie& cat){
     QString str;
@@ -34,10 +48,10 @@ QTextStream& operator>>(QTextStream& f, Categorie& cat){
 
 QString CategorieToString(Categorie c){
     switch(c){
-    case Categorie::CS: return "CS";
-    case Categorie::TM: return "TM";
-    case Categorie::SP: return "SP";
-    case Categorie::TSH: return "TSH";
+    case Categorie::CS : return "CS";
+    case Categorie::TM : return "TM";
+    case Categorie::SP : return "SP";
+    case Categorie::TSH : return "TSH";
     default: throw EnumException("erreur, categorie non traitee");
     }
 }
