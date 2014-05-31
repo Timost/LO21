@@ -53,23 +53,45 @@ int main(int argc, char *argv[]) {
     try
     {
         QCoreApplication app(argc, argv);
-        Database& db=Database::getInstance();
-        db.destroyInstance();
+        //Database& db=Database::getInstance();
+        //db.destroyInstance();
         TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
 
+        //création d'une UV directement
         map<Categorie,unsigned int> m;
         m.insert(pair<Categorie, unsigned int> (Categorie::CS,12));
         std::string s1="EE32";
         std::string s2="titre";
         UV newUV(s1,s2,m,true,true);
+        UV* pUV= &newUV;
 
-        //qDebug<<newUV;
+        map<Categorie,unsigned int> m3;
+        m3.insert(pair<Categorie, unsigned int> (Categorie::TM,12));
+        std::string s12="EE31";
+        std::string s22="titre2";
+        UV newUV2(s12,s22,m3,true,true);
+        UV* pUV2= &newUV2;
 
-    }
-    catch(UException& e)
-    {
-        std::cout<<e.getInfo().toStdString()<<"\n";
+
+        //pour afficher dans la console...
+        qDebug()<<"Code :"<<newUV.getCode().c_str()<<" titre, "<<newUV.getTitre().c_str();//c_str pour les types string
+
+        //Création d'une formation directement
+        std::map<UV*,bool>m1;
+        //m1.insert(std::pair<UV*,bool> (pUV,false));
+        std::map<Categorie,unsigned int>m2;
+        //m2.insert(std::pair<Categorie,unsigned int> (Categorie::CS,12));
+
+        Formation nF("Nom","Description",m1,m2);
+
+        nF.display();
+        nF.addUv(pUV,false);
+        nF.display();
+        nF.addCategorie(Categorie::CS,12);
+        nF.display();
+        nF.addUv(pUV2,true);
+        nF.display();
     }
     catch(std::exception& e)
     {
