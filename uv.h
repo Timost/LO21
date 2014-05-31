@@ -104,6 +104,11 @@ public:
     }
 };
 
+inline bool operator==(UV u1, UV u2)
+{
+    return (u1.getCode()==u2.getCode());
+}
+
 QTextStream& operator<<(QTextStream& f, const UV& uv);
 
 #endif // UV_H

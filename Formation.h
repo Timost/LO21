@@ -33,6 +33,13 @@ class Formation:public EntityStd
     public:
         //Formation(std::string n,std::string d,std::vector<UV*> uvs,std::vector<UV*> uvsO,std::map<Categorie, int> nbCred):nom(n),description(d),uvs(uvs),uvsObligatoires(uvsO),nbCredits(nbCred){}
         Formation(QString n,QString d,std::map<UV*,bool> uvs,std::map<Categorie,unsigned int> nbCred):nom(n),description(d),uvs(uvs),nbCredits(nbCred){}
+
+        ~Formation()
+        {
+            uvs.clear();
+            nbCredits.clear();
+        }
+
         std::string getStrLabel() const
         {
            return getDescription().toStdString();

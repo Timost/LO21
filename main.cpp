@@ -18,6 +18,11 @@
 #include "uv.h"
 #include "Formation.h"
 #include "enums.h"
+#include "Dossier.h"
+#include "Semestre.h"
+#include "Inscription.h"
+#include "Exception.h"
+#include "Etudiant.h"
 #include <string>
 #include <iostream>
 
@@ -90,6 +95,25 @@ int main(int argc, char *argv[]) {
         nF.display();
         nF.addUv(pUV2,true);
         nF.display();
+
+        //Création d'une Inscription directement
+
+        Inscription nI(uv2,Semestre(Saison::Automne,2012),Note::EC);
+
+        nI.display();
+
+        //création d'un dossier
+        std::vector<Inscription> vInscr;
+        vInscr.push_back(nI);
+
+        std::vector<Formation*> vForme;
+        vForme.push_back(&nF);
+
+       Dossier dos(vInscr,vForme);
+
+       //création d'un étudiant
+       QDate date(2014,5,3);
+       Etudiant e1(dos,1320123,"nom","prenom",date);
     }
     catch(std::exception& e)
     {

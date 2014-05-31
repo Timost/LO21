@@ -1,9 +1,23 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
+#include <QDebug>
 #include <QString>
 #include <QTextStream>
 #include <type_traits>
+
+class EnumException : public std::exception
+{
+protected :
+    std::string info;
+public:
+    EnumException(const std::string& i="") throw() :info(i) {}
+    const char* what() const throw()
+    {
+        return info.c_str();
+    }
+    ~EnumException()throw() {}
+};
 
 enum class Categorie {
     /* Connaissances Scientifiques */ CS,  /* Techniques et Méthodes */ TM,
@@ -19,8 +33,13 @@ QTextStream& operator>>(QTextStream& f, Categorie& cat);
 
 enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
 
+inline QDebug operator<<(QDebug f, const Note &n);
+
 enum class Saison { Automne, Printemps, first=Automne, last=Printemps };
 inline QTextStream& operator<<(QTextStream& f, const Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
+inline QTextStream& operator<<(QTextStream& f, Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
+
+inline QDebug operator<<(QDebug f, const Saison &s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
 
 template<typename EnumType>
 class EnumIterator {

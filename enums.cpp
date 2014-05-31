@@ -10,7 +10,8 @@ Categorie StringToCategorie(const QString& str){
     else
     if (str=="TSH") return Categorie::TSH;
     else {
-        throw UException(QString("erreur, StringToCategorie, categorie ")+str+" inexistante");
+        QString s="erreur, StringToCategorie, categorie "+str+" inexistante";
+        throw EnumException(s.toStdString());
     }
 }
 
@@ -26,7 +27,7 @@ QTextStream& operator>>(QTextStream& f, Categorie& cat){
     else
     if (str=="TSH") cat=Categorie::TSH;
     else {
-        throw UException("erreur, lecture categorie");
+        throw EnumException("erreur, lecture categorie");
     }
     return f;
 }
@@ -37,7 +38,7 @@ QString CategorieToString(Categorie c){
     case Categorie::TM: return "TM";
     case Categorie::SP: return "SP";
     case Categorie::TSH: return "TSH";
-    default: throw UException("erreur, categorie non traitee");
+    default: throw EnumException("erreur, categorie non traitee");
     }
 }
 
@@ -47,7 +48,25 @@ QTextStream& operator<<(QTextStream& f, const Categorie& cat){
     case Categorie::TM: f<<"TM"; break;
     case Categorie::SP: f<<"SP"; break;
     case Categorie::TSH: f<<"TSH"; break;
-    default: throw UException("erreur, categorie non traitee");
+    default: throw EnumException("erreur, categorie non traitee");
     }
     return f;
 }
+
+inline QDebug& operator<<(QDebug& f, const Note& n){
+    switch(n){
+    case Note::A : f<<"A"; break;
+    case Note::B: f<<"B"; break;
+    case Note::C: f<<"C"; break;
+    case Note::D: f<<"D"; break;
+    case Note::E: f<<"E"; break;
+    case Note::F: f<<"F"; break;
+    case Note::FX: f<<"FX"; break;
+    case Note::RES: f<<"RES"; break;
+    case Note::ABS: f<<"ABS"; break;
+    case Note::EC: f<<"EC"; break;
+    default: throw EnumException("erreur, Note non traitee");
+    }
+    return f;
+}
+

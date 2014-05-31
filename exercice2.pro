@@ -16,7 +16,9 @@ SOURCES += \
     uv.cpp \
     Formation.cpp \
     Exception.cpp \
-    enums.cpp
+    enums.cpp \
+    Etudiant.cpp \
+    Dossier.cpp
 
 HEADERS += \
     UTProfiler.h \
@@ -29,4 +31,7 @@ HEADERS += \
     Formation.h \
     enums.h \
     Semestre.h \
-    Exception.h
+    Exception.h \
+    Etudiant.h \
+    Inscription.h \
+    Dossier.h
