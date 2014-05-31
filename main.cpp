@@ -66,16 +66,14 @@ int main(int argc, char *argv[]) {
         UV newUV(s1,s2,m,true,true);
         UV* pUV= &newUV;
 
-        map<Categorie,unsigned int> m3;
-        m3.insert(pair<Categorie, unsigned int> (Categorie::TM,12));
-        std::string s12="EE31";
-        std::string s22="titre2";
-        UV newUV2(s12,s22,m3,true,true);
-        UV* pUV2= &newUV2;
-
+        UV uv2=newUV;//copie
+        uv2.addCategorie(Categorie::TM,5);
+        uv2.setCredits(Categorie::TM,2);
+        uv2.setTitre("titre2");
+        UV* pUV2= &uv2;
 
         //pour afficher dans la console...
-        qDebug()<<"Code :"<<newUV.getCode().c_str()<<" titre, "<<newUV.getTitre().c_str();//c_str pour les types string
+        newUV.display();
 
         //Création d'une formation directement
         std::map<UV*,bool>m1;

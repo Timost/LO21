@@ -6,6 +6,22 @@
 #include "enums.h"
 #include <QTextStream>
 #include <QString>
+#include <QDebug>
+
+class UvException : public std::exception
+{
+protected :
+    std::string info;
+public:
+    UvException(const std::string& i="") throw() :info(i) {}
+    const char* what() const throw()
+    {
+        return info.c_str();
+    }
+    ~UvException()throw() {}
+};
+
+
 class UV : public EntityStd
 {
     std::string code;
@@ -72,6 +88,20 @@ public:
         printemps=b;
     }
 
+    void addCategorie(Categorie c, unsigned int creds)
+    {
+        if(credits.find(c) != credits.end())//si la catégorie existe déjà
+        {
+            throw UvException("Erreur, cette catégorie existe déjà, utilisez setCredits()");
+        }
+
+        credits[c]=creds;
+    }
+
+    void display()
+    {
+        qDebug()<<"Code :"<<getCode().c_str()<<" titre, "<<getTitre().c_str();//c_str pour les types string
+    }
 };
 
 QTextStream& operator<<(QTextStream& f, const UV& uv);
