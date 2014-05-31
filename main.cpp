@@ -54,14 +54,14 @@
 //il faut init tout les handler de tempalte std (crade mais pas de meilleures sol)
 template<> TemplateManager<UV>* TemplateManager<UV>::handler=0;
 template<> TemplateManager<Formation>* TemplateManager<Formation>::handler=0;
+template<> TemplateManager<Etudiant>* TemplateManager<Etudiant>::handler=0;
 int main(int argc, char *argv[]) {
     try
     {
         QCoreApplication app(argc, argv);
-        //Database& db=Database::getInstance();
-        //db.destroyInstance();
         TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+        TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
 
         //création d'une UV directement
         map<Categorie,unsigned int> m;
@@ -114,6 +114,8 @@ int main(int argc, char *argv[]) {
        //création d'un étudiant
        QDate date(2014,5,3);
        Etudiant e1(dos,1320123,"nom","prenom",date);
+       Database db=Database("c:/sqlite/lo21");
+       db.init();
     }
     catch(std::exception& e)
     {

@@ -6,6 +6,10 @@
 #include <string>
 #include <iostream>
 #include <QDebug>
+#include "templatemanager.h"
+#include "Formation.h"
+#include "Etudiant.h"
+#include "uv.h"
 
 #define q2c(string) string.toStdString()
 
@@ -13,12 +17,9 @@ using namespace std;
 
 class Database
 {
-    static Database* handler;
     QSqlDatabase db;
     string databaseName;
-    Database(string dbname);
 
-    ~Database(){}
     bool open()
     {
         return this->db.open();
@@ -28,14 +29,27 @@ class Database
         db.close();
     }
 public:
-    static Database& getInstance(string dbname="QSQLITE");
-    void destroyInstance()
-    {
-        delete handler;
-        handler=0;
-    }
     QSqlQuery query(string q);
+    Database(string path, string dbname="QSQLITE");
+    ~Database(){}
 
+    class SaverLoader //gere sauvegarde et chargement de la bdd
+    {
+        //on recupere tous les manager
+        TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+        TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+        TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
+        Database& db;
+
+    public:
+        SaverLoader(Database& database):db(database){}
+        bool init();
+    };
+
+    bool init()
+    {
+        SaverLoader(*this).init();
+    }
 };
 
 class DatabaseException : public std::exception

@@ -62,12 +62,28 @@ public:
     {
         typename vector<T>::iterator it=getIterator();
         int nb=size();
+        if (nb==0)
+            throw TemplateManagerException<T>("Pas d'elements dans le manager.");
         int i;
         for(i=0; s!=it[i].getStrLabel() && i<nb; i++);
-        if(s!=it[i].getStrLabel())
+        if(i!=0 && s!=it[i].getStrLabel())
             throw TemplateManagerException<T>("Valeur introuvable.");
         else
             return it[i];
+    }
+
+    bool alreadyExist(std::string s)
+    {
+        typename vector<T>::iterator it=getIterator();
+        int nb=size();
+        if (nb==0)
+            throw TemplateManagerException<T>("Pas d'elements dans le manager.");
+        int i;
+        for(i=0; s!=it[i].getStrLabel() && i<nb; i++);
+        if(i!=0 && s!=it[i].getStrLabel())
+            return false;
+        else
+            return true;
     }
 
     const int size() const

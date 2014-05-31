@@ -3,18 +3,92 @@
 #include "Dossier.h"
 #include <QString>
 #include <QDate>
+#include "templatemanager.h"
+class EtudiantException : public std::exception
+{
+protected :
+    std::string info;
+public:
+    EtudiantException(const std::string& i="") throw() :info(i) {}
+    const char* what() const throw()
+    {
+        return info.c_str();
+    }
+    ~EtudiantException()throw() {}
+};
 
-class Etudiant
+class Etudiant: public EntityStd
 {
 private :
     Dossier dos;
     unsigned int ine;
+    QString login;
     QString nom;
     QString prenom;
     QDate dateNaissance;
 
     public :
-    Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d){}
+    std::string getStrLabel() const
+    {
+        return login.toStdString();
+    }
+
+    Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d)
+    {
+        if(nom.length()>=7)
+        {
+          login=prenom;
+          login.insert(1, nom);
+          login.resize(8);
+        }
+        else
+        {
+          login=nom;
+          login.insert(nom.length(), prenom);
+          login.resize(8);
+        }
+        int t=0;
+        try {
+            while(TemplateManager<Etudiant>::getInstance().alreadyExist(login.toStdString()))
+            {
+                login.resize(8);
+                login+=QString::number(t);
+                t++;
+            }
+        }
+        catch(TemplateManagerException<Etudiant>& e)
+        {
+            e.what();
+        }
+    }
+
+    Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d,  QString log):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d)
+    {
+        QString test;
+        if(nom.length()>=7)
+        {
+          test=prenom;
+          test.insert(1, nom);
+          test.resize(8);
+        }
+        else
+        {
+          test=nom;
+          test.insert(nom.length(), prenom);
+          test.resize(8);
+        }
+        try
+        {
+            if(test!=log.left(8) || TemplateManager<Etudiant>::getInstance().alreadyExist(log.toStdString()))
+                throw EtudiantException("Login non valide.");
+            else
+                login=log;
+        }
+        catch(TemplateManagerException<Etudiant>& e)
+        {
+            e.what();
+        }
+    }
 
     const Dossier getDossier() const
     {
