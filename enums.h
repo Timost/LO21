@@ -33,10 +33,14 @@ QString CategorieToString(Categorie c);
 QTextStream& operator>>(QTextStream& f, Categorie& cat);
 
 enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
+Note StringToNote(const QString& s);
+QString NoteToString(Note c);
 
 inline QDebug operator<<(QDebug f, const Note &n);
 
 enum class Saison { Automne, Printemps, first=Automne, last=Printemps };
+Saison StringToSaison(const QString& s);
+QString SaisonToString(Saison n);
 inline QTextStream& operator<<(QTextStream& f, const Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
 inline QTextStream& operator<<(QTextStream& f, Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
 

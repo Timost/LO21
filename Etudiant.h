@@ -98,6 +98,12 @@ private :
     {
         return ine;
     }
+
+    const QString getLogin()const
+    {
+        return login;
+    }
+
     const QString getNom()const
     {
         return nom;

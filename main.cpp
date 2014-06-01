@@ -108,6 +108,7 @@ int main(int argc, char *argv[]) {
         Inscription nI2(newUV,Semestre(Saison::Automne,2011),Note::B);
 
         nI.display();
+        qDebug() << QString(nI.getUV().getCode().c_str());
         //qDebug()<<nI.validee();
 
         //création d'un dossier
@@ -131,6 +132,7 @@ int main(int argc, char *argv[]) {
        //création d'un étudiant
        QDate date(2014,5,3);
        Etudiant e1(dos,1320123,"nom","prenom",date);
+       tEtudiant.New(e1);
        Database db=Database("c:/sqlite/lo21");
        db.save();
     }

@@ -13,6 +13,7 @@ class Inscription
 public:
     Inscription(const UV& u, const Semestre& s, Note res=Note::EC):uv(&u),semestre(s),resultat(res){}
     UV getUV() const { return *uv; }
+    std::string getCode() const { return uv->getCode();}
     Semestre getSemestre() const { return semestre; }
     Note getResultat() const { return resultat; }
     void setResultat(Note newres) { resultat=newres; }
