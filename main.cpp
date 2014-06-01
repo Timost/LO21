@@ -86,19 +86,26 @@ int main(int argc, char *argv[]) {
         std::map<Categorie,unsigned int>m2;
         //m2.insert(std::pair<Categorie,unsigned int> (Categorie::CS,12));
 
-        Formation nF("Nom","Description",m1,m2);
+        Formation nF("Nom Formation1","Description Formation1",m1,m2);
+
+        Formation nF2=nF;
 
         nF.display();
         nF.addUv(pUV,false);
         nF.display();
-        nF.addCategorie(Categorie::CS,12);
+        nF.addCategorie(Categorie::CS,52);
         nF.display();
         nF.addUv(pUV2,true);
         nF.display();
 
+        nF2.setNom("Nom Formation2");
+        nF2.setDescription("Description Formation2");
+        nF2.addUv(pUV,true);
+
         //Création d'une Inscription directement
 
         Inscription nI(uv2,Semestre(Saison::Automne,2012),Note::A);
+        Inscription nI2(newUV,Semestre(Saison::Automne,2011),Note::B);
 
         nI.display();
         //qDebug()<<nI.validee();
@@ -106,17 +113,19 @@ int main(int argc, char *argv[]) {
         //création d'un dossier
         std::vector<Inscription> vInscr;
         vInscr.push_back(nI);
+        vInscr.push_back(nI2);
 
         std::vector<Formation*> vForme;
         vForme.push_back(&nF);
+        vForme.push_back(&nF2);
 
         Dossier dos(vInscr,vForme);
 
-        std::map<std::pair<Formation *, Categorie>, unsigned int> res=dos.getDossierCurrentStatus();
-        for(std::map<std::pair<Formation *, Categorie>, unsigned int>::iterator it=res.begin();it!=res.end();it++)
+        std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >  res=dos.getDossierCurrentStatus();
+        for(std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator it=res.begin();it!=res.end();it++)
         {
 
-            qDebug()<<"Formation : "<< std::get<0>(it->first)->getNom()<<"Catégorie : "<< CategorieToString(std::get<1>(it->first))<<", crédits à valider : "<< it->second;
+            qDebug()<<"Formation : "<< std::get<0>(it->first)->getNom()<<"Catégorie : "<< CategorieToString(std::get<1>(it->first))<<", crédits à valider : "<< std::get<0>(it->second)<<" crédits supplémentaires : "<<std::get<1>(it->second);
         }
 
        //création d'un étudiant

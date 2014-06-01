@@ -69,26 +69,27 @@ std::map<Categorie, unsigned int> Dossier::getInscriptionCurrentStatus()
     return res;
 }
 
-std::map<std::pair<Formation*,Categorie>, unsigned int> Dossier::getDossierCurrentStatus()
+std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > Dossier::getDossierCurrentStatus()
 {
-    std::map<std::pair<Formation*,Categorie>, unsigned int> res;
+    std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > res;
 
-    std::map<Categorie, unsigned int> uvsCreds=getInscriptionCurrentStatus();
+    std::map<Categorie, unsigned int> uvsCreds=getInscriptionCurrentStatus();//uvs validées
 
     for(std::vector<Formation*>::iterator it1=forma.begin();it1!=forma.end();it1++)
     {
-        Formation* temp=*it1;
-        std::map<Categorie, unsigned int> credsToGet= temp->getNbCreditsByCat();
+        Formation* temp= *it1;
+        std::map<Categorie, unsigned int> credsToGet= temp->getNbCreditsByCat();//crédits obligatoires à valider
 
         for(std::map<Categorie, unsigned int>::iterator it=uvsCreds.begin();it!=uvsCreds.end();it++)
         {
-            if(credsToGet[it->first]-it->second >0)
+            //qDebug()<<"credsToGet :"<<credsToGet[it->first]<<"credsGotten :"<<it->second;
+            if(credsToGet[it->first] > it->second )
             {
-                res[std::pair<Formation*,Categorie>(temp,it->first)]= credsToGet[it->first]-it->second;
+                res[std::pair<Formation*,Categorie>(temp,it->first)]= std::pair<unsigned int,unsigned int>(credsToGet[it->first]-it->second,0);
             }
             else
             {
-                res[std::pair<Formation*,Categorie>(temp,it->first)]=0;
+                res[std::pair<Formation*,Categorie>(temp,it->first)]=std::pair<unsigned int,unsigned int>(0,it->second -credsToGet[it->first] );
             }
 
         }

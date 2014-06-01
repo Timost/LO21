@@ -19,16 +19,19 @@ void Formation::addUv(UV* uv, bool required)
         throw FormationException("Erreur, l'Uv appartient déjà à la formation.");
       }
 
-      if(required)//ajouter les crédits dans les crédits à valider pour chaque catégorie de l'UV
+      if(required)//ajouter les crédits dans les crédits à valider pour chaque catégorie de l'UV si il n'y en a pas assez
       {
          std::map<Categorie, unsigned int> cat=uv->getCredits();
 
          typedef std::map<Categorie, unsigned int>::iterator it_type;
-         for(it_type iterator = cat.begin(); iterator != cat.end(); iterator++) {
-             nbCredits[iterator->first]+=iterator->second;
-             // iterator->first = key
-             // iterator->second = value
-             // Repeat if you also want to iterate through the second map.
+
+         for(it_type iterator = cat.begin(); iterator != cat.end(); iterator++)
+         {
+             if(nbCredits[iterator->first]<iterator->second)//si il n'y a pas assez de crédits obligatoires dans les catégories d'une Uv obligatoire
+             {
+                 nbCredits[iterator->first]=iterator->second;
+             }
+
          }
       }
 }
