@@ -103,7 +103,7 @@ void Database::SaverLoader::init()
     db.query("CREATE TABLE Etudiant (ine int , login varchar(255), nom varchar(255), prenom varchar(255), dateNaissance date);");
     db.query("CREATE TABLE Formation (nom varchar(255), description varchar(255));");
     db.query("CREATE TABLE FormationUV (formation varchar(255), uv varchar(255), obligatoire int);");
-    db.query("CREATE TABLE CreditsFormation (formation varchar(255), categorie varchar(255), nbCresits int);");
+    db.query("CREATE TABLE CreditsFormation (formation varchar(255), categorie varchar(255), nbCredits int);");
     db.query("CREATE TABLE Inscription (login varchar(255), code varchar(255), saison varchar(20), annee int, resultat varchar(3));");
     db.query("CREATE TABLE FormationEtudiant (login varchar(255), formation varchar(255));");
 }
@@ -144,4 +144,22 @@ void Database::SaverLoader::save()
         }
     }
 
+    vector<Formation>::const_iterator itForm=tFormation.getIterator();
+    for(int i=0; i<tFormation.size(); i++)
+    {
+        string q="INSERT INTO Formation (nom, description) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+itForm[i].getDescription().toStdString()+"');";
+        db.query(q);
+        map<UV*, bool> uvs=itForm[i].getUVs();
+        for( map <UV*,bool>::const_iterator it2 = uvs.begin(); it2!=uvs.end(); it2++)
+        {
+            q="INSERT INTO FormationUV (formation, uv, obligatoire) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+it2->first->getCode()+"', '"+to_string(int(it2->second))+"');";
+            db.query(q);
+        }
+        map<Categorie, unsigned int> it3=itForm[i].getNbCreditsByCat();
+        for(int j=0; j<4; j++)
+        {
+            q="INSERT INTO CreditsFormation (formation, categorie, nbCredits) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+CategorieToString(IntToCategorie(j)).toStdString()+"', '"+to_string(it3[IntToCategorie(j)])+"');";
+            db.query(q);
+        }
+    }
 }

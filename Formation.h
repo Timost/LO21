@@ -42,7 +42,7 @@ class Formation:public EntityStd
 
         std::string getStrLabel() const
         {
-           return getDescription().toStdString();
+           return getNom().toStdString();
         }
         QString getNom() const
         {
@@ -51,6 +51,11 @@ class Formation:public EntityStd
         QString getDescription()const
         {
             return description;
+        }
+
+        std::map<UV*,bool> getUVs() const
+        {
+            return uvs;
         }
 
         void setNom(QString name)
@@ -67,7 +72,7 @@ class Formation:public EntityStd
         {
             return nbCredits[cat];
         }
-        std::map<Categorie, unsigned int> getNbCreditsByCat()
+        std::map<Categorie, unsigned int> getNbCreditsByCat() const
         {
             return nbCredits;
         }

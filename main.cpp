@@ -101,7 +101,8 @@ int main(int argc, char *argv[]) {
         nF2.setNom("Nom Formation2");
         nF2.setDescription("Description Formation2");
         nF2.addUv(pUV,true);
-
+        tFormation.New(nF);
+        tFormation.New(nF2);
         //Création d'une Inscription directement
 
         Inscription nI(uv2,Semestre(Saison::Automne,2012),Note::A);
