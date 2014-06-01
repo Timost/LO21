@@ -45,11 +45,17 @@ public:
     public:
         SaverLoader(Database& database):db(database){}
         void save();
+        void load();
     };
 
-    bool save()
+    void save()
     {
         SaverLoader(*this).save();
+    }
+
+    void load()
+    {
+        SaverLoader(*this).load();
     }
 };
 

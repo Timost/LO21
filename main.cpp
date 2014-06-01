@@ -136,6 +136,10 @@ int main(int argc, char *argv[]) {
        tEtudiant.New(e1);
        Database db=Database("c:/sqlite/lo21");
        db.save();
+       db.load();
+       tUV.getElement("EE32").display();
+       tFormation.getElement("Nom Formation1");
+       tEtudiant.getElement("nompreno");
     }
     catch(std::exception& e)
     {

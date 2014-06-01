@@ -75,8 +75,8 @@ public:
         if (nb==0)
             throw TemplateManagerException<T>("Pas d'elements dans le manager.");
         int i;
-        for(i=0; s!=it[i].getStrLabel() && i<nb; i++);
-        if(i!=0 && s!=it[i].getStrLabel())
+        for(i=0;i<nb && s!=it[i].getStrLabel(); i++);
+        if(i==nb)
             throw TemplateManagerException<T>("Valeur introuvable.");
         else
             return it[i];
@@ -87,7 +87,7 @@ public:
         typename vector<T>::iterator it=getIterator();
         int nb=size();
         if (nb==0)
-            throw TemplateManagerException<T>("Pas d'elements dans le manager.");
+            return false;
         int i;
         for(i=0; s!=it[i].getStrLabel() && i<nb; i++);
         if(i!=0 && s!=it[i].getStrLabel())

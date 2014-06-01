@@ -100,7 +100,7 @@ public:
 
     void display()
     {
-        qDebug()<<"Code :"<<getCode().c_str()<<" titre, "<<getTitre().c_str();//c_str pour les types string
+        qDebug()<<"Code :"<<QString(getCode().c_str())<<" titre, "<<QString(getTitre().c_str());//c_str pour les types string
     }
 };
 

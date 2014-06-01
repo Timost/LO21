@@ -163,3 +163,76 @@ void Database::SaverLoader::save()
         }
     }
 }
+
+void Database::SaverLoader::load()
+{
+    tUV.destroyInstance();
+    tUV=TemplateManager<UV>::getInstance();
+    tEtudiant.destroyInstance();
+    tEtudiant=TemplateManager<Etudiant>::getInstance();
+    tFormation.destroyInstance();
+    tFormation=TemplateManager<Formation>::getInstance();
+    string q="SELECT code, titre, automne, printemps FROM UV;";
+    QSqlQuery res=db.query(q);
+    while(res.next())
+    {
+       map<Categorie, unsigned int> uvcre;
+       string q1="SELECT code, categorie, nbCredits FROM CreditsUV WHERE code='"+res.value(0).toString().toStdString()+"';";
+       QSqlQuery res1=db.query(q1);
+       while(res1.next())
+       {
+           uvcre[StringToCategorie(res1.value(1).toString())]=res1.value(2).toInt();
+       }
+       UV uv=UV(res.value(0).toString().toStdString(), res.value(1).toString().toStdString(), uvcre, res.value(2).toBool(), res.value(3).toBool());
+       tUV.New(uv);
+    }
+
+    q="SELECT nom, description FROM Formation;";
+    res=db.query(q);
+    while(res.next())
+    {
+        map<UV*, bool> uvs;
+        string q1="SELECT formation, uv, obligatoire FROM FormationUV where formation='"+res.value(0).toString().toStdString()+"';";
+        QSqlQuery res1=db.query(q1);
+        while(res1.next())
+        {
+            uvs[&tUV.getElement(res1.value(1).toString().toStdString())]=res.value(2).toBool();
+        }
+        map<Categorie, unsigned int> Cat;
+        q1="SELECT formation, categorie, nbCredits FROM CreditsFormation where formation='"+res.value(0).toString().toStdString()+"';";
+        res1=db.query(q1);
+        while(res1.next())
+        {
+            Cat[StringToCategorie(res1.value(1).toString())]=res1.value(2).toInt();
+        }
+        Formation f=Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat);
+        tFormation.New(f);
+    }
+    q="SELECT ine, login, nom, prenom, dateNaissance from Etudiant;";
+    res=db.query(q);
+    while(res.next())
+    {
+        vector<Inscription> insc;
+        string q1="SELECT login, code, saison, annee, resultat FROM Inscription WHERE login='"+res.value(1).toString().toStdString()+"';";
+        QSqlQuery res1=db.query(q1);
+        while(res1.next())
+        {
+            Semestre s=Semestre(StringToSaison(res1.value(2).toString()), res1.value(3).toInt());
+            string code=res1.value(1).toString().toStdString();
+            const UV& uv=tUV.getElement(code);
+            Inscription inscription=Inscription(uv, s, StringToNote(res1.value(4).toString()));
+            insc.push_back(inscription);
+        }
+        vector<Formation*> form;
+        q1="SELECT login, formation FROM FormationEtudiant WHERE login='"+res.value(1).toString().toStdString()+"';";
+        res1=db.query(q1);
+        while(res1.next())
+        {
+            Formation& F=tFormation.getElement(res1.value(1).toString().toStdString());
+            form.push_back(&F);
+        }
+        Dossier dos=Dossier(insc, form);
+        Etudiant etu=Etudiant(dos, res.value(0).toInt(), res.value(2).toString(), res.value(3).toString(), res.value(4).toDate(), res.value(1).toString());
+        tEtudiant.New(etu);
+    }
+}
