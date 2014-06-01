@@ -21,7 +21,7 @@ public:
 
 enum class Categorie {
     /* Connaissances Scientifiques */ CS,  /* Techniques et Méthodes */ TM,
-    /* Technologies et Sciences de l'Homme */ TSH, /* Stage et Projet */ SP,
+    /* Technologies et Sciences de l'Homme */ TSH,/* Stage et Projet */ SP,
     first=CS, last=SP
 };
 

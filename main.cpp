@@ -98,9 +98,10 @@ int main(int argc, char *argv[]) {
 
         //Création d'une Inscription directement
 
-        Inscription nI(uv2,Semestre(Saison::Automne,2012),Note::EC);
+        Inscription nI(uv2,Semestre(Saison::Automne,2012),Note::A);
 
         nI.display();
+        //qDebug()<<nI.validee();
 
         //création d'un dossier
         std::vector<Inscription> vInscr;
@@ -109,7 +110,14 @@ int main(int argc, char *argv[]) {
         std::vector<Formation*> vForme;
         vForme.push_back(&nF);
 
-       Dossier dos(vInscr,vForme);
+        Dossier dos(vInscr,vForme);
+
+        std::map<std::pair<Formation *, Categorie>, unsigned int> res=dos.getDossierCurrentStatus();
+        for(std::map<std::pair<Formation *, Categorie>, unsigned int>::iterator it=res.begin();it!=res.end();it++)
+        {
+
+            qDebug()<<"Formation : "<< std::get<0>(it->first)->getNom()<<"Catégorie : "<< CategorieToString(std::get<1>(it->first))<<", crédits à valider : "<< it->second;
+        }
 
        //création d'un étudiant
        QDate date(2014,5,3);

@@ -58,7 +58,7 @@ private :
         }
         catch(TemplateManagerException<Etudiant>& e)
         {
-            e.what();
+            qDebug()<<e.what()<<"\n";
         }
     }
 
@@ -86,7 +86,7 @@ private :
         }
         catch(TemplateManagerException<Etudiant>& e)
         {
-            e.what();
+            qDebug()<<e.what()<<"\n";
         }
     }
 

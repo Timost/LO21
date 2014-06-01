@@ -43,5 +43,9 @@ public:
     void addInscription(Inscription f);//ajoute une inscription au dossier
     void deleteInscription(Inscription f);//supprime une inscription du dossier
     const std::vector<Inscription> getInscription(){return inscri;}
+
+
+    std::map<Categorie, unsigned int> getInscriptionCurrentStatus();//retourne le nombre de crédits validés par l'étudiant dans chaque catégorie.
+    std::map<std::pair<Formation *, Categorie>, unsigned int> getDossierCurrentStatus();//retourne le nombre de crédits restant à valider par l'étudiant dans chaque catégorie pour chaque formation.
 };
 #endif // DOSSIER_H

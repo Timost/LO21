@@ -63,10 +63,15 @@ class Formation:public EntityStd
             description=desc;
         }
 
-        int getNbCreditsCat(const Categorie cat)
+        unsigned int getNbCreditsCat(const Categorie cat)
         {
             return nbCredits[cat];
         }
+        std::map<Categorie, unsigned int> getNbCreditsByCat()
+        {
+            return nbCredits;
+        }
+
         int getNbCreditsTotal()const;
         void addUv(UV* uv, bool required);
         void removeUv(UV* uv)

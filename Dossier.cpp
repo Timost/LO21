@@ -42,5 +42,64 @@ void Dossier::deleteInscription(Inscription i)//supprime une inscription du doss
     {
         throw DossierException("Erreur : cette inscription ne fait pas partie du dossier.");
     }
-
 }
+
+std::map<Categorie, unsigned int> Dossier::getInscriptionCurrentStatus()
+{
+    std::map<Categorie, unsigned int> res;
+    std::map<Categorie, unsigned int> uvCreds;
+
+    typedef std::vector<Inscription>::iterator iter_inscr;
+
+    for(iter_inscr it= inscri.begin(); it!= inscri.end(); it++)
+    {
+        if(it->validee())
+        {
+        uvCreds=it->getUV().getCredits();
+
+        typedef std::map<Categorie, unsigned int>::iterator iter_creds;
+
+        for(iter_creds it2=uvCreds.begin();it2!=uvCreds.end();it2++)
+        {
+            res[it2->first]+=it2->second;
+        }
+
+        }
+    }
+    return res;
+}
+
+std::map<std::pair<Formation*,Categorie>, unsigned int> Dossier::getDossierCurrentStatus()
+{
+    std::map<std::pair<Formation*,Categorie>, unsigned int> res;
+
+    std::map<Categorie, unsigned int> uvsCreds=getInscriptionCurrentStatus();
+
+    for(std::vector<Formation*>::iterator it1=forma.begin();it1!=forma.end();it1++)
+    {
+        Formation* temp=*it1;
+        std::map<Categorie, unsigned int> credsToGet= temp->getNbCreditsByCat();
+
+        for(std::map<Categorie, unsigned int>::iterator it=uvsCreds.begin();it!=uvsCreds.end();it++)
+        {
+            if(credsToGet[it->first]-it->second >0)
+            {
+                res[std::pair<Formation*,Categorie>(temp,it->first)]= credsToGet[it->first]-it->second;
+            }
+            else
+            {
+                res[std::pair<Formation*,Categorie>(temp,it->first)]=0;
+            }
+
+        }
+    }
+
+    return res;
+}
+
+
+
+
+
+
+

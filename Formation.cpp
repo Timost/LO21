@@ -32,3 +32,4 @@ void Formation::addUv(UV* uv, bool required)
          }
       }
 }
+

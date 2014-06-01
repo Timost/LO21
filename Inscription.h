@@ -17,6 +17,11 @@ public:
     Note getResultat() const { return resultat; }
     void setResultat(Note newres) { resultat=newres; }
 
+    bool validee()//retourne vrai si une inscription a été validée
+    {
+        return ((resultat>= Note::A)&&(resultat<=Note::E));
+    }
+
     void display()
     {
         qDebug()<<"UV : "<<uv->getCode().c_str() <<" Semestre :"<<semestre.getSaison()<<semestre.getAnnee();//<<" Resultat : "<<getResultat();
