@@ -4,6 +4,7 @@
 #include <vector>
 #include <iterator>
 #include <string>
+#include <QDebug>
 
 using namespace std;
 
@@ -70,35 +71,48 @@ public:
 
     T& getElement(std::string s)
     {
-        typename vector<T>::iterator it=getIterator();
-        int nb=size();
+        unsigned int nb=this->size();
         if (nb==0)
             throw TemplateManagerException<T>("Pas d'elements dans le manager.");
-        int i;
-        for(i=0;i<nb && s!=it[i].getStrLabel(); i++);
-        if(i==nb)
+        unsigned int n=0;
+        for(unsigned int i=0;i<nb; i++)
+        {
+            if(s==elements[i].getStrLabel()) break;
+            n++;
+        }
+        if(n==nb)
             throw TemplateManagerException<T>("Valeur introuvable.");
         else
-            return it[i];
+        {
+            return elements[n];
+        }
     }
 
     bool alreadyExist(std::string s)
     {
-        typename vector<T>::iterator it=getIterator();
-        int nb=size();
+        int nb=this->size();
         if (nb==0)
             return false;
-        int i;
-        for(i=0; s!=it[i].getStrLabel() && i<nb; i++);
-        if(i!=0 && s!=it[i].getStrLabel())
+        unsigned int n=0;
+        for(unsigned int i=0;i<nb; i++)
+        {
+            if(s==elements[i].getStrLabel()) break;
+            n++;
+        }
+        if(n==nb-1 && s!=elements[n].getStrLabel())
             return false;
         else
             return true;
     }
 
-    const int size() const
+    unsigned int size() const
     {
-        return distance(elements.begin(), elements.end());
+        return elements.size();
+    }
+
+    void clear()
+    {
+        elements.clear();
     }
 };
 

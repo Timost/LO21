@@ -7,9 +7,6 @@ TEMPLATE = app # On veut une application, oui
 
 SOURCES += \
     main.cpp \
-    UTProfiler.cpp \
-    uvediteur.cpp \
-    profiler.cpp \
     templatemanager.cpp \
     database.cpp \
     EntityStd.cpp \
@@ -21,9 +18,6 @@ SOURCES += \
     Dossier.cpp
 
 HEADERS += \
-    UTProfiler.h \
-    uvediteur.h \
-    profiler.h \
     templatemanager.h \
     database.h \
     EntityStd.h \

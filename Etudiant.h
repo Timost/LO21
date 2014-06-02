@@ -94,7 +94,8 @@ private :
     {
         return dos;
     }
-    const unsigned int getIne()const
+
+    unsigned int getIne()const
     {
         return ine;
     }

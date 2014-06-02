@@ -31,7 +31,7 @@ class Database
 public:
     QSqlQuery query(string q);
     Database(string path, string dbname="QSQLITE");
-    ~Database(){}
+    ~Database(){db.close();}
 
     class SaverLoader //gere sauvegarde et chargement de la bdd
     {

@@ -18,7 +18,7 @@ Database::Database(string path, string dbname)
 
 QSqlQuery Database::query(string q)
 {
-    if(!db.open())
+   if(!db.open())
         throw DatabaseException("Erreur lors de la connection.");
     QSqlQuery query;
     if(!query.exec(QString(q.c_str())))
@@ -112,7 +112,7 @@ void Database::SaverLoader::save()
 {
     init();
     vector<UV>::const_iterator it=tUV.getIterator();
-    for(int i=0; i<tUV.size(); i++)
+    for(unsigned int i=0; i<tUV.size(); i++)
     {
         string q="INSERT INTO UV (code, titre, automne, printemps) VALUES ('"+it[i].getCode()+"', '"+it[i].getTitre()+"', '"+to_string(int(it[i].ouvertureAutomne()))+"', '"+to_string(int(it[i].ouverturePrintemps()))+"');";
         map<Categorie, unsigned int> it2=it[i].getCredits();
@@ -125,19 +125,19 @@ void Database::SaverLoader::save()
     }
 
     vector<Etudiant>::const_iterator itEtu=tEtudiant.getIterator();
-    for(int i=0; i<tEtudiant.size(); i++)
+    for(unsigned int i=0; i<tEtudiant.size(); i++)
     {
         string q="INSERT INTO Etudiant (ine, login, nom, prenom, dateNaissance) VALUES ('"+to_string(itEtu[i].getIne())+"', '"+itEtu[i].getLogin().toStdString()+"', '"+itEtu[i].getNom().toStdString()+"', '"+itEtu[i].getPrenom().toStdString()+"', '"+itEtu[i].getDateNaissance().toString(QString("yyyy-MM-dd")).toStdString()+"');";
         db.query(q);
         vector<Inscription> it2=itEtu[i].getDossier().getInscription();
-        for(int j=0; j<itEtu[i].getDossier().getInscription().size(); j++)
+        for(unsigned int j=0; j<itEtu[i].getDossier().getInscription().size(); j++)
         {
             q="INSERT INTO Inscription (login, code, saison, annee, resultat) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it2[j].getUV().getCode()+"', '"+SaisonToString(it2[j].getSemestre().getSaison()).toStdString()+"', '"+to_string(it2[j].getSemestre().getAnnee())+"', '"+NoteToString(it2[j].getResultat()).toStdString()+"');";
             db.query(q);
         }
 
         vector<Formation*> it3=itEtu[i].getDossier().getFormation();
-        for(int j=0; j<itEtu[i].getDossier().getInscription().size(); j++)
+        for(unsigned int j=0; j<itEtu[i].getDossier().getInscription().size(); j++)
         {
             q="INSERT INTO FormationEtudiant (login, formation) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it3[j]->getNom().toStdString()+"');";
             db.query(q);
@@ -145,7 +145,7 @@ void Database::SaverLoader::save()
     }
 
     vector<Formation>::const_iterator itForm=tFormation.getIterator();
-    for(int i=0; i<tFormation.size(); i++)
+    for(unsigned int i=0; i<tFormation.size(); i++)
     {
         string q="INSERT INTO Formation (nom, description) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+itForm[i].getDescription().toStdString()+"');";
         db.query(q);
@@ -162,21 +162,19 @@ void Database::SaverLoader::save()
             db.query(q);
         }
     }
+    qDebug()<<"fin save";
 }
 
 void Database::SaverLoader::load()
 {
-    tUV.destroyInstance();
-    tUV=TemplateManager<UV>::getInstance();
-    tEtudiant.destroyInstance();
-    tEtudiant=TemplateManager<Etudiant>::getInstance();
-    tFormation.destroyInstance();
-    tFormation=TemplateManager<Formation>::getInstance();
+    tUV.clear();
+    tEtudiant.clear();
+    tFormation.clear();
     string q="SELECT code, titre, automne, printemps FROM UV;";
     QSqlQuery res=db.query(q);
     while(res.next())
     {
-       map<Categorie, unsigned int> uvcre;
+       map<Categorie, unsigned int> uvcre=map<Categorie, unsigned int>();
        string q1="SELECT code, categorie, nbCredits FROM CreditsUV WHERE code='"+res.value(0).toString().toStdString()+"';";
        QSqlQuery res1=db.query(q1);
        while(res1.next())
@@ -186,19 +184,19 @@ void Database::SaverLoader::load()
        UV uv=UV(res.value(0).toString().toStdString(), res.value(1).toString().toStdString(), uvcre, res.value(2).toBool(), res.value(3).toBool());
        tUV.New(uv);
     }
-
     q="SELECT nom, description FROM Formation;";
     res=db.query(q);
     while(res.next())
     {
-        map<UV*, bool> uvs;
+        map<UV*, bool> uvs=map<UV*, bool>();
         string q1="SELECT formation, uv, obligatoire FROM FormationUV where formation='"+res.value(0).toString().toStdString()+"';";
         QSqlQuery res1=db.query(q1);
         while(res1.next())
         {
-            uvs[&tUV.getElement(res1.value(1).toString().toStdString())]=res.value(2).toBool();
+            UV& uv=tUV.getElement(res1.value(1).toString().toStdString());
+            uvs[&uv]=res1.value(2).toBool();
         }
-        map<Categorie, unsigned int> Cat;
+        map<Categorie, unsigned int> Cat=map<Categorie, unsigned int>();
         q1="SELECT formation, categorie, nbCredits FROM CreditsFormation where formation='"+res.value(0).toString().toStdString()+"';";
         res1=db.query(q1);
         while(res1.next())
@@ -212,7 +210,7 @@ void Database::SaverLoader::load()
     res=db.query(q);
     while(res.next())
     {
-        vector<Inscription> insc;
+        vector<Inscription> insc= vector<Inscription>();
         string q1="SELECT login, code, saison, annee, resultat FROM Inscription WHERE login='"+res.value(1).toString().toStdString()+"';";
         QSqlQuery res1=db.query(q1);
         while(res1.next())
@@ -223,7 +221,7 @@ void Database::SaverLoader::load()
             Inscription inscription=Inscription(uv, s, StringToNote(res1.value(4).toString()));
             insc.push_back(inscription);
         }
-        vector<Formation*> form;
+        vector<Formation*> form= vector<Formation*>();
         q1="SELECT login, formation FROM FormationEtudiant WHERE login='"+res.value(1).toString().toStdString()+"';";
         res1=db.query(q1);
         while(res1.next())
@@ -234,5 +232,6 @@ void Database::SaverLoader::load()
         Dossier dos=Dossier(insc, form);
         Etudiant etu=Etudiant(dos, res.value(0).toInt(), res.value(2).toString(), res.value(3).toString(), res.value(4).toDate(), res.value(1).toString());
         tEtudiant.New(etu);
+        qDebug()<<"fin load";
     }
 }

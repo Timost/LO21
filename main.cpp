@@ -9,9 +9,6 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDebug>
-#include "UTProfiler.h"
-#include "uvediteur.h"
-#include "profiler.h"
 #include "database.h"
 #include "templatemanager.h"
 #include "EntityStd.h"
@@ -138,8 +135,14 @@ int main(int argc, char *argv[]) {
        db.save();
        db.load();
        tUV.getElement("EE32").display();
+       qDebug() <<tUV.size();
+       tUV.clear();
+       qDebug() <<tUV.size();
        tFormation.getElement("Nom Formation1");
+       if(tFormation.alreadyExist("Nom Formation2")) qDebug()<<"marche";
+       if(tFormation.alreadyExist("Nom Forgrrgrgrgmation1")) qDebug()<<"marchepas";
        tEtudiant.getElement("nompreno");
+       qDebug()<<"Ca marche";
     }
     catch(std::exception& e)
     {
