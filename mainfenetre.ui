@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainFenetre</class>
+ <widget class="QMainWindow" name="MainFenetre">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>801</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Code</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Nom</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>CS</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>TM</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>SP</string>
+     </property>
+    </column>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionCharger"/>
+    <addaction name="actionSauvegarder"/>
+   </widget>
+   <widget class="QMenu" name="menuEdition">
+    <property name="title">
+     <string>Ajout</string>
+    </property>
+    <addaction name="actionAjouter_Etudiant"/>
+    <addaction name="actionAjouter_UV"/>
+    <addaction name="actionAjouter_Formation"/>
+   </widget>
+   <widget class="QMenu" name="menuRecherche">
+    <property name="title">
+     <string>Affichage</string>
+    </property>
+    <addaction name="actionAfficher_uv"/>
+    <addaction name="actionAfficher_Etudiant"/>
+    <addaction name="actionAfficher_Formation"/>
+   </widget>
+   <widget class="QMenu" name="menuRechercher_2">
+    <property name="title">
+     <string>Rechercher</string>
+    </property>
+    <addaction name="actionRechercher_Etudiant"/>
+    <addaction name="actionRechercher_UV"/>
+    <addaction name="actionRechercher_Formation"/>
+   </widget>
+   <addaction name="menuFichier"/>
+   <addaction name="menuRecherche"/>
+   <addaction name="menuEdition"/>
+   <addaction name="menuRechercher_2"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCharger">
+   <property name="text">
+    <string>Charger</string>
+   </property>
+  </action>
+  <action name="actionSauvegarder">
+   <property name="text">
+    <string>Sauvegarder</string>
+   </property>
+  </action>
+  <action name="actionAjouter_Etudiant">
+   <property name="text">
+    <string>Etudiant</string>
+   </property>
+  </action>
+  <action name="actionAjouter_UV">
+   <property name="text">
+    <string>UV</string>
+   </property>
+  </action>
+  <action name="actionAjouter_Formation">
+   <property name="text">
+    <string>Formation</string>
+   </property>
+  </action>
+  <action name="actionAfficher_uv">
+   <property name="text">
+    <string>Etudiant</string>
+   </property>
+  </action>
+  <action name="actionAfficher_Etudiant">
+   <property name="text">
+    <string>UV</string>
+   </property>
+  </action>
+  <action name="actionAfficher_Formation">
+   <property name="text">
+    <string>Formation</string>
+   </property>
+   <property name="toolTip">
+    <string>Formation</string>
+   </property>
+  </action>
+  <action name="actionRechercher_Etudiant">
+   <property name="text">
+    <string>Etudiant</string>
+   </property>
+   <property name="toolTip">
+    <string>Etudiant</string>
+   </property>
+  </action>
+  <action name="actionRechercher_UV">
+   <property name="text">
+    <string>UV</string>
+   </property>
+   <property name="toolTip">
+    <string>UV</string>
+   </property>
+  </action>
+  <action name="actionRechercher_Formation">
+   <property name="text">
+    <string>Formation</string>
+   </property>
+   <property name="toolTip">
+    <string>Formation</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
