@@ -6,53 +6,106 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>807</width>
+    <height>452</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>801</width>
-      <height>331</height>
+      <y>-1</y>
+      <width>811</width>
+      <height>431</height>
      </rect>
     </property>
-    <column>
-     <property name="text">
-      <string>Code</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Nom</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Description</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>CS</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>TM</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>SP</string>
-     </property>
-    </column>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="UVTab">
+     <attribute name="title">
+      <string>UV</string>
+     </attribute>
+     <widget class="QTableWidget" name="UVTable">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>1</y>
+        <width>791</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Code</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Titre</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="EtudiantTab">
+     <attribute name="title">
+      <string>Etudiant</string>
+     </attribute>
+     <widget class="QTableWidget" name="EtudiantTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>791</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Login</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Prénom</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="FormationTab">
+     <attribute name="title">
+      <string>Formation</string>
+     </attribute>
+     <widget class="QTableWidget" name="FormationTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>791</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Description</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -60,7 +113,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>807</width>
      <height>21</height>
     </rect>
    </property>

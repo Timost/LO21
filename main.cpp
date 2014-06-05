@@ -3,6 +3,7 @@
 - ne sauvegarde pas les changements qui ont été faits...
 */
 #include <QApplication>
+#include <QtGui>
 #include <QWidget>
 #include <QLineEdit>
 #include <QTextEdit>
@@ -22,6 +23,7 @@
 #include "Etudiant.h"
 #include <string>
 #include <iostream>
+#include "mainfenetre.h"
 
 
 //int todo(int argc, char *argv[])
@@ -53,9 +55,9 @@ template<> TemplateManager<UV>* TemplateManager<UV>::handler=0;
 template<> TemplateManager<Formation>* TemplateManager<Formation>::handler=0;
 template<> TemplateManager<Etudiant>* TemplateManager<Etudiant>::handler=0;
 int main(int argc, char *argv[]) {
-    try
+    QApplication app(argc, argv);
+   /* try
     {
-        QCoreApplication app(argc, argv);
         TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
         TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
@@ -147,8 +149,59 @@ int main(int argc, char *argv[]) {
     catch(std::exception& e)
     {
         qDebug()<<e.what()<<"\n";
-    }
-     return 0;
+    }*/
+    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+    TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+    TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
+
+    //création d'une UV directement
+    map<Categorie,unsigned int> m;
+    m.insert(pair<Categorie, unsigned int> (Categorie::CS,12));
+    std::string s1="EE32";
+    std::string s2="titre";
+    UV newUV(s1,s2,m,true,true);
+    UV* pUV= &newUV;
+    tUV.New(*pUV);
+    tUV.New(UV("LO21", "Prog", m, false, true));
+    std::map<UV*,bool>m1;
+    //m1.insert(std::pair<UV*,bool> (pUV,false));
+    std::map<Categorie,unsigned int>m2;
+    //m2.insert(std::pair<Categorie,unsigned int> (Categorie::CS,12));
+
+    Formation nF("Nom Formation1","Description Formation1",m1,m2);
+    tFormation.New(nF);
+    Inscription nI2(newUV,Semestre(Saison::Automne,2011),Note::B);
+
+    //qDebug()<<nI.validee();
+
+    //création d'un dossier
+    std::vector<Inscription> vInscr;
+    vInscr.push_back(nI2);
+
+    Formation nF2=nF;
+
+    nF.display();
+    nF.addUv(pUV,false);
+    nF.display();
+    nF.addCategorie(Categorie::CS,52);
+
+    nF2.setNom("Nom Formation2");
+    nF2.setDescription("Description Formation2");
+    nF2.addUv(pUV,true);
+    tFormation.New(nF);
+    tFormation.New(nF2);
+    std::vector<Formation*> vForme;
+    vForme.push_back(&nF);
+    vForme.push_back(&nF2);
+
+    Dossier dos(vInscr,vForme);
+           QDate date(2014,5,3);
+    Etudiant e1(dos,1320123,"nom","prenom",date);
+    tEtudiant.New(e1);
+
+    MainFenetre fen;
+     fen.show();
+     return app.exec();
 }
 
 //première partie

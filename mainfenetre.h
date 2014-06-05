@@ -1,6 +1,9 @@
 #ifndef MAINFENETRE_H
 #define MAINFENETRE_H
-
+#include "templatemanager.h"
+#include "uv.h"
+#include "Formation.h"
+#include "Etudiant.h"
 #include <QMainWindow>
 
 namespace Ui {
