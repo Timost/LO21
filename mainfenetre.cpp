@@ -31,12 +31,17 @@ void MainFenetre::updateUV()
         QPushButton* modif=new QPushButton("Modifier");
         ui->UVTable->setCellWidget(i, 2, modif);
         QPushButton* suppr=new QPushButton("Supprimer");
-        QObject::connect(suppr, SIGNAL(clicked()), this, SLOT(deleteUV(i)));
         ui->UVTable->setCellWidget(i, 3, suppr);
         code->setFlags(Qt::ItemIsEnabled);
         titre->setFlags(Qt::ItemIsEnabled);
         ui->UVTable->setItem(i, 0, code);
         ui->UVTable->setItem(i, 1, titre);
+
+        //config du suppr
+        QSignalMapper* sig = new QSignalMapper(this);
+        QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
+        sig->setMapping(suppr, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteUV(int)));
     }
 }
 
@@ -53,7 +58,6 @@ void MainFenetre::updateEtudiant()
         QPushButton* modif=new QPushButton("Modifier");
         ui->EtudiantTable->setCellWidget(i, 3, modif);
         QPushButton* suppr=new QPushButton("Supprimer");
-        QObject::connect(suppr, SIGNAL(clicked()), this, SLOT(deleteEtudiant(i)));
         ui->EtudiantTable->setCellWidget(i, 4, suppr);
         login->setFlags(Qt::ItemIsEnabled);
         nom->setFlags(Qt::ItemIsEnabled);
@@ -61,6 +65,12 @@ void MainFenetre::updateEtudiant()
         ui->EtudiantTable->setItem(i, 0, login);
         ui->EtudiantTable->setItem(i, 1, nom);
         ui->EtudiantTable->setItem(i, 2, prenom);
+
+        //config du suppr
+        QSignalMapper* sig = new QSignalMapper(this);
+        QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
+        sig->setMapping(suppr, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteEtudiant(int)));
     }
 }
 
@@ -76,12 +86,17 @@ void MainFenetre::updateFormation()
         QPushButton* modif=new QPushButton("Modifier");
         ui->FormationTable->setCellWidget(i, 2, modif);
         QPushButton* suppr=new QPushButton("Supprimer");
-        QObject::connect(suppr, SIGNAL(clicked()), this, SLOT(deleteFormation(i)));
         ui->FormationTable->setCellWidget(i, 3, suppr);
         nom->setFlags(Qt::ItemFlag::ItemIsEnabled);
         description->setFlags( Qt::ItemFlag::ItemIsEnabled);
         ui->FormationTable->setItem(i, 0, nom);
         ui->FormationTable->setItem(i, 1, description);
+
+        //config du suppr
+        QSignalMapper* sig = new QSignalMapper(this);
+        QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
+        sig->setMapping(suppr, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteFormation(int)));
     }
 }
 

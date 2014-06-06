@@ -13,13 +13,10 @@ Database::Database(string path, string dbname)
     {
         throw DatabaseException("La connexion a échoué.");
     }
-    db.close();
 }
 
 QSqlQuery Database::query(string q)
 {
-   if(!db.open())
-        throw DatabaseException("Erreur lors de la connection.");
     QSqlQuery query;
     if(!query.exec(QString(q.c_str())))
     {
@@ -27,7 +24,6 @@ QSqlQuery Database::query(string q)
         e+=QString(q.c_str());
         throw DatabaseException(e.toStdString());
     }
-    db.close();
     return query;
 }
 
