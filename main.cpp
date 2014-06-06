@@ -150,7 +150,7 @@ int main(int argc, char *argv[]) {
     {
         qDebug()<<e.what()<<"\n";
     }*/
-    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+    /*TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
     TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
 
@@ -197,7 +197,7 @@ int main(int argc, char *argv[]) {
     Dossier dos(vInscr,vForme);
            QDate date(2014,5,3);
     Etudiant e1(dos,1320123,"nom","prenom",date);
-    tEtudiant.New(e1);
+    tEtudiant.New(e1);*/
 
     MainFenetre fen;
      fen.show();

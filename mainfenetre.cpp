@@ -7,7 +7,21 @@ MainFenetre::MainFenetre(QWidget *parent) :
     ui(new Ui::MainFenetre)
 {
     ui->setupUi(this);
+    //sauvegarde
+    QObject::connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()) );
+    //Charger
+    QObject::connect(ui->actionCharger, SIGNAL(triggered()), this, SLOT(load()) );
     //Affichage UV
+    updateUV();
+    //Affichage Etudiant
+    updateEtudiant();
+    //Affichage Formation
+    updateFormation();
+}
+
+//met à jour le tableau UV
+void MainFenetre::updateUV()
+{
     TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     ui->UVTable->setRowCount(tUV.size());
     for(unsigned int i=0; i<tUV.size(); i++)
@@ -17,8 +31,11 @@ MainFenetre::MainFenetre(QWidget *parent) :
         ui->UVTable->setItem(i, 0, code);
         ui->UVTable->setItem(i, 1, titre);
     }
+}
 
-    //Affichage Etudiant
+//Met à jour le tableau etudiant
+void MainFenetre::updateEtudiant()
+{
     TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
     ui->EtudiantTable->setRowCount(tEtu.size());
     for(unsigned int i=0; i<tEtu.size(); i++)
@@ -30,9 +47,11 @@ MainFenetre::MainFenetre(QWidget *parent) :
         ui->EtudiantTable->setItem(i, 1, nom);
         ui->EtudiantTable->setItem(i, 2, prenom);
     }
+}
 
-    //Affichage Formation
-    //Affichage UV
+//Met à jour le tableau formation
+void MainFenetre::updateFormation()
+{
     TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
     ui->FormationTable->setRowCount(tForm.size());
     for(unsigned int i=0; i<tForm.size(); i++)
@@ -42,8 +61,29 @@ MainFenetre::MainFenetre(QWidget *parent) :
         ui->FormationTable->setItem(i, 0, nom);
         ui->FormationTable->setItem(i, 1, description);
     }
-
 }
+
+void MainFenetre::save()
+{
+    QFileDialog* file= new QFileDialog();
+    QString path = file->getOpenFileName(this, tr("Sauvegarder la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
+    Database db(path.toStdString());
+    db.save();
+}
+
+void MainFenetre::load()
+{
+    QFileDialog* file= new QFileDialog();
+    QString path = file->getOpenFileName(this, tr("Charger la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
+    Database db(path.toStdString());
+    db.load();
+    //on met à jour les tableaux
+    updateUV();
+    updateEtudiant();
+    updateFormation();
+}
+
+
 
 MainFenetre::~MainFenetre()
 {

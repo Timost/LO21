@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="UVTab">
      <attribute name="title">
@@ -132,14 +132,6 @@
     <addaction name="actionAjouter_UV"/>
     <addaction name="actionAjouter_Formation"/>
    </widget>
-   <widget class="QMenu" name="menuRecherche">
-    <property name="title">
-     <string>Affichage</string>
-    </property>
-    <addaction name="actionAfficher_uv"/>
-    <addaction name="actionAfficher_Etudiant"/>
-    <addaction name="actionAfficher_Formation"/>
-   </widget>
    <widget class="QMenu" name="menuRechercher_2">
     <property name="title">
      <string>Rechercher</string>
@@ -149,7 +141,6 @@
     <addaction name="actionRechercher_Formation"/>
    </widget>
    <addaction name="menuFichier"/>
-   <addaction name="menuRecherche"/>
    <addaction name="menuEdition"/>
    <addaction name="menuRechercher_2"/>
   </widget>
