@@ -114,6 +114,11 @@ public:
     {
         elements.clear();
     }
+
+    void erase(int i)
+    {
+        elements.erase(elements.begin()+i);
+    }
 };
 
 #endif // TEMPLATEMANAGER_H

@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="UVTab">
      <attribute name="title">
@@ -47,6 +47,16 @@
       <column>
        <property name="text">
         <string>Titre</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Modifier</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Supprimer</string>
        </property>
       </column>
      </widget>
@@ -79,6 +89,16 @@
         <string>Prénom</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Modifier</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Supprimer</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="FormationTab">
@@ -102,6 +122,16 @@
       <column>
        <property name="text">
         <string>Description</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Modifier</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Supprimer</string>
        </property>
       </column>
      </widget>

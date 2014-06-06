@@ -200,8 +200,8 @@ int main(int argc, char *argv[]) {
     tEtudiant.New(e1);*/
 
     MainFenetre fen;
-     fen.show();
-     return app.exec();
+    fen.show();
+    return app.exec();
 }
 
 //première partie

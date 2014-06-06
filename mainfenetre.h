@@ -7,6 +7,7 @@
 #include "database.h"
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QPushButton>
 
 namespace Ui {
 class MainFenetre;
@@ -23,6 +24,9 @@ class MainFenetre : public QMainWindow
 private slots:
     void save();
     void load();
+    void deleteUV(int i);
+    void deleteEtudiant(int i);
+    void deleteFormation(int i);
 public:
     explicit MainFenetre(QWidget *parent = 0);
     ~MainFenetre();
