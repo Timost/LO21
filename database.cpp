@@ -32,6 +32,13 @@ void Database::SaverLoader::init()
     //on drop toutes les tables
     try
     {
+        db.query("DROP Table Saison;");
+    }
+    catch (const DatabaseException& e)
+    {
+    }
+    try
+    {
         db.query("DROP Table Note;");
     }
     catch (const DatabaseException& e)
@@ -108,7 +115,8 @@ void Database::SaverLoader::init()
     {
     }
     //On recree les tables
-    db.query("CREATE TABLE Note (Note varchar(255), description varchar(255),rang int,eliminatoire int);");
+    db.query("CREATE TABLE Saison (nom varchar(255), description varchar(255));");
+    db.query("CREATE TABLE Note (note varchar(255), description varchar(255),rang int,eliminatoire int);");
     db.query("CREATE TABLE Categorie (code varchar(255), description varchar(255));");
     db.query("CREATE TABLE UV (code varchar(255), titre varchar(255), automne int, printemps int);");
     db.query("CREATE TABLE CreditsUV (code varchar(255), categorie varchar(255), nbCredits int);");
@@ -148,7 +156,7 @@ void Database::SaverLoader::save()
         vector<Inscription> it2=itEtu[i].getDossier().getInscription();
         for(unsigned int j=0; j<itEtu[i].getDossier().getInscription().size(); j++)
         {
-            q="INSERT INTO Inscription (login, code, saison, annee, resultat) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it2[j].getUV().getCode()+"', '"+SaisonToString(it2[j].getSemestre().getSaison()).toStdString()+"', '"+to_string(it2[j].getSemestre().getAnnee())+"', '"+it2[j].getResultat().getNote().toStdString()+"');";
+            q="INSERT INTO Inscription (login, code, saison, annee, resultat) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it2[j].getUV().getCode()+"', '"+it2[j].getSemestre().getSaison().getNom().toStdString()+"', '"+to_string(it2[j].getSemestre().getAnnee())+"', '"+it2[j].getResultat().getNote().toStdString()+"');";
             db.query(q);
         }
 
@@ -183,20 +191,30 @@ void Database::SaverLoader::save()
 
     //Sauvegarde des Catégories
     vector<Categorie>::iterator itCat = tCategorie.getIterator();
-    for(itCat; itCat != tCategorie.end(); itCat++)
+    for(; itCat != tCategorie.end(); itCat++)
     {
         string q="INSERT INTO Categorie (code, description) VALUES ('"+itCat->getCodeStdString()+"', '"+itCat->getDescriptionStdString()+"');";
         db.query(q);
     }
 
+    //Sauvegarde des Saisons
+    vector<Saison>::iterator itSaison = tSaison.getIterator();
+    for(; itSaison != tSaison.end(); itSaison++)
+    {
+        string q="INSERT INTO Saison (nom, description) VALUES ('"+itSaison->getNomStdString()+"', '"+itSaison->getDescriptionStdString()+"');";
+        db.query(q);
+    }
+
     //Sauvegarde des Notes
     vector<Note>::iterator itNote = tNote.getIterator();
-    for(itNote; itNote != tNote.end(); itNote++)
+    for(; itNote != tNote.end(); itNote++)
     {
         int boo=itNote->isEliminatory();
         string q="INSERT INTO Note (note, description,rang, eliminatoire ) VALUES ('"+itNote->getNoteStdString()+"', '"+itNote->getDescriptionStdString()+"','"+std::to_string(itNote->getRang())+"','"+std::to_string(boo)+"');";
         db.query(q);
     }
+
+
 
 
 
@@ -210,6 +228,7 @@ void Database::SaverLoader::load()
     tFormation.clear();
     tCategorie.clear();
     tNote.clear();
+    tSaison.clear();
 
     //load Notes
     string q="SELECT note, description, rang, eliminatoire FROM Note;";
@@ -219,10 +238,18 @@ void Database::SaverLoader::load()
         Note note(res.value(0).toString(),res.value(1).toString(),res.value(2).toUInt(),res.value(3).toBool());
     }
 
+    //load Saisons
+     q="SELECT nom, description FROM Saison;";
+     res=db.query(q);
+    while(res.next())
+    {
+        Saison Sais(res.value(0).toString(),res.value(1).toString());
+    }
+
 
     //load Catégories
-     q="SELECT code, description FROM Categorie;";
-     res=db.query(q);
+    q="SELECT code, description FROM Categorie;";
+    res=db.query(q);
     while(res.next())
     {
         Categorie cat(res.value(0).toString(),res.value(1).toString());

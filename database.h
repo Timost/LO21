@@ -12,6 +12,7 @@
 #include "uv.h"
 #include "Categorie.h"
 #include "Note.h"
+#include "Saison.h"
 #define q2c(string) string.toStdString()
 
 using namespace std;
@@ -42,6 +43,7 @@ public:
         TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
         TemplateManager<Categorie>& tCategorie=TemplateManager<Categorie>::getInstance();
         TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+        TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
         Database& db;
         void init();
 

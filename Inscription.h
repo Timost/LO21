@@ -25,7 +25,7 @@ public:
 
     void display()
     {
-        qDebug()<<"UV : "<<uv->getCode().c_str() <<" Semestre :"<<semestre.getSaison()<<semestre.getAnnee();//<<" Resultat : "<<getResultat();
+        qDebug()<<"UV : "<<uv->getCode().c_str() <<" Semestre :"<<semestre.getSaison().getNom()<<semestre.getAnnee();//<<" Resultat : "<<getResultat();
     }
 };
 inline bool operator==(Inscription i1, Inscription i2)

@@ -1,7 +1,7 @@
 #ifndef SEMESTRE_H
 #define SEMESTRE_H
 
-#include "enums.h"
+#include "Saison.h"
 
 class SemestreException : public std::exception
 {
@@ -31,7 +31,7 @@ inline bool operator==(Semestre s1, Semestre s2)
 }
 
 
-inline QTextStream& operator<<(QTextStream& f, const Semestre& s) { return f<<s.getSaison()<<s.getAnnee()%100; }
+inline QTextStream& operator<<(QTextStream& f, const Semestre& s) { return f<<s.getSaison().getNom()<<s.getAnnee()%100; }
 
 
 #endif // SEMESTRE_H

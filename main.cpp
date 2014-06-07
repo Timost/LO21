@@ -24,6 +24,7 @@
 #include "Etudiant.h"
 #include "Categorie.h"
 #include "Note.h"
+#include "Saison.h"
 //int todo(int argc, char *argv[])
 //{
 //    try
@@ -55,18 +56,22 @@ template<> TemplateManager<Formation>* TemplateManager<Formation>::handler=0;
 template<> TemplateManager<Etudiant>* TemplateManager<Etudiant>::handler=0;
 template<> TemplateManager<Categorie>* TemplateManager<Categorie>::handler=0;
 template<> TemplateManager<Note>* TemplateManager<Note>::handler=0;
+template<> TemplateManager<Saison>* TemplateManager<Saison>::handler=0;
 int main(int argc, char *argv[]) {
-    //QApplication app(argc, argv);
-    try
+    QApplication app(argc, argv);
+    /*try
     {
         TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
         TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
         TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
-        TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+        //TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+        //TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
+
+        Saison ("Automne","We love it !");
+        Saison ("Printemps","We eat it !");
 
         Note A("A","A",1,false);
-
         Note B("B","B",2,false);
         Note C("C","C",3,false);
         Note D("D","D",4,false);
@@ -133,8 +138,8 @@ int main(int argc, char *argv[]) {
         tFormation.New(nF2);
         //Création d'une Inscription directement
 
-        Inscription nI(uv2,Semestre(Saison::Automne,2012),StringToNote("A"));
-        Inscription nI2(newUV,Semestre(Saison::Automne,2011),StringToNote("B"));
+        Inscription nI(uv2,Semestre(StringToSaison("Automne"),2012),StringToNote("A"));
+        Inscription nI2(newUV,Semestre(StringToSaison("Automne"),2011),StringToNote("B"));
 
         nI.display();
         qDebug() << QString(nI.getUV().getCode().c_str());
@@ -179,7 +184,7 @@ int main(int argc, char *argv[]) {
     catch(std::exception& e)
     {
         qDebug()<<e.what()<<"\n";
-    }
+    }*/
     /*TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
     TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
@@ -229,9 +234,9 @@ int main(int argc, char *argv[]) {
     Etudiant e1(dos,1320123,"nom","prenom",date);
     tEtudiant.New(e1);*/
 
-//    MainFenetre fen;
-//    fen.show();
-//    return app.exec();
+    MainFenetre fen;
+    fen.show();
+    return app.exec();
     return 0;
 }
 

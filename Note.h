@@ -59,6 +59,9 @@ public :
     void setDescription(std::string d){setDescription(QString::fromStdString(d));}
     void setDescription(const char* d){setDescription(std::string(d));}
 
+    void setRang(unsigned int r);
+
+
 };
 Note StringToNote(const QString& str);
 Note getBestNote();

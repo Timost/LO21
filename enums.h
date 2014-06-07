@@ -19,35 +19,27 @@ public:
     ~EnumException()throw() {}
 };
 
-//enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
-//Note StringToNote(const QString& s);
-//QString NoteToString(Note c);
+//enum class Saison { Automne, Printemps, first=Automne, last=Printemps };
+//Saison StringToSaison(const QString& s);
+//QString SaisonToString(Saison n);
+//inline QTextStream& operator<<(QTextStream& f, const Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
+//inline QTextStream& operator<<(QTextStream& f, Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
 
-//inline QDebug operator<<(QDebug f, const Note &n);
+//inline QDebug operator<<(QDebug f, const Saison &s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
 
-enum class Saison { Automne, Printemps, first=Automne, last=Printemps };
-Saison StringToSaison(const QString& s);
-QString SaisonToString(Saison n);
-inline QTextStream& operator<<(QTextStream& f, const Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
-inline QTextStream& operator<<(QTextStream& f, Saison& s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
+//template<typename EnumType>
+//class EnumIterator {
+//    static_assert(std::is_enum<EnumType>::value, "EnumType has to be an enum");
+//    EnumType value;
+//    EnumIterator(EnumType val):value(val){}
+//public:
+//    static EnumIterator getFirst() { return EnumIterator(EnumType::first); }
+//    bool isDone() const { return value>EnumType::last; }
+//    EnumType operator*() const { return value; }
+//    void next() { value=(EnumType)(std::underlying_type<EnumType>::type(value)+1); }
+//};
 
-inline QDebug operator<<(QDebug f, const Saison &s) { if (s==Saison::Automne) f<<"A"; else f<<"P"; return f;}
-
-template<typename EnumType>
-class EnumIterator {
-    static_assert(std::is_enum<EnumType>::value, "EnumType has to be an enum");
-    EnumType value;
-    EnumIterator(EnumType val):value(val){}
-public:
-    static EnumIterator getFirst() { return EnumIterator(EnumType::first); }
-    bool isDone() const { return value>EnumType::last; }
-    EnumType operator*() const { return value; }
-    void next() { value=(EnumType)(std::underlying_type<EnumType>::type(value)+1); }
-};
-
-//typedef EnumIterator<Note> NoteIterator;
-//typedef EnumIterator<Categorie> CategorieIterator;
-typedef EnumIterator<Saison> SaisonIterator;
+//typedef EnumIterator<Saison> SaisonIterator;
 
 
 #endif // ENUMS_H

@@ -39,6 +39,25 @@ Note::Note(const char* n, const char *d, unsigned int r, bool e)
     Note(std::string(n),std::string(d),r,e);
 }
 
+void Note::setRang(unsigned int r)
+{
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    if(tNote.size()>1)
+    {
+       // qDebug()<<"taille  : "<<tNote.size();
+         if((getEliminatoryNotes().size()>0)&&(getBestEliminatoryNote().getRang()<r)&&(!isEliminatory()))
+         {//le nouveau rang la rend éliminatoire
+            rang=r;
+            eliminatoire=true;
+         }
+         if((getNotEliminatoryNotes().size()>0)&&(getWorstNotEliminatoryNote().getRang()>r)&&(isEliminatory()))
+         { //le nouveau rang la rend non éliminatoire
+             rang=r;
+             eliminatoire=false;
+         }
+    }
+}
+
 Note getBestNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
 {
     if(begin==end)

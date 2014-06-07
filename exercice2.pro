@@ -25,7 +25,8 @@ SOURCES += \
     modifieruv_fen.cpp \
     modifierform.cpp \
     Categorie.cpp \
-    Note.cpp
+    Note.cpp \
+    Saison.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -48,7 +49,8 @@ HEADERS += \
     modifieruv_fen.h \
     modifierform.h \
     Categorie.h \
-    Note.h
+    Note.h \
+    Saison.h
 
 FORMS += \
     mainfenetre.ui \

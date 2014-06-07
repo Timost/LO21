@@ -1,23 +1,23 @@
 #include "enums.h"
 #include "Exception.h"
 
-Saison StringToSaison(const QString& str){
-    if (str=="A" || str=="Automne") return Saison::Automne;
-    else
-    if (str=="P" || str=="Printemps") return Saison::Printemps;
-    else {
-        QString s="erreur, StringToSaison, saison "+str+" inexistante";
-        throw EnumException(s.toStdString());
-    }
-}
+//Saison StringToSaison(const QString& str){
+//    if (str=="A" || str=="Automne") return Saison::Automne;
+//    else
+//    if (str=="P" || str=="Printemps") return Saison::Printemps;
+//    else {
+//        QString s="erreur, StringToSaison, saison "+str+" inexistante";
+//        throw EnumException(s.toStdString());
+//    }
+//}
 
-QString SaisonToString(Saison c){
-    switch(c){
-    case Saison::Automne : return "Automne";
-    case Saison::Printemps : return "Printemps";
-    default: throw EnumException("erreur, categorie non traitee");
-    }
-}
+//QString SaisonToString(Saison c){
+//    switch(c){
+//    case Saison::Automne : return "Automne";
+//    case Saison::Printemps : return "Printemps";
+//    default: throw EnumException("erreur, categorie non traitee");
+//    }
+//}
 
 //inline QDebug& operator<<(QDebug& f, const Note& n){
 //    switch(n){
