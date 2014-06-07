@@ -23,7 +23,9 @@ SOURCES += \
     ajouteruvformation_fen.cpp \
     modifieretudiant.cpp \
     modifieruv_fen.cpp \
-    modifierform.cpp
+    modifierform.cpp \
+    Categorie.cpp \
+    Note.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -44,7 +46,9 @@ HEADERS += \
     ajouteruvformation_fen.h \
     modifieretudiant.h \
     modifieruv_fen.h \
-    modifierform.h
+    modifierform.h \
+    Categorie.h \
+    Note.h
 
 FORMS += \
     mainfenetre.ui \

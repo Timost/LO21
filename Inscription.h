@@ -1,6 +1,6 @@
 #ifndef INSCRIPTION_H
 #define INSCRIPTION_H
-
+#include "Note.h"
 #include "enums.h"
 #include "Semestre.h"
 #include "uv.h"
@@ -11,7 +11,7 @@ class Inscription
     Semestre semestre;
     Note resultat;
 public:
-    Inscription(const UV& u, const Semestre& s, Note res=Note::EC):uv(&u),semestre(s),resultat(res){}
+    Inscription(const UV& u, const Semestre& s, Note res=StringToNote("EC")):uv(&u),semestre(s),resultat(res){}
     UV getUV() const { return *uv; }
     QString getCode() const { return QString(uv->getCode().c_str());}
     Semestre getSemestre() const { return semestre; }
@@ -20,7 +20,7 @@ public:
 
     bool validee()//retourne vrai si une inscription a été validée
     {
-        return ((resultat>= Note::A)&&(resultat<=Note::E));
+        return ((resultat>= StringToNote("A"))&&(resultat<=StringToNote("E")));
     }
 
     void display()

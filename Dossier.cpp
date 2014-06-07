@@ -55,14 +55,14 @@ std::map<Categorie, unsigned int> Dossier::getInscriptionCurrentStatus()
     {
         if(it->validee())
         {
-        uvCreds=it->getUV().getCredits();
+            uvCreds=it->getUV().getCredits();
 
-        typedef std::map<Categorie, unsigned int>::iterator iter_creds;
+            typedef std::map<Categorie, unsigned int>::iterator iter_creds;
 
-        for(iter_creds it2=uvCreds.begin();it2!=uvCreds.end();it2++)
-        {
-            res[it2->first]+=it2->second;
-        }
+            for(iter_creds it2=uvCreds.begin();it2!=uvCreds.end();it2++)
+            {
+                res[it2->first]+=it2->second;
+            }
 
         }
     }

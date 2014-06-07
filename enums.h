@@ -19,24 +19,11 @@ public:
     ~EnumException()throw() {}
 };
 
-enum class Categorie {
-    /* Connaissances Scientifiques */ CS,  /* Techniques et Méthodes */ TM,
-    /* Technologies et Sciences de l'Homme */ TSH,/* Stage et Projet */ SP,
-    first=CS, last=SP
-};
+//enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
+//Note StringToNote(const QString& s);
+//QString NoteToString(Note c);
 
-QTextStream& operator<<(QTextStream& f, const Categorie& s);
-
-Categorie StringToCategorie(const QString& s);
-Categorie IntToCategorie(const int n);
-QString CategorieToString(Categorie c);
-QTextStream& operator>>(QTextStream& f, Categorie& cat);
-
-enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
-Note StringToNote(const QString& s);
-QString NoteToString(Note c);
-
-inline QDebug operator<<(QDebug f, const Note &n);
+//inline QDebug operator<<(QDebug f, const Note &n);
 
 enum class Saison { Automne, Printemps, first=Automne, last=Printemps };
 Saison StringToSaison(const QString& s);
@@ -58,8 +45,8 @@ public:
     void next() { value=(EnumType)(std::underlying_type<EnumType>::type(value)+1); }
 };
 
-typedef EnumIterator<Note> NoteIterator;
-typedef EnumIterator<Categorie> CategorieIterator;
+//typedef EnumIterator<Note> NoteIterator;
+//typedef EnumIterator<Categorie> CategorieIterator;
 typedef EnumIterator<Saison> SaisonIterator;
 
 

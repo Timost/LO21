@@ -91,7 +91,7 @@ class Formation:public EntityStd
 
         void display()
         {
-            qDebug()<<"Nom : "<<getNom()<<" Description :"<<getDescription()<<" Nbcredits CS :"<<getNbCreditsCat(Categorie::CS)<<" Nbcredits TM :"<<getNbCreditsCat(Categorie::TM)<<" NbcreditsTotal :"<<getNbCreditsTotal();
+            qDebug()<<"Nom : "<<getNom()<<" Description :"<<getDescription();//<<" Nbcredits CS :"<<getNbCreditsCat(Categorie::CS)<<" Nbcredits TM :"<<getNbCreditsCat(Categorie::TM)<<" NbcreditsTotal :"<<getNbCreditsTotal();
         }
 };
 

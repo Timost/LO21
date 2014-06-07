@@ -5,7 +5,7 @@
 #include <iterator>
 #include <string>
 #include <QDebug>
-
+#include <QString>
 using namespace std;
 
 template <class T>
@@ -59,33 +59,60 @@ public:
         return elements.begin();
     }
 
+    typename vector<T>::iterator end()
+    {
+        return elements.end();
+    }
+
+
     typename vector<T>::const_iterator end() const
     {
         return elements.end();
     }
 
     void New(T element)
-    {
+    {//on ne peut pas ajouter un élément ayant le même label qu'un autre dans le manager
+     //Néenmoins les tests sont à faire dans les constructeurs des objets
         elements.push_back(element);
     }
 
     T& getElement(std::string s)
     {
+
         unsigned int nb=this->size();
         if (nb==0)
             throw TemplateManagerException<T>("Pas d'elements dans le manager.");
         unsigned int n=0;
         for(unsigned int i=0;i<nb; i++)
         {
-            if(s==elements[i].getStrLabel()) break;
-            n++;
+            //qDebug()<<QString::fromStdString(s)<<"="<<QString::fromStdString(elements[i].getStrLabel())<<" : "<<(s==elements[i].getStrLabel());
+            if(s==elements[i].getStrLabel())
+            {
+                n++;
+                break;
+            }
+            else
+            {
+                n++;
+            }
         }
-        if(n==nb)
-            throw TemplateManagerException<T>("Valeur introuvable.");
+        if(n==nb && s!=elements[n-1].getStrLabel())
+        {
+            throw TemplateManagerException<T>("Erreur getElement : Valeur introuvable.");
+        }
         else
         {
-            return elements[n];
+            return elements[n-1];
         }
+    }
+    T& getElement(const char* s)
+    {
+        return getElement(std::string(s));
+    }
+
+    T& getElement(const QString& s)
+    {
+        return getElement(s.toStdString());
     }
 
     bool alreadyExist(std::string s)
@@ -96,13 +123,31 @@ public:
         unsigned int n=0;
         for(unsigned int i=0;i<nb; i++)
         {
-            if(s==elements[i].getStrLabel()) break;
-            n++;
+            if(s==elements[i].getStrLabel())
+            {
+                n++;
+                break;
+            }
+            else
+            {
+                n++;
+            }
         }
-        if(n==nb-1 && s!=elements[n].getStrLabel())
+
+        if(n==nb && s!=elements[n-1].getStrLabel())
             return false;
         else
             return true;
+    }
+
+    bool alreadyExist(QString s)
+    {
+        return alreadyExist(s.toStdString());
+    }
+
+    bool alreadyExist(const char* s)
+    {
+        return alreadyExist(std::string(s));
     }
 
     unsigned int size() const

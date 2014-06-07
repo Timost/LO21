@@ -32,6 +32,20 @@ void Database::SaverLoader::init()
     //on drop toutes les tables
     try
     {
+        db.query("DROP Table Note;");
+    }
+    catch (const DatabaseException& e)
+    {
+    }
+    try
+    {
+        db.query("DROP Table Categorie;");
+    }
+    catch (const DatabaseException& e)
+    {
+    }
+    try
+    {
         db.query("DROP Table UV;");
     }
     catch (const DatabaseException& e)
@@ -94,6 +108,8 @@ void Database::SaverLoader::init()
     {
     }
     //On recree les tables
+    db.query("CREATE TABLE Note (Note varchar(255), description varchar(255),rang int,eliminatoire int);");
+    db.query("CREATE TABLE Categorie (code varchar(255), description varchar(255));");
     db.query("CREATE TABLE UV (code varchar(255), titre varchar(255), automne int, printemps int);");
     db.query("CREATE TABLE CreditsUV (code varchar(255), categorie varchar(255), nbCredits int);");
     db.query("CREATE TABLE Etudiant (ine int , login varchar(255), nom varchar(255), prenom varchar(255), dateNaissance date);");
@@ -108,18 +124,22 @@ void Database::SaverLoader::save()
 {
     init();
     vector<UV>::const_iterator it=tUV.getIterator();
+    //sauvegarde des UVs
     for(unsigned int i=0; i<tUV.size(); i++)
     {
         string q="INSERT INTO UV (code, titre, automne, printemps) VALUES ('"+it[i].getCode()+"', '"+it[i].getTitre()+"', '"+to_string(int(it[i].ouvertureAutomne()))+"', '"+to_string(int(it[i].ouverturePrintemps()))+"');";
-        map<Categorie, unsigned int> it2=it[i].getCredits();
         db.query(q);
-        for(int j=0; j<4; j++)
+
+        map<Categorie, unsigned int> creditsUvI=it[i].getCredits();
+        typedef map<Categorie, unsigned int>::iterator iteratorCat;
+
+        for(iteratorCat itCat=creditsUvI.begin(); itCat!=creditsUvI.end(); itCat++)
         {
-            q="INSERT INTO CreditsUV (code, categorie, nbCredits) VALUES ('"+it[i].getCode()+"', '"+CategorieToString(IntToCategorie(j)).toStdString()+"', '"+to_string(it2[IntToCategorie(j)])+"');";
+            q="INSERT INTO CreditsUV (code, categorie, nbCredits) VALUES ('"+it[i].getCode()+"', '"+itCat->first.getCodeStdString()+"', '"+std::to_string(itCat->second)+"');";
             db.query(q);
         }
     }
-
+    //sauvegarde des étudiants, inscription et formations par étudiants
     vector<Etudiant>::const_iterator itEtu=tEtudiant.getIterator();
     for(unsigned int i=0; i<tEtudiant.size(); i++)
     {
@@ -128,7 +148,7 @@ void Database::SaverLoader::save()
         vector<Inscription> it2=itEtu[i].getDossier().getInscription();
         for(unsigned int j=0; j<itEtu[i].getDossier().getInscription().size(); j++)
         {
-            q="INSERT INTO Inscription (login, code, saison, annee, resultat) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it2[j].getUV().getCode()+"', '"+SaisonToString(it2[j].getSemestre().getSaison()).toStdString()+"', '"+to_string(it2[j].getSemestre().getAnnee())+"', '"+NoteToString(it2[j].getResultat()).toStdString()+"');";
+            q="INSERT INTO Inscription (login, code, saison, annee, resultat) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it2[j].getUV().getCode()+"', '"+SaisonToString(it2[j].getSemestre().getSaison()).toStdString()+"', '"+to_string(it2[j].getSemestre().getAnnee())+"', '"+it2[j].getResultat().getNote().toStdString()+"');";
             db.query(q);
         }
 
@@ -139,7 +159,7 @@ void Database::SaverLoader::save()
             db.query(q);
         }
     }
-
+    //Sauvegarde des formations
     vector<Formation>::const_iterator itForm=tFormation.getIterator();
     for(unsigned int i=0; i<tFormation.size(); i++)
     {
@@ -151,13 +171,35 @@ void Database::SaverLoader::save()
             q="INSERT INTO FormationUV (formation, uv, obligatoire) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+it2->first->getCode()+"', '"+to_string(int(it2->second))+"');";
             db.query(q);
         }
-        map<Categorie, unsigned int> it3=itForm[i].getNbCreditsByCat();
-        for(int j=0; j<4; j++)
+        map<Categorie, unsigned int> creditsFormationI=itForm[i].getNbCreditsByCat();
+        typedef map<Categorie, unsigned int>::iterator iteratorCat;
+
+        for(iteratorCat itCat=creditsFormationI.begin(); itCat!=creditsFormationI.end(); itCat++)
         {
-            q="INSERT INTO CreditsFormation (formation, categorie, nbCredits) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+CategorieToString(IntToCategorie(j)).toStdString()+"', '"+to_string(it3[IntToCategorie(j)])+"');";
+            q="INSERT INTO CreditsFormation (formation, categorie, nbCredits) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+itCat->first.getCodeStdString()+"', '"+std::to_string(itCat->second)+"');";
             db.query(q);
         }
     }
+
+    //Sauvegarde des Catégories
+    vector<Categorie>::iterator itCat = tCategorie.getIterator();
+    for(itCat; itCat != tCategorie.end(); itCat++)
+    {
+        string q="INSERT INTO Categorie (code, description) VALUES ('"+itCat->getCodeStdString()+"', '"+itCat->getDescriptionStdString()+"');";
+        db.query(q);
+    }
+
+    //Sauvegarde des Notes
+    vector<Note>::iterator itNote = tNote.getIterator();
+    for(itNote; itNote != tNote.end(); itNote++)
+    {
+        int boo=itNote->isEliminatory();
+        string q="INSERT INTO Note (note, description,rang, eliminatoire ) VALUES ('"+itNote->getNoteStdString()+"', '"+itNote->getDescriptionStdString()+"','"+std::to_string(itNote->getRang())+"','"+std::to_string(boo)+"');";
+        db.query(q);
+    }
+
+
+
     qDebug()<<"fin save";
 }
 
@@ -166,8 +208,30 @@ void Database::SaverLoader::load()
     tUV.clear();
     tEtudiant.clear();
     tFormation.clear();
-    string q="SELECT code, titre, automne, printemps FROM UV;";
+    tCategorie.clear();
+    tNote.clear();
+
+    //load Notes
+    string q="SELECT note, description, rang, eliminatoire FROM Note;";
     QSqlQuery res=db.query(q);
+    while(res.next())
+    {
+        Note note(res.value(0).toString(),res.value(1).toString(),res.value(2).toUInt(),res.value(3).toBool());
+    }
+
+
+    //load Catégories
+     q="SELECT code, description FROM Categorie;";
+     res=db.query(q);
+    while(res.next())
+    {
+        Categorie cat(res.value(0).toString(),res.value(1).toString());
+    }
+
+
+    //load UVS
+    q="SELECT code, titre, automne, printemps FROM UV;";
+    res=db.query(q);
     while(res.next())
     {
        map<Categorie, unsigned int> uvcre=map<Categorie, unsigned int>();
@@ -180,6 +244,7 @@ void Database::SaverLoader::load()
        UV uv=UV(res.value(0).toString().toStdString(), res.value(1).toString().toStdString(), uvcre, res.value(2).toBool(), res.value(3).toBool());
        tUV.New(uv);
     }
+    //load Formation
     q="SELECT nom, description FROM Formation;";
     res=db.query(q);
     while(res.next())
@@ -202,6 +267,8 @@ void Database::SaverLoader::load()
         Formation f=Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat);
         tFormation.New(f);
     }
+
+    //load Etudiants
     q="SELECT ine, login, nom, prenom, dateNaissance from Etudiant;";
     res=db.query(q);
     while(res.next())

@@ -10,7 +10,8 @@
 #include "Formation.h"
 #include "Etudiant.h"
 #include "uv.h"
-
+#include "Categorie.h"
+#include "Note.h"
 #define q2c(string) string.toStdString()
 
 using namespace std;
@@ -39,6 +40,8 @@ public:
         TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
         TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
+        TemplateManager<Categorie>& tCategorie=TemplateManager<Categorie>::getInstance();
+        TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
         Database& db;
         void init();
 
