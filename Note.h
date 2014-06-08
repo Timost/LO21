@@ -30,16 +30,16 @@ private :
     QString note;
     QString description;
     unsigned int rang; //permet d'implémenter la relation d'ordre entre les notes
-    bool eliminatoire;
+    unsigned int eliminatoire;//0 pas éliminatoire, 1 éliminatoire, 2 en attente
 public :
     std::string getStrLabel() const
     {
         return note.toStdString();
     }
 
-    Note(std::string n, std::string d, unsigned int r, bool e);
-    Note(QString n,QString d, unsigned int r, bool e);
-    Note(const char* c, const char*d, unsigned int r, bool e);
+    Note(std::string n, std::string d, unsigned int r, unsigned int e);
+    Note(QString n,QString d, unsigned int r, unsigned int e);
+    Note(const char* c, const char*d, unsigned int r, unsigned int e);
 
     QString getNote() const {return note;}
     std::string getNoteStdString() const {return note.toStdString();}
@@ -48,8 +48,10 @@ public :
     std::string getDescriptionStdString() const {return description.toStdString();}
 
     unsigned int getRang()const{return rang;}
+    unsigned int getEliminatoire()const{return eliminatoire;}
 
-    bool isEliminatory()const{return eliminatoire;}
+    bool isEliminatory()const{return (eliminatoire==1);}
+    bool isValidatory()const{return (eliminatoire==0);}
 
     void setNote(QString n){note = n;}
     void setNote(std::string n){setNote(QString::fromStdString(n));}
@@ -69,9 +71,17 @@ Note getWorstNote();
 Note getBestNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
 Note getWorstNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
 Note getBestEliminatoryNote();//retourne la "meilleure" note éliminatoire
-Note getWorstNotEliminatoryNote();
+Note getWorstValidatoryNote();
+Note getBestEliminatoryNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
+Note getWorstValidatoryNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
+std::vector<Note> getValidatoryNotes();
+std::vector<Note> getValidatoryNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
 std::vector<Note> getEliminatoryNotes();//retourne un vecteur contenant les notes éliminatoires
-std::vector<Note> getNotEliminatoryNotes();//retourne un vecteur contenant les notes non éliminatoires
+std::vector<Note> getEliminatoryNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
+std::vector<Note> getDeterminantNotes();
+std::vector<Note> getDeterminantNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
+std::vector<Note> getNonDeterminantNotes();
+std::vector<Note> getNonDeterminantNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end);
 bool operator<(const Note n1, const Note n2);
 bool operator>(const Note n1, const Note n2);
 bool operator==(const Note n1, const Note n2);

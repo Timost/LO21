@@ -1,3 +1,4 @@
+#include "ConditionChecker.h"
 #include "Dossier.h"
 
 void Dossier::addFormation(Formation* f)//ajoute une formation
@@ -98,9 +99,55 @@ std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >
     return res;
 }
 
+unsigned int Dossier::getValidatedCredits(Categorie c)
+{
+    std::map<Categorie,unsigned int> temp=getInscriptionCurrentStatus();
+
+    return temp[c];
+}
+
+std::vector<Inscription>::iterator Dossier::findUVInscription(UV u,std::vector<Inscription>::iterator begin, std::vector<Inscription>::iterator end)
+{
+     return find_if(begin,end, [u] (const Inscription& i) { return i.getUV() == u; });
+}
+std::vector<Inscription>::iterator Dossier::findUVInscription(UV u)
+{
+    typedef std::vector<Inscription>::iterator myIT;
+    myIT begin = inscri.begin();
+    myIT end = inscri.end();
+    myIT res = findUVInscription(u,begin,end);
+    if(res==end)
+    {
+        throw DossierException("Erreur findUVInscription : cette UV n'est pas dans les inscriptions");
+    }
+    else
+    {
+        return res;
+    }
+}
 
 
+bool Dossier::isUvValidated(UV u)
+{
+    typedef std::vector<Inscription>::iterator myIT;
+    myIT begin = inscri.begin();
+    myIT end = inscri.end();
+    myIT res = findUVInscription(u,begin,end);
+    if(res==end)
+    {
+        qDebug()<<"echec isUvValidated";
+        return false;
+    }
+    else
+    {
+        qDebug()<<"succes isUvValidated :"<<res->getCode();
+        return res->validee();
+    }
+}
 
-
+bool Dossier::conditionsChecked(std::vector<Condition> c)
+{
+    return ConditionChecker( c,"cc",*this).evaluate();
+}
 
 

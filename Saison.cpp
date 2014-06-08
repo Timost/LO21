@@ -37,6 +37,6 @@ Saison StringToSaison(const QString& str){//renvoie une référence vers la cat�
 }
 bool operator ==(Saison s1,Saison s2)
 {
-    return (s1.getNom()==s1.getNom());
+    return (s1.getNom()==s2.getNom());
 }
 

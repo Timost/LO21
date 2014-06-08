@@ -1,5 +1,7 @@
 QT += widgets
 QT += xml
+
+QT += script
 CONFIG += c++11
 QT       += sql # On rajoute SQL
 CONFIG   += console # On rajoute la console
@@ -26,7 +28,9 @@ SOURCES += \
     modifierform.cpp \
     Categorie.cpp \
     Note.cpp \
-    Saison.cpp
+    Saison.cpp \
+    Condition.cpp \
+    ConditionChecker.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -50,7 +54,9 @@ HEADERS += \
     modifierform.h \
     Categorie.h \
     Note.h \
-    Saison.h
+    Saison.h \
+    Condition.h \
+    ConditionChecker.h
 
 FORMS += \
     mainfenetre.ui \

@@ -8,7 +8,7 @@
 #include <QTextStream>
 #include <QString>
 #include <QDebug>
-
+#include "templatemanager.h"
 class UvException : public std::exception
 {
 protected :
@@ -110,6 +110,7 @@ inline bool operator==(UV u1, UV u2)
     return (u1.getCode()==u2.getCode());
 }
 
+UV StringToUV(const QString& str);
 QTextStream& operator<<(QTextStream& f, const UV& uv);
 
 #endif // UV_H

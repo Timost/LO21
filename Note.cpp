@@ -1,21 +1,33 @@
 #include "Note.h"
 #include "templatemanager.h"
 
-Note::Note(std::string n, std::string d, unsigned int r, bool e)
+Note::Note(std::string n, std::string d, unsigned int r, unsigned int e)
 {
+    if(e>2)
+    {
+        throw NoteException("Erreur : le dernier parametres doit etre compris entre 0 et 2 inclus :(0:pas eliminatoire,1 eliminatoire, 2 non determinante)");
+    }
    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
    if(!tNote.alreadyExist(n))
     {
        if(tNote.size()>0)
        {
           // qDebug()<<"taille  : "<<tNote.size();
-            if((getEliminatoryNotes().size()>0)&&(getBestEliminatoryNote().getRang()<r)&&(!e))
+            if((getEliminatoryNotes().size()>0)&&(getBestEliminatoryNote().getRang()<r)&&(e!=1))
             {
-                throw NoteException("Erreur : cette Note doit etre eliminatoire etant donne son rang!");
+                throw NoteException("Erreur : cette Note "+n+" doit etre eliminatoire etant donne son rang!");
             }
-            if((getNotEliminatoryNotes().size()>0)&&(getWorstNotEliminatoryNote().getRang()>r)&&(e))
+            if((getValidatoryNotes().size()>0)&&(getWorstValidatoryNote().getRang()>r)&&(e==1))
             {
-                throw NoteException("Erreur : cette Note ne doit pas etre eliminatoire etant donne son rang!");
+                throw NoteException("Erreur : cette Note "+n+" ne doit pas etre eliminatoire etant donne son rang!");
+            }
+            if((e==2)&&(r!=0))
+            {
+                throw NoteException("Erreur : Une note non determinante doit etre de rang 0!("+n+")");
+            }
+            if((e!=2)&&(r==0))
+            {
+                throw NoteException("Erreur : Une note determinante doit etre de rang > 0!("+n+")");
             }
        }
         note=QString::fromStdString(n);
@@ -30,11 +42,11 @@ Note::Note(std::string n, std::string d, unsigned int r, bool e)
         throw NoteException("Erreur : la note "+n+" existe deja !");
     }
 }
-Note::Note(QString n, QString d, unsigned int r, bool e)
+Note::Note(QString n, QString d, unsigned int r, unsigned int e)
 {
     Note(n.toStdString(),d.toStdString(),r,e);
 }
-Note::Note(const char* n, const char *d, unsigned int r, bool e)
+Note::Note(const char* n, const char *d, unsigned int r, unsigned int e)
 {
     Note(std::string(n),std::string(d),r,e);
 }
@@ -48,12 +60,21 @@ void Note::setRang(unsigned int r)
          if((getEliminatoryNotes().size()>0)&&(getBestEliminatoryNote().getRang()<r)&&(!isEliminatory()))
          {//le nouveau rang la rend éliminatoire
             rang=r;
-            eliminatoire=true;
+            eliminatoire=1;
          }
-         if((getNotEliminatoryNotes().size()>0)&&(getWorstNotEliminatoryNote().getRang()>r)&&(isEliminatory()))
+         if((getValidatoryNotes().size()>0)&&(getWorstValidatoryNote().getRang()>r)&&(isEliminatory()))
          { //le nouveau rang la rend non éliminatoire
+
              rang=r;
-             eliminatoire=false;
+             if(r==0)
+             {
+                  eliminatoire=2;//rang 0 implique non déterminante
+             }
+             else
+             {
+                 eliminatoire=0;
+             }
+
          }
     }
 }
@@ -83,9 +104,15 @@ Note getWorstNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator 
     }
     Note min = *begin;
     begin++;
+    bool foundDeterminantNote=false;//les notes non déterminantes ne comptes pas.
     for(std::vector<Note>::iterator itNote=begin;itNote != end;itNote++)
     {
-        if(itNote->getRang()>min.getRang())
+        if((!foundDeterminantNote)&&(itNote->getRang()>0))
+        {
+            foundDeterminantNote=true;
+            min=*itNote;
+        }
+        if((foundDeterminantNote)&&(itNote->getRang()>min.getRang()))
         {
             min=*itNote;
         }
@@ -110,23 +137,52 @@ Note getWorstNote()
 
 Note getBestEliminatoryNote()
 {
-    std::vector<Note> eliminatory=getEliminatoryNotes();
-
-    return getBestNote(eliminatory.begin(),eliminatory.end());
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    std::vector<Note>::iterator begin =tNote.getIterator();
+    std::vector<Note>::iterator end =tNote.end();
+    return getBestEliminatoryNote(begin,end);
 }
 
-Note getWorstNotEliminatoryNote()
+Note getWorstValidatoryNote()
 {
-    std::vector<Note> eliminatory=getNotEliminatoryNotes();
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    std::vector<Note>::iterator begin =tNote.getIterator();
+    std::vector<Note>::iterator end =tNote.end();
+    return getWorstValidatoryNote(begin,end);
+}
 
-    return getBestNote(eliminatory.begin(),eliminatory.end());
+Note getBestEliminatoryNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
+{
+    std::vector<Note> test=getEliminatoryNotes(begin,end);
+    if(test.size()==0)
+    {
+        throw NoteException("Erreur getBestEliminatoryNote(...,...), il n'y a pas de notes eliminatoires dans ce tableau");
+    }
+    return getBestNote(begin,end);
+}
+
+Note getWorstValidatoryNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
+{
+    std::vector<Note> test=getValidatoryNotes(begin,end);
+    if(test.size()==0)
+    {
+        throw NoteException("Erreur getWorstValidatoryNote(...,...), il n'y a pas de notes validantes dans ce tableau");
+    }
+    return getWorstNote(begin,end);
 }
 
 std::vector<Note> getEliminatoryNotes()
 {
-    std::vector<Note> res;
     TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
-    for(std::vector<Note>::iterator itNote=tNote.getIterator();itNote != tNote.end();itNote++)
+    std::vector<Note>::iterator begin =tNote.getIterator();
+    std::vector<Note>::iterator end =tNote.end();
+    return getEliminatoryNotes(begin,end);
+}
+
+std::vector<Note> getEliminatoryNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
+{
+    std::vector<Note> res;
+    for(std::vector<Note>::iterator itNote=begin;itNote !=end;itNote++)
     {
         if(itNote->isEliminatory())
         {
@@ -136,19 +192,68 @@ std::vector<Note> getEliminatoryNotes()
     return res;
 }
 
-std::vector<Note> getNotEliminatoryNotes()
+std::vector<Note> getValidatoryNotes()
+{
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    std::vector<Note>::iterator begin =tNote.getIterator();
+    std::vector<Note>::iterator end =tNote.end();
+    return getValidatoryNotes(begin,end);
+}
+
+std::vector<Note> getValidatoryNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
 {
     std::vector<Note> res;
-    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
-    for(std::vector<Note>::iterator itNote=tNote.getIterator();itNote != tNote.end();itNote++)
+    for(std::vector<Note>::iterator itNote=begin;itNote !=end;itNote++)
     {
-        if(!itNote->isEliminatory())
+        if(itNote->isValidatory())
         {
             res.push_back(*itNote);
         }
     }
     return res;
 }
+std::vector<Note> getDeterminantNotes()
+{
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    std::vector<Note>::iterator begin =tNote.getIterator();
+    std::vector<Note>::iterator end =tNote.end();
+    return getDeterminantNotes(begin,end);
+}
+std::vector<Note> getDeterminantNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
+{
+    std::vector<Note> res;
+    for(std::vector<Note>::iterator itNote=begin;itNote != end;itNote++)
+    {
+        if((itNote->isValidatory())||(itNote->isEliminatory()))
+        {
+            res.push_back(*itNote);
+        }
+    }
+    return res;
+}
+
+std::vector<Note> getNonDeterminantNotes()
+{
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    std::vector<Note>::iterator begin =tNote.getIterator();
+    std::vector<Note>::iterator end =tNote.end();
+    return getNonDeterminantNotes(begin,end);
+}
+
+std::vector<Note> getNonDeterminantNotes(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
+{
+    std::vector<Note> res;
+
+    for(std::vector<Note>::iterator itNote=begin;itNote != end;itNote++)
+    {
+        if((!itNote->isValidatory())&&(!itNote->isEliminatory()))
+        {
+            res.push_back(*itNote);
+        }
+    }
+    return res;
+}
+
 
 Note StringToNote(const QString& str){//renvoie une référence vers la catégorie si elle existe, exception sinon.
    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();

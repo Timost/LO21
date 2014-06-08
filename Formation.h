@@ -8,6 +8,7 @@
 #include "Exception.h"
 #include "EntityStd.h"
 #include <QDebug>
+#include "Condition.h"
 
 class FormationException : public std::exception
 {
@@ -30,9 +31,12 @@ class Formation:public EntityStd
         std::map<UV*,bool> uvs;//contient les Uvs Faisant partie de la formation et si elles sont obligatoires ou pas.
         //std::vector<UV*> uvsObligatoires;//contient les UVS obligatoires pour une formation donnée
         std::map<Categorie, unsigned int> nbCredits;//Contient le nombre de crédits à valider pour chaque catégories d'UVS
-    public:
+        std::vector<Condition> critereValidation;
+
+public:
         //Formation(std::string n,std::string d,std::vector<UV*> uvs,std::vector<UV*> uvsO,std::map<Categorie, int> nbCred):nom(n),description(d),uvs(uvs),uvsObligatoires(uvsO),nbCredits(nbCred){}
         Formation(QString n,QString d,std::map<UV*,bool> uvs,std::map<Categorie,unsigned int> nbCred):nom(n),description(d),uvs(uvs),nbCredits(nbCred){}
+        Formation(QString n,QString d,std::map<UV*,bool> uvs,std::map<Categorie,unsigned int> nbCred,std::vector<Condition> cv):nom(n),description(d),uvs(uvs),nbCredits(nbCred),critereValidation(cv){}
 
         ~Formation()
         {
@@ -76,6 +80,7 @@ class Formation:public EntityStd
         {
             return nbCredits;
         }
+        std::vector<Condition> getConditions()const{return critereValidation;}
 
         int getNbCreditsTotal()const;
         void addUv(UV* uv, bool required);

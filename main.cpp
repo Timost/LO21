@@ -25,6 +25,9 @@
 #include "Categorie.h"
 #include "Note.h"
 #include "Saison.h"
+#include "Condition.h"
+#include "ConditionChecker.h"
+#include "Conversion.h"
 //int todo(int argc, char *argv[])
 //{
 //    try
@@ -71,16 +74,16 @@ int main(int argc, char *argv[]) {
         Saison ("Automne","We love it !");
         Saison ("Printemps","We eat it !");
 
-        Note A("A","A",1,false);
-        Note B("B","B",2,false);
-        Note C("C","C",3,false);
-        Note D("D","D",4,false);
-        Note E("E","E",5,false);
-        Note F("F","F",6,true);
-        Note FX("FX","FX",7,true);
-        Note RES("RES","Reservé",8,true);
-        Note ABS("ABS","Absent",9,true);
-        Note EC("EC","En cours",1,false);
+        Note A("A","A",1,0);
+        Note B("B","B",2,0);
+        Note C("C","C",3,0);
+        Note D("D","D",4,0);
+        Note E("E","E",5,0);
+        Note F("F","F",6,1);
+        Note FX("FX","FX",7,1);
+        Note RES("RES","Reservé",8,1);
+        Note ABS("ABS","Absent",9,1);
+        Note EC("EC","En cours",0,2);
 
         qDebug()<<"A == F"<<(A==F);
 
@@ -113,6 +116,17 @@ int main(int argc, char *argv[]) {
         //pour afficher dans la console...
         newUV.display();
 
+        //Création d'une condition
+
+        Condition condition1("cc.isUvValidated(\"EE32\")");
+        Condition condition2("(cc.getValidatedCredits(\"TM\")==3)&&(cc.getValidatedCredits(\"CS\")>19)");
+        //qDebug() <<condition1.getCond();
+        //condition1.setCond("cc.isUvValidated(\"EE33\")>3");
+        //condition1.setCond("cc.test(3)");
+        //condition1.setCond("cc.StringToUV(\"EE32\")");
+        //condition1.setCond("(cc.getValidatedCredits(\"TM\")==3)&&(cc.getValidatedCredits(\"CS\")>19)");
+        qDebug() <<condition1.getCond();
+
         //Création d'une formation directement
         std::map<UV*,bool>m1;
         //m1.insert(std::pair<UV*,bool> (pUV,false));
@@ -136,6 +150,15 @@ int main(int argc, char *argv[]) {
         nF2.addUv(pUV,true);
         tFormation.New(nF);
         tFormation.New(nF2);
+
+        std::vector<Condition> conds;
+        conds.push_back(condition1);
+        conds.push_back(condition2);
+
+        Formation nF3("Nom Formation1","Description Formation1",m1,m2,conds);
+        nF3.setNom("Nom Formation3");
+        nF3.setDescription("Description Formation3");
+        tFormation.New(nF3);
         //Création d'une Inscription directement
 
         Inscription nI(uv2,Semestre(StringToSaison("Automne"),2012),StringToNote("A"));
@@ -145,6 +168,8 @@ int main(int argc, char *argv[]) {
         qDebug() << QString(nI.getUV().getCode().c_str());
         //qDebug()<<nI.validee();
 
+
+
         //création d'un dossier
         std::vector<Inscription> vInscr;
         vInscr.push_back(nI);
@@ -153,13 +178,28 @@ int main(int argc, char *argv[]) {
         std::vector<Formation*> vForme;
         vForme.push_back(&nF);
         vForme.push_back(&nF2);
+        vForme.push_back(&nF3);
 
         Dossier dos(vInscr,vForme);
+        std::vector<Inscription>::iterator itINSC= dos.findUVInscription(StringToUV("EE32"));
+        qDebug()<<"Inscri à cette uv :"<<itINSC->getCode();
+        //qDebug()<<"Validée EE332 ?"<<dos.isUvValidated(StringToUV("EE32"));
+        std::vector<Formation*> formationstest=dos.getFormation();
+        std::vector<Formation*>::iterator itFormation= formationstest.begin();
+        std::vector<Condition> resucsd=(*(itFormation))->getConditions();
+        qDebug()<<"Nombre de crédits dans la catégorie TM :"<<dos.conditionsChecked(resucsd);
+
+       // qDebug()<<"Test moteur de conditions : "<<condition1.getCond()<<"  : "<<dos.conditionChecked(condition1);
+
+        std::map<Categorie, unsigned int>  res222=dos.getInscriptionCurrentStatus();
+        for(std::map<Categorie, unsigned int>::iterator it=res222.begin();it!=res222.end();it++)
+        {
+            qDebug()<<"Categorie : "<<it->first.getCode()<<" Crédits : "<<it->second;
+        }
+
         std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >  res=dos.getDossierCurrentStatus();
         for(std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator it=res.begin();it!=res.end();it++)
         {
-
-
             qDebug()<<"Formation : "<< std::get<0>(it->first)->getNom()<<"Catégorie : "<< std::get<1>(it->first).getCode()<<", crédits à valider : "<< std::get<0>(it->second)<<" crédits supplémentaires : "<<std::get<1>(it->second);
         }
 
@@ -168,7 +208,7 @@ int main(int argc, char *argv[]) {
        Etudiant e1(dos,1320123,"nom","prenom",date);
        tEtudiant.New(e1);
        //Database db=Database("c:/sqlite/lo21");
-       Database db=Database("e:/sqlite/lo21");
+       Database db=Database("e:/sqlite/lo21.db");
        db.save();
        db.load();
        tUV.getElement("EE32").display();
@@ -237,7 +277,7 @@ int main(int argc, char *argv[]) {
     MainFenetre fen;
     fen.show();
     return app.exec();
-    return 0;
+    //return 0;
 }
 
 //première partie

@@ -4,6 +4,14 @@
 #include "Formation.h"
 #include "Inscription.h"
 #include <algorithm>
+#include "ConditionChecker.h"
+#include <QtScript/QScriptEngine>
+#include <QDebug>
+#include <QString>
+#include <QObject>
+#include <QScriptValue>
+#include "Condition.h"
+#include <string>
 
 class DossierException : public std::exception
 {
@@ -18,13 +26,18 @@ public:
     ~DossierException()throw() {}
 };
 
-class Dossier {//dossier d'un étudiant cf. etuProfiler
+class Dossier {
+private:
     std::vector<Formation*> forma;
     std::vector<Inscription> inscri;
+    std::vector<Inscription>::iterator findUVInscription(UV u,std::vector<Inscription>::iterator begin, std::vector<Inscription>::iterator end);
 
 public:
     Dossier(std::vector<Inscription> i,std::vector<Formation*> f):forma(f),inscri(i){}
     Dossier(){}
+
+    bool conditionsChecked(std::vector<Condition> c);
+
     bool containsFormation(Formation* f)
     {
         return (std::find(forma.begin(), forma.end(), f)!=forma.end());
@@ -40,12 +53,21 @@ public:
     {
         return (std::find(inscri.begin(), inscri.end(), i)!=inscri.end());
     }
+
+    std::vector<Inscription>::iterator findUVInscription(UV u);
+
+    bool isUvValidated(UV u);
     void addInscription(Inscription f);//ajoute une inscription au dossier
     void deleteInscription(Inscription f);//supprime une inscription du dossier
     const std::vector<Inscription> getInscription() const{return inscri;}
 
+    unsigned int getValidatedCredits(Categorie c);//retourne le nombre de crédits validés pour une catégorie donnée
 
     std::map<Categorie, unsigned int> getInscriptionCurrentStatus();//retourne le nombre de crédits validés par l'étudiant dans chaque catégorie.
     std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > getDossierCurrentStatus();//retourne le nombre de crédits restant à valider par l'étudiant dans chaque catégorie pour chaque formation. le premier entier est pour les crédits restant à valider le deuxième pour les crédits en trop
 };
+
+
+
+
 #endif // DOSSIER_H

@@ -109,6 +109,13 @@ void Database::SaverLoader::init()
     }
     try
     {
+       db.query("DROP Table ConditionsFormation;");
+    }
+    catch (const DatabaseException& e)
+    {
+    }
+    try
+    {
        db.query("DROP Table CreditsUV;");
     }
     catch (const DatabaseException& e)
@@ -124,6 +131,7 @@ void Database::SaverLoader::init()
     db.query("CREATE TABLE Formation (nom varchar(255), description varchar(255));");
     db.query("CREATE TABLE FormationUV (formation varchar(255), uv varchar(255), obligatoire int);");
     db.query("CREATE TABLE CreditsFormation (formation varchar(255), categorie varchar(255), nbCredits int);");
+    db.query("CREATE TABLE ConditionsFormation (formation varchar(255), condition varchar (255));");
     db.query("CREATE TABLE Inscription (login varchar(255), code varchar(255), saison varchar(20), annee int, resultat varchar(3));");
     db.query("CREATE TABLE FormationEtudiant (login varchar(255), formation varchar(255));");
 }
@@ -187,6 +195,13 @@ void Database::SaverLoader::save()
             q="INSERT INTO CreditsFormation (formation, categorie, nbCredits) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+itCat->first.getCodeStdString()+"', '"+std::to_string(itCat->second)+"');";
             db.query(q);
         }
+
+        std::vector<Condition> conditionFormation=itForm[i].getConditions();
+        for( std::vector<Condition>::iterator it3 = conditionFormation.begin(); it3!=conditionFormation.end(); it3++)
+        {
+            q="INSERT INTO ConditionsFormation (formation, condition) VALUES ('"+itForm[i].getNom().toStdString()+"', '"+it3->getCond().toStdString()+"');";
+            db.query(q);
+        }
     }
 
     //Sauvegarde des Catégories
@@ -209,7 +224,7 @@ void Database::SaverLoader::save()
     vector<Note>::iterator itNote = tNote.getIterator();
     for(; itNote != tNote.end(); itNote++)
     {
-        int boo=itNote->isEliminatory();
+        int boo=itNote->getEliminatoire();
         string q="INSERT INTO Note (note, description,rang, eliminatoire ) VALUES ('"+itNote->getNoteStdString()+"', '"+itNote->getDescriptionStdString()+"','"+std::to_string(itNote->getRang())+"','"+std::to_string(boo)+"');";
         db.query(q);
     }
@@ -235,7 +250,7 @@ void Database::SaverLoader::load()
     QSqlQuery res=db.query(q);
     while(res.next())
     {
-        Note note(res.value(0).toString(),res.value(1).toString(),res.value(2).toUInt(),res.value(3).toBool());
+        Note note(res.value(0).toString(),res.value(1).toString(),res.value(2).toUInt(),res.value(3).toUInt());
     }
 
     //load Saisons
@@ -291,7 +306,15 @@ void Database::SaverLoader::load()
         {
             Cat[StringToCategorie(res1.value(1).toString())]=res1.value(2).toInt();
         }
-        Formation f=Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat);
+
+        std::vector<Condition> conds;
+        q1="SELECT formation, condition FROM conditionsFormation where formation='"+res.value(0).toString().toStdString()+"';";
+        res1=db.query(q1);
+        while(res1.next())
+        {
+           conds.push_back(Condition(res1.value(2).toString()));
+        }
+        Formation f=Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat,conds);
         tFormation.New(f);
     }
 

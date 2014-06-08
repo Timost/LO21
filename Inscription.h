@@ -20,7 +20,7 @@ public:
 
     bool validee()//retourne vrai si une inscription a été validée
     {
-        return ((resultat>= StringToNote("A"))&&(resultat<=StringToNote("E")));
+        return (resultat.isValidatory());
     }
 
     void display()
