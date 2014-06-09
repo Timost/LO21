@@ -8,7 +8,6 @@ CONFIG   += console # On rajoute la console
 TEMPLATE = app # On veut une application, oui
 
 SOURCES += \
-    main.cpp \
     templatemanager.cpp \
     database.cpp \
     EntityStd.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     Note.cpp \
     Saison.cpp \
     Condition.cpp \
-    ConditionChecker.cpp
+    ConditionChecker.cpp \
+    main2.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -56,7 +56,8 @@ HEADERS += \
     Note.h \
     Saison.h \
     Condition.h \
-    ConditionChecker.h
+    ConditionChecker.h \
+    main.cpp.vieux
 
 FORMS += \
     mainfenetre.ui \

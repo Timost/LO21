@@ -57,8 +57,8 @@ void MainFenetre::updateUV()
         //config modif
         QSignalMapper* sig2 = new QSignalMapper(this);
         QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
-        sig->setMapping(modif, i);
-        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(modifierUV(int)));
+        sig2->setMapping(modif, i);
+        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierUV(int)));
     }
 }
 
@@ -91,8 +91,8 @@ void MainFenetre::updateEtudiant()
         //config modif
         QSignalMapper* sig2 = new QSignalMapper(this);
         QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
-        sig->setMapping(modif, i);
-        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(modifierEtudiant(int)));
+        sig2->setMapping(modif, i);
+        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierEtudiant(int)));
     }
 }
 
@@ -179,6 +179,8 @@ void MainFenetre::modifierEtudiant(int i)
     TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
     Etudiant& etu=tEtu.getIterator()[i];
     ModifierEtudiant* fenModif=new ModifierEtudiant(etu);
+    fenModif->exec();
+    delete fenModif;
     updateEtudiant();
 }
 
@@ -191,7 +193,9 @@ void MainFenetre::modifierFormation(int i)
 
 void MainFenetre::ajouterEtudiant()
 {
-
+    ModifierEtudiant* fenModif=new ModifierEtudiant();
+    fenModif->exec();
+    delete fenModif;
 }
 
 MainFenetre::~MainFenetre()
