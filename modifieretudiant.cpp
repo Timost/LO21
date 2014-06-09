@@ -14,7 +14,6 @@ ModifierEtudiant::ModifierEtudiant(Etudiant& etu, QWidget *parent) :
     ui->dateNaissance->setDate(etu.getDateNaissance());
     QObject::connect(ui->OK, SIGNAL(clicked()), this, SLOT(ok()) );
     QObject::connect(ui->Annuler, SIGNAL(clicked()), this, SLOT(cancel()) );
-    qDebug()<<"test";
 }
 
 ModifierEtudiant::ModifierEtudiant(QWidget *parent) :
@@ -24,6 +23,8 @@ ModifierEtudiant::ModifierEtudiant(QWidget *parent) :
     etudiant=NULL;
     b=0;
     ui->setupUi(this);
+    QObject::connect(ui->OK, SIGNAL(clicked()), this, SLOT(ok()) );
+    QObject::connect(ui->Annuler, SIGNAL(clicked()), this, SLOT(cancel()) );
 }
 
 ModifierEtudiant::~ModifierEtudiant()
@@ -37,8 +38,6 @@ void ModifierEtudiant::ok()
     {
         Dossier dos=Dossier();
         etudiant = new Etudiant(dos, ui->INE->text().toUInt(), ui->Nom->text(), ui->Prenom->text(), ui->dateNaissance->date());
-        TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
-        tEtu.New(*etudiant);
         delete etudiant;
     }
     else

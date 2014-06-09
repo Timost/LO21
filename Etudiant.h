@@ -141,7 +141,7 @@ private :
     }
     void setPrenom(QString p)
     {
-        nom = p;
+        prenom = p;
     }
     void setDateNaissance(QDate da)
     {
