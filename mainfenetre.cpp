@@ -11,11 +11,23 @@ MainFenetre::MainFenetre(QWidget *parent) :
     QObject::connect(ui->actionSauvegarder, SIGNAL(triggered()), this, SLOT(save()) );
     //Charger
     QObject::connect(ui->actionCharger, SIGNAL(triggered()), this, SLOT(load()) );
+    //ajout
+    QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
+    //Rafraichir
+    QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
     //Affichage UV
     updateUV();
     //Affichage Etudiant
     updateEtudiant();
     //Affichage Formation
+    updateFormation();
+}
+
+//rafraichit tout
+void MainFenetre::refresh()
+{
+    updateUV();
+    updateEtudiant();
     updateFormation();
 }
 
@@ -42,6 +54,11 @@ void MainFenetre::updateUV()
         QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
         sig->setMapping(suppr, i);
         QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteUV(int)));
+        //config modif
+        QSignalMapper* sig2 = new QSignalMapper(this);
+        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
+        sig->setMapping(modif, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(modifierUV(int)));
     }
 }
 
@@ -71,8 +88,15 @@ void MainFenetre::updateEtudiant()
         QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
         sig->setMapping(suppr, i);
         QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteEtudiant(int)));
+        //config modif
+        QSignalMapper* sig2 = new QSignalMapper(this);
+        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
+        sig->setMapping(modif, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(modifierEtudiant(int)));
     }
 }
+
+
 
 //Met à jour le tableau formation
 void MainFenetre::updateFormation()
@@ -97,6 +121,11 @@ void MainFenetre::updateFormation()
         QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
         sig->setMapping(suppr, i);
         QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteFormation(int)));
+        //config modif
+        QSignalMapper* sig2 = new QSignalMapper(this);
+        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
+        sig->setMapping(modif, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(modifierFormation(int)));
     }
 }
 
@@ -136,6 +165,33 @@ void MainFenetre::deleteFormation(int i)
 {
     TemplateManager<Formation>::getInstance().erase(i);
     updateFormation();
+}
+
+void MainFenetre::modifierUV(int i)
+{
+    //fenModif=new Modifieruv_fen(uv);
+    //fenModif.show();
+    //updateUV();
+}
+
+void MainFenetre::modifierEtudiant(int i)
+{
+    TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
+    Etudiant& etu=tEtu.getIterator()[i];
+    ModifierEtudiant* fenModif=new ModifierEtudiant(etu);
+    updateEtudiant();
+}
+
+void MainFenetre::modifierFormation(int i)
+{
+    //fenModif=new modifierformation(form);
+    //fenModif.show();
+    //updateFormation();
+}
+
+void MainFenetre::ajouterEtudiant()
+{
+
 }
 
 MainFenetre::~MainFenetre()

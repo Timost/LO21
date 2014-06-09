@@ -153,6 +153,7 @@
     </property>
     <addaction name="actionCharger"/>
     <addaction name="actionSauvegarder"/>
+    <addaction name="actionRafraichir"/>
    </widget>
    <widget class="QMenu" name="menuEdition">
     <property name="title">
@@ -200,24 +201,6 @@
     <string>Formation</string>
    </property>
   </action>
-  <action name="actionAfficher_uv">
-   <property name="text">
-    <string>Etudiant</string>
-   </property>
-  </action>
-  <action name="actionAfficher_Etudiant">
-   <property name="text">
-    <string>UV</string>
-   </property>
-  </action>
-  <action name="actionAfficher_Formation">
-   <property name="text">
-    <string>Formation</string>
-   </property>
-   <property name="toolTip">
-    <string>Formation</string>
-   </property>
-  </action>
   <action name="actionRechercher_Etudiant">
    <property name="text">
     <string>Etudiant</string>
@@ -240,6 +223,11 @@
    </property>
    <property name="toolTip">
     <string>Formation</string>
+   </property>
+  </action>
+  <action name="actionRafraichir">
+   <property name="text">
+    <string>Rafraichir</string>
    </property>
   </action>
  </widget>

@@ -26,7 +26,7 @@
     <string>INE</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="INE">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -62,7 +62,7 @@
     <string>Date de naissance</string>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit">
+  <widget class="QDateEdit" name="dateNaissance">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -72,7 +72,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="Nom">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -137,7 +137,7 @@
     <string>Prénom</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="Prenom">
    <property name="geometry">
     <rect>
      <x>180</x>
