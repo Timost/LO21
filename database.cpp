@@ -53,6 +53,13 @@ void Database::SaverLoader::init()
     }
     try
     {
+        db.query("DROP Table SousCategorie;");
+    }
+    catch (const DatabaseException& e)
+    {
+    }
+    try
+    {
         db.query("DROP Table UV;");
     }
     catch (const DatabaseException& e)
@@ -125,6 +132,7 @@ void Database::SaverLoader::init()
     db.query("CREATE TABLE Saison (nom varchar(255), description varchar(255));");
     db.query("CREATE TABLE Note (note varchar(255), description varchar(255),rang int,eliminatoire int);");
     db.query("CREATE TABLE Categorie (code varchar(255), description varchar(255));");
+    db.query("CREATE TABLE SousCategorie (codeParent varchar(255), codeFille varchar(255));");
     db.query("CREATE TABLE UV (code varchar(255), titre varchar(255), automne int, printemps int);");
     db.query("CREATE TABLE CreditsUV (code varchar(255), categorie varchar(255), nbCredits int);");
     db.query("CREATE TABLE Etudiant (ine int , login varchar(255), nom varchar(255), prenom varchar(255), dateNaissance date);");
@@ -210,7 +218,17 @@ void Database::SaverLoader::save()
     {
         string q="INSERT INTO Categorie (code, description) VALUES ('"+itCat->getCodeStdString()+"', '"+itCat->getDescriptionStdString()+"');";
         db.query(q);
+
+        vector<Categorie> temp=itCat->getSousCategorie();
+
+        for(vector<Categorie>::iterator itCat2 = temp.begin(); itCat2 != temp.end(); itCat2++)
+        {
+            string q="INSERT INTO SousCategorie (codeParent, codeFille) VALUES ('"+itCat->getCode().toStdString()+"', '"+itCat2->getCode().toStdString()+"');";
+            db.query(q);
+        }
     }
+
+
 
     //Sauvegarde des Saisons
     vector<Saison>::iterator itSaison = tSaison.getIterator();
@@ -263,6 +281,7 @@ void Database::SaverLoader::load()
 
 
     //load Catégories
+
     q="SELECT code, description FROM Categorie;";
     res=db.query(q);
     while(res.next())
@@ -270,6 +289,16 @@ void Database::SaverLoader::load()
         Categorie cat(res.value(0).toString(),res.value(1).toString());
     }
 
+    //Mise en place des sous Catégories
+    for(std::vector<Categorie>::iterator it_cat=tCategorie.getIterator();it_cat!=tCategorie.end();it_cat++)
+    {
+        q="SELECT codeParent, codeFille FROM SousCategorie where codeParent='"+it_cat->getCode().toStdString()+"';";
+        res=db.query(q);
+        while(res.next())
+        {
+            tCategorie.getElement(res.value(0).toString()).addSousCategorie(tCategorie.getElement(res.value(1).toString()));
+        }
+    }
 
     //load UVS
     q="SELECT code, titre, automne, printemps FROM UV;";

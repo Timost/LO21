@@ -27,7 +27,7 @@
 #include "Saison.h"
 #include "Condition.h"
 #include "ConditionChecker.h"
-#include "Conversion.h"
+
 //int todo(int argc, char *argv[])
 //{
 //    try
@@ -87,17 +87,55 @@ int main(int argc, char *argv[]) {
 
         qDebug()<<"A == F"<<(A==F);
 
-
+        //Création de catégories
         Categorie CS("CS","Connaissance Scientifiques");
         Categorie TM("TM","Techniques et méthodes");
-        Categorie TSH("TSH","Technologies et Sciences Humaines");
+
         Categorie SP("SP","Spéciales");
 
-        tCat.getElement("SP").setCode("SPC");
-        tCat.getElement("SPC").setDescription("essai");
-        qDebug()<<"Code : "<< tCat.getElement("SPC").getCode()<<" Description : ";//<<tCat.getElement("SPC").getDescription();
+        Categorie CommPratique("Communiquer Pratiques","Sous Catégorie des UVs Communiquer");
+        Categorie CommConnaissance("Communiquer Connaissances","Sous Catégorie des UVs Communiquer");
 
-        Categorie test = StringToCategorie("TM");
+        Categorie Communiquer("Communiquer","Sous Catégorie des UVS TSH");
+        tCat.getElement("Communiquer").addSousCategorie(tCat.getElement("Communiquer Pratiques"));
+        tCat.getElement("Communiquer").addSousCategorie(tCat.getElement("Communiquer Connaissances"));
+        qDebug()<<"Test : ";
+        Categorie TSH("TSH","Technologies et Sciences Humaines");
+        tCat.getElement("TSH").addSousCategorie(tCat.getElement("Communiquer"));
+        qDebug()<<"Test : ";
+
+        //tCat.getElement("SP").setCode("SPC");
+        //tCat.getElement("SPC").setDescription("essai");
+        //qDebug()<<"Code : "<< tCat.getElement("SPC").getCode()<<" Description : ";//<<tCat.getElement("SPC").getDescription();
+
+       //qDebug()<<"TEst sous catégories : "<< tCat.getElement("SP").hasSousCategorie();
+
+        //Categorie test = StringToCategorie("TM");
+
+        for(std::vector<Categorie>::iterator it= tCat.getIterator();it !=tCat.end();it++)
+        {
+            qDebug()<<"Categorie : "<<it->getCode();
+        }
+
+        //test getFUllSouscat
+
+        std::vector<Categorie> testsouscat=getFullSousCat("SP");
+
+        qDebug()<<"TAILLE : "<<testsouscat.size();
+
+        for(std::vector<Categorie>::iterator it= testsouscat.begin();it !=testsouscat.end();it++)
+        {
+            qDebug()<<"ESSAI : "<<it->getCode();
+        }
+
+        //test
+
+        std::map<Categorie,std::vector<Categorie> > testwithsouscat= getCatsWithSousCat();
+        for(std::map<Categorie,std::vector<Categorie> >::iterator it= testwithsouscat.begin();it !=testwithsouscat.end();it++)
+        {
+            qDebug()<<"Categorie : "<<it->first.getCode()<<", Nombre de sous categories"<<it->second.size();
+        }
+
 
         //création d'une UV directement
         map<Categorie,unsigned int> m;
@@ -113,7 +151,7 @@ int main(int argc, char *argv[]) {
         s2="titre 2";
         UV uv2(s1,s2,m,true,true);
         //uv2.setCode("EE32");
-        UV* pUV2=&uv2;
+        //UV* pUV2=&uv2;
 
         m.clear();
         m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),12));

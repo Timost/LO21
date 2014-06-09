@@ -4,11 +4,6 @@
 #include <QTextStream>
 #include "EntityStd.h"
 #include <string>
-//enum class Categorie {
-//    /* Connaissances Scientifiques */ CS,  /* Techniques et Méthodes */ TM,
-//    /* Technologies et Sciences de l'Homme */ TSH,/* Stage et Projet */ SP,
-//    first=CS, last=SP
-//};
 
 class CategorieException : public std::exception
 {
@@ -28,6 +23,7 @@ class Categorie : public EntityStd
 private :
     QString code;
     QString description;
+    std::vector<Categorie> sousCategorie;
     Categorie(){}
 public :
     std::string getStrLabel() const
@@ -35,6 +31,9 @@ public :
         return code.toStdString();
     }
 
+    Categorie(std::string c,std::string d,std::vector<Categorie>sc);
+    Categorie(QString c,QString d,std::vector<Categorie>sc);
+    Categorie(const char* c,const char* d,std::vector<Categorie>sc);
     Categorie(std::string c,std::string d);
     Categorie(QString c,QString d);
     Categorie(const char* c, const char*d);
@@ -52,10 +51,19 @@ public :
     void setDescription(QString d){description = d;}
     void setDescription(std::string d){setDescription(QString::fromStdString(d));}
     void setDescription(const char* d){setDescription(std::string(d));}
+
+    void setSousCategorie(std::vector<Categorie> sc){sousCategorie=sc;}
+    void addSousCategorie(Categorie c);
+    bool hasSousCategorie(Categorie c);
+    bool hasSousCategorie(){return(sousCategorie.size()>0);}
+    std::vector<Categorie> getSousCategorie()const {return sousCategorie;}
 };
 
-bool operator<(const Categorie c1, const Categorie c2);
+std::vector<Categorie> getFullSousCat(QString c);
+std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat();
 
+bool operator<(const Categorie c1, const Categorie c2);
+bool operator==(const Categorie c1, const Categorie c2);
 Categorie StringToCategorie(const QString& s);
 
 #endif // CATEGORIE_H

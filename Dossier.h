@@ -31,7 +31,7 @@ private:
     std::vector<Formation*> forma;
     std::vector<Inscription> inscri;
     std::vector<Inscription>::iterator findUVInscription(UV u,std::vector<Inscription>::iterator begin, std::vector<Inscription>::iterator end);
-
+    unsigned int getCreditsCategorieOneLevel(QString s);
 public:
     Dossier(std::vector<Inscription> i,std::vector<Formation*> f):forma(f),inscri(i){}
     Dossier(){}
@@ -61,7 +61,7 @@ public:
     void deleteInscription(Inscription f);//supprime une inscription du dossier
     const std::vector<Inscription> getInscription() const{return inscri;}
 
-    unsigned int getValidatedCredits(Categorie c);//retourne le nombre de crédits validés pour une catégorie donnée
+    unsigned int getValidatedCredits(QString c);//retourne le nombre de crédits validés pour une catégorie donnée
 
     std::map<Categorie, unsigned int> getInscriptionCurrentStatus();//retourne le nombre de crédits validés par l'étudiant dans chaque catégorie.
     std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > getDossierCurrentStatus();//retourne le nombre de crédits restant à valider par l'étudiant dans chaque catégorie pour chaque formation. le premier entier est pour les crédits restant à valider le deuxième pour les crédits en trop

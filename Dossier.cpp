@@ -99,11 +99,52 @@ std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >
     return res;
 }
 
-unsigned int Dossier::getValidatedCredits(Categorie c)
+unsigned int Dossier::getCreditsCategorieOneLevel(QString s)
 {
-    std::map<Categorie,unsigned int> temp=getInscriptionCurrentStatus();
+    unsigned int res=0;
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+    Categorie& ct=tCat.getElement(s);
 
-    return temp[c];
+    for(std::vector<Inscription>::iterator it=inscri.begin();it!=inscri.end();it++)
+    {
+        std::map<Categorie, unsigned int> uvCreditCat = it->getUV().getCredits() ;
+        std::map<Categorie, unsigned int>::iterator it2;
+        for(it2=uvCreditCat.begin(); it2!=uvCreditCat.end();it2++ )
+        {
+            if(it2->first.getCode()==ct.getCode())
+            {
+                res = it2->second;
+            }
+        }
+        if(it2==uvCreditCat.end())
+        {
+            throw DossierException("Erreur getValidatedCredits, cette aucune inscription ne contient la catégorie : "+ct.getCode().toStdString());
+        }
+    }
+    return res;
+}
+unsigned int Dossier::getValidatedCredits(QString c)//retourne le nombre de crédits validé pour un catégorie et toutes ces sous catégories
+{
+    unsigned int res=0;
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+    Categorie& ct=tCat.getElement(c);
+
+    if(!ct.hasSousCategorie())
+    {
+        return getCreditsCategorieOneLevel(ct.getCode());
+    }
+    else
+    {
+        std::vector<Categorie> souscat=getFullSousCat(ct.getCode());
+
+        for(std::vector<Categorie>::iterator it=souscat.begin();it!=souscat.end();it++)
+        {
+            res+=getCreditsCategorieOneLevel(it->getCode());
+        }
+
+        res+=getCreditsCategorieOneLevel(ct.getCode());
+        return res;
+    }
 }
 
 std::vector<Inscription>::iterator Dossier::findUVInscription(UV u,std::vector<Inscription>::iterator begin, std::vector<Inscription>::iterator end)

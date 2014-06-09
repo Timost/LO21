@@ -29,5 +29,5 @@ bool ConditionChecker::isUvValidated(QString u)
 
  unsigned int ConditionChecker::getValidatedCredits(QString c)
  {
-     return dossier.getValidatedCredits(StringToCategorie(c));
+     return dossier.getValidatedCredits(c);
  }
