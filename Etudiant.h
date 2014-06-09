@@ -55,6 +55,7 @@ private :
                 login+=QString::number(t);
                 t++;
             }
+            TemplateManager<Etudiant>::getInstance().New(*this);
         }
         catch(TemplateManagerException<Etudiant>& e)
         {
@@ -80,9 +81,14 @@ private :
         try
         {
             if(test!=log.left(8) || TemplateManager<Etudiant>::getInstance().alreadyExist(log.toStdString()))
+            {
                 throw EtudiantException("Login non valide.");
+            }
             else
+            {
                 login=log;
+                TemplateManager<Etudiant>::getInstance().New(*this);
+            }
         }
         catch(TemplateManagerException<Etudiant>& e)
         {

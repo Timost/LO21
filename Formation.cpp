@@ -1,4 +1,26 @@
 #include "Formation.h"
+Formation::Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred)
+{
+   TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+   if(!tFormation.alreadyExist(n))
+    {
+        nom=n;
+        description=d;
+        uvs=uv;
+        nbCredits=nbCred;
+
+        tFormation.New(*this);
+    }
+    else
+    {
+        throw FormationException("Erreur : la formation "+n.toStdString()+" existe deja !");
+    }
+}
+Formation::Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred,std::vector<Condition> cv)
+{
+    Formation(n,d,uv,nbCred).setConditions(cv);
+}
+
 
 int Formation::getNbCreditsTotal()const
 {
@@ -36,5 +58,19 @@ void Formation::addUv(UV* uv, bool required)
       }
 }
 
+void Formation::setNom(QString n)
+{
+    TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+    if(!tFormation.alreadyExist(n))
+     {
+         tFormation.erase(*this);
+         nom=n;
+         tFormation.New(*this);
+     }
+     else
+     {
+         throw FormationException("Erreur : la formation "+n.toStdString()+" existe deja !");
+     }
+}
 
-
+bool operator==(Formation f1, Formation f2 ){return (f1.getStrLabel()==f2.getStrLabel());}

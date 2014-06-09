@@ -22,6 +22,8 @@ public:
     ~TemplateManagerException<T>()throw() {}
 };
 
+
+
 template <class T>
 class TemplateManager
 {
@@ -164,6 +166,20 @@ public:
     {
         elements.erase(elements.begin()+i);
     }
+
+    void erase(T e)
+    {
+        typename std::vector<T>::iterator it = find(getIterator(),end(),e);
+        if(it==end())
+        {
+            throw TemplateManagerException<T>("Erreur erase(T e) : l'élément "+e.getStrLabel()+" n'est pas dans le manager");
+        }
+        else
+        {
+            elements.erase(it);
+        }
+    }
+
 };
 
 #endif // TEMPLATEMANAGER_H

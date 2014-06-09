@@ -33,13 +33,17 @@ class UV : public EntityStd
     bool printemps;
 
 public:
-    UV(std::string c, std::string t, std::map<Categorie, unsigned int> cre, bool a, bool p):code(c), titre(t), credits(cre), automne(a), printemps(p){}
+    UV(std::string c, std::string t, std::map<Categorie, unsigned int> cre, bool a, bool p);
+    UV(QString c, QString t, std::map<Categorie, unsigned int> cre, bool a, bool p);
+    UV(const char* c,const char*t, std::map<Categorie, unsigned int> cre, bool a, bool p);
     ~UV(){credits.clear();}
 
     std::string getCode() const
     {
         return code;
     }
+
+
 
     std::string getStrLabel() const
     {
@@ -68,7 +72,7 @@ public:
         return printemps;
     }
 
-    //je n'ai pas mis setCode car on va faire de code une clé qui ne change pas pour facilité l'exécution du prog
+    void setCode(std::string c);
     void setTitre(std::string t)
     {
         titre=t;

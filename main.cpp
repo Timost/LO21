@@ -62,7 +62,7 @@ template<> TemplateManager<Note>* TemplateManager<Note>::handler=0;
 template<> TemplateManager<Saison>* TemplateManager<Saison>::handler=0;
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    /*try
+    try
     {
         TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
@@ -105,16 +105,29 @@ int main(int argc, char *argv[]) {
         std::string s1="EE32";
         std::string s2="titre";
         UV newUV(s1,s2,m,true,true);
-        UV* pUV= &newUV;
+        UV* pUV=&newUV;
 
-        UV uv2=newUV;//copie
-        uv2.addCategorie(tCat.getElement("TM"),5);
-        uv2.setCredits(tCat.getElement("TM"),2);
-        uv2.setTitre("titre2");
-        UV* pUV2= &uv2;
-        tUV.New(*pUV2);
+        m.clear();
+        m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),5));
+        s1="EE33";
+        s2="titre 2";
+        UV uv2(s1,s2,m,true,true);
+        //uv2.setCode("EE32");
+        UV* pUV2=&uv2;
+
+        m.clear();
+        m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),12));
+        UV uv3("EE34","TEST",m,true,true);
+
+
         //pour afficher dans la console...
         newUV.display();
+
+
+        for(std::vector<UV>::iterator it= tUV.getIterator();it !=tUV.end();it++)
+        {
+            qDebug()<<"UV : "<<it->getCode().c_str();
+        }
 
         //Création d'une condition
 
@@ -135,31 +148,29 @@ int main(int argc, char *argv[]) {
 
         Formation nF("Nom Formation1","Description Formation1",m1,m2);
 
-        Formation nF2=nF;
+        Formation nF2("Nom Formation2","Description Formation2",m1,m2);
 
-        nF.display();
-        nF.addUv(pUV,false);
-        nF.display();
-        nF.addCategorie(tCat.getElement("TM"),52);
-        nF.display();
-        nF.addUv(pUV2,true);
-        nF.display();
-
-        nF2.setNom("Nom Formation2");
+        qDebug()<<"test";
         nF2.setDescription("Description Formation2");
         nF2.addUv(pUV,true);
-        tFormation.New(nF);
-        tFormation.New(nF2);
 
         std::vector<Condition> conds;
         conds.push_back(condition1);
         conds.push_back(condition2);
 
-        Formation nF3("Nom Formation1","Description Formation1",m1,m2,conds);
-        nF3.setNom("Nom Formation3");
+        Formation nF3("Nom Formation3","Description Formation3",m1,m2,conds);
         nF3.setDescription("Description Formation3");
-        tFormation.New(nF3);
+
+        for(std::vector<Formation>::iterator it= tFormation.getIterator();it !=tFormation.end();it++)
+        {
+            qDebug()<<"Formation : "<<it->getNom();
+        }
+
+
         //Création d'une Inscription directement
+
+
+
 
         Inscription nI(uv2,Semestre(StringToSaison("Automne"),2012),StringToNote("A"));
         Inscription nI2(newUV,Semestre(StringToSaison("Automne"),2011),StringToNote("B"));
@@ -206,7 +217,7 @@ int main(int argc, char *argv[]) {
        //création d'un étudiant
        QDate date(2014,5,3);
        Etudiant e1(dos,1320123,"nom","prenom",date);
-       tEtudiant.New(e1);
+       Etudiant e2(dos,1320123,"nom","prenom",date);
        //Database db=Database("c:/sqlite/lo21");
        Database db=Database("e:/sqlite/lo21.db");
        db.save();
@@ -224,7 +235,7 @@ int main(int argc, char *argv[]) {
     catch(std::exception& e)
     {
         qDebug()<<e.what()<<"\n";
-    }*/
+    }
     /*TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
     TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
@@ -274,8 +285,8 @@ int main(int argc, char *argv[]) {
     Etudiant e1(dos,1320123,"nom","prenom",date);
     tEtudiant.New(e1);*/
 
-    MainFenetre fen;
-    fen.show();
+    /*MainFenetre fen;
+    fen.show();*/
     return app.exec();
     //return 0;
 }

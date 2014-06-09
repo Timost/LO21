@@ -35,8 +35,8 @@ class Formation:public EntityStd
 
 public:
         //Formation(std::string n,std::string d,std::vector<UV*> uvs,std::vector<UV*> uvsO,std::map<Categorie, int> nbCred):nom(n),description(d),uvs(uvs),uvsObligatoires(uvsO),nbCredits(nbCred){}
-        Formation(QString n,QString d,std::map<UV*,bool> uvs,std::map<Categorie,unsigned int> nbCred):nom(n),description(d),uvs(uvs),nbCredits(nbCred){}
-        Formation(QString n,QString d,std::map<UV*,bool> uvs,std::map<Categorie,unsigned int> nbCred,std::vector<Condition> cv):nom(n),description(d),uvs(uvs),nbCredits(nbCred),critereValidation(cv){}
+        Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred);
+        Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred,std::vector<Condition> cv);
 
         ~Formation()
         {
@@ -62,14 +62,20 @@ public:
             return uvs;
         }
 
-        void setNom(QString name)
-        {
-            nom=name;
-        }
+        void setNom(QString n);
 
         void setDescription(QString desc)
         {
             description=desc;
+        }
+
+        void setConditions(std::vector<Condition> c)
+        {
+            critereValidation=c;
+        }
+        void addCondition(Condition c)
+        {
+            critereValidation.push_back(c);
         }
 
         unsigned int getNbCreditsCat(const Categorie cat)
@@ -100,6 +106,7 @@ public:
         }
 };
 
+bool operator==(Formation f1, Formation f2 );
 
 
 #endif // FORMATION_H
