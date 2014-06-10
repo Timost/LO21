@@ -11,7 +11,7 @@
 #include "modifieretudiant.h"
 #include "modifierform.h"
 #include "modifieruv_fen.h"
-#include "editerdossier.h"
+
 namespace Ui {
 class MainFenetre;
 }
@@ -35,8 +35,11 @@ private slots:
     void modifierEtudiant(int i);
     void modifierFormation(int i);
     void ajouterEtudiant();
+<<<<<<< HEAD
     void test();
     void ajouterUV();
+=======
+>>>>>>> parent of 7410db6... editer dossier
 public:
     explicit MainFenetre(QWidget *parent = 0);
     ~MainFenetre();

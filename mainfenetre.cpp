@@ -15,12 +15,15 @@ MainFenetre::MainFenetre(QWidget *parent) :
     QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
     //Rafraichir
     QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
+<<<<<<< HEAD
 
     //Test des fenêtres de Timothée
     QObject::connect(ui->actionTest, SIGNAL(triggered()), this, SLOT(test()) );
 
     QObject::connect(ui->actionAjouter_UV, SIGNAL(triggered()), this, SLOT(ajouterUV()) );
 
+=======
+>>>>>>> parent of 7410db6... editer dossier
     //Affichage UV
     updateUV();
     //Affichage Etudiant
@@ -215,14 +218,6 @@ void MainFenetre::ajouterUV()
     delete fenModif;
     updateUV();
 }
-
-void MainFenetre::test()
-{
-    editerDossier* fenModif=new editerDossier();
-    fenModif->exec();
-    delete fenModif;
-}
-
 
 MainFenetre::~MainFenetre()
 {

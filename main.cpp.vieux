@@ -189,8 +189,8 @@ int main(int argc, char *argv[]) {
         Formation nF2("Nom Formation2","Description Formation2",m1,m2);
 
         qDebug()<<"test";
-        //nF2.setDescription("Description Formation2");
-        //nF2.addUv(pUV,true);
+        nF2.setDescription("Description Formation2");
+        nF2.addUv(pUV,true);
 
         std::vector<Condition> conds;
         conds.push_back(condition1);
