@@ -218,7 +218,9 @@ void MainFenetre::ajouterUV()
 
 void MainFenetre::test()
 {
-    editerDossier* fenModif=new editerDossier();
+    TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
+    Etudiant& etu=tEtu.getIterator()[0];
+    creerDossier* fenModif=new creerDossier(etu);
     fenModif->exec();
     delete fenModif;
 }

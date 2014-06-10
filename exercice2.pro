@@ -31,7 +31,8 @@ SOURCES += \
     Condition.cpp \
     ConditionChecker.cpp \
     main2.cpp \
-    editerdossier.cpp
+    editerdossier.cpp \
+    creerdossier.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -59,7 +60,8 @@ HEADERS += \
     Condition.h \
     ConditionChecker.h \
     main.cpp.vieux \
-    editerdossier.h
+    editerdossier.h \
+    creerdossier.h
 
 FORMS += \
     mainfenetre.ui \
@@ -71,4 +73,5 @@ FORMS += \
     modifieruv_fen.ui \
     modifierform.ui \
     modifierform.ui \
-    editerdossier.ui
+    editerdossier.ui \
+    creerdossier.ui

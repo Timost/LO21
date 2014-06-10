@@ -343,7 +343,7 @@ void Database::SaverLoader::load()
         {
            conds.push_back(Condition(res1.value(2).toString()));
         }
-        Formation f=Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat,conds);
+        Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat,conds);
     }
 
     //load Etudiants

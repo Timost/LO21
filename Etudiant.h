@@ -97,6 +97,10 @@ private :
         }
     }
 
+    Etudiant(unsigned int i, QString n, QString p, QDate d)
+    {
+        Etudiant(Dossier(std::vector<Inscription>(),std::vector<Formation*>()),i,n,p,d);
+    }
     const Dossier getDossier() const
     {
         return dos;

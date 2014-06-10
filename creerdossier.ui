@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>editerDossier</class>
- <widget class="QDialog" name="editerDossier">
+ <class>creerDossier</class>
+ <widget class="QDialog" name="creerDossier">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>561</width>
-    <height>382</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>330</y>
+     <x>-50</x>
+     <y>240</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,37 +29,11 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>20</y>
-     <width>91</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Editer le dossier</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>80</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Les formations</string>
-   </property>
-  </widget>
   <widget class="QTableWidget" name="FormationTable">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>100</y>
+     <x>100</x>
+     <y>40</y>
      <width>211</width>
      <height>192</height>
     </rect>
@@ -75,37 +49,30 @@
     </property>
    </column>
   </widget>
-  <widget class="QTableWidget" name="tableWidget">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>315</x>
-     <y>100</y>
-     <width>211</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>Nom</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Supprimer</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>80</y>
-     <width>131</width>
-     <height>20</height>
+     <x>50</x>
+     <y>10</y>
+     <width>351</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Les formations du dossier</string>
+    <string>Selectionnez les formations auquel vous souhaitez vous inscrire :</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Valider">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>120</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Valider</string>
    </property>
   </widget>
  </widget>
@@ -114,7 +81,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>editerDossier</receiver>
+   <receiver>creerDossier</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -130,7 +97,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>editerDossier</receiver>
+   <receiver>creerDossier</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
