@@ -162,6 +162,7 @@
     <addaction name="actionAjouter_Etudiant"/>
     <addaction name="actionAjouter_UV"/>
     <addaction name="actionAjouter_Formation"/>
+    <addaction name="actionTest"/>
    </widget>
    <widget class="QMenu" name="menuRechercher_2">
     <property name="title">
@@ -228,6 +229,11 @@
   <action name="actionRafraichir">
    <property name="text">
     <string>Rafraichir</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="text">
+    <string>Test</string>
    </property>
   </action>
  </widget>

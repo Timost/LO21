@@ -313,7 +313,7 @@ void Database::SaverLoader::load()
            uvcre[StringToCategorie(res1.value(1).toString())]=res1.value(2).toInt();
        }
        UV uv=UV(res.value(0).toString().toStdString(), res.value(1).toString().toStdString(), uvcre, res.value(2).toBool(), res.value(3).toBool());
-       tUV.New(uv);
+
     }
     //load Formation
     q="SELECT nom, description FROM Formation;";
@@ -344,7 +344,6 @@ void Database::SaverLoader::load()
            conds.push_back(Condition(res1.value(2).toString()));
         }
         Formation f=Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat,conds);
-        tFormation.New(f);
     }
 
     //load Etudiants
@@ -373,7 +372,6 @@ void Database::SaverLoader::load()
         }
         Dossier dos=Dossier(insc, form);
         Etudiant etu=Etudiant(dos, res.value(0).toInt(), res.value(2).toString(), res.value(3).toString(), res.value(4).toDate(), res.value(1).toString());
-        tEtudiant.New(etu);
         qDebug()<<"fin load";
     }
 }

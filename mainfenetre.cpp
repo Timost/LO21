@@ -15,6 +15,8 @@ MainFenetre::MainFenetre(QWidget *parent) :
     QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
     //Rafraichir
     QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
+    //Test des fenêtres de Timothée
+    QObject::connect(ui->actionTest, SIGNAL(triggered()), this, SLOT(test()) );
     //Affichage UV
     updateUV();
     //Affichage Etudiant
@@ -197,6 +199,14 @@ void MainFenetre::ajouterEtudiant()
     fenModif->exec();
     delete fenModif;
 }
+
+void MainFenetre::test()
+{
+    editerDossier* fenModif=new editerDossier();
+    fenModif->exec();
+    delete fenModif;
+}
+
 
 MainFenetre::~MainFenetre()
 {

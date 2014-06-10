@@ -30,7 +30,8 @@ SOURCES += \
     Saison.cpp \
     Condition.cpp \
     ConditionChecker.cpp \
-    main2.cpp
+    main2.cpp \
+    editerdossier.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -57,7 +58,8 @@ HEADERS += \
     Saison.h \
     Condition.h \
     ConditionChecker.h \
-    main.cpp.vieux
+    main.cpp.vieux \
+    editerdossier.h
 
 FORMS += \
     mainfenetre.ui \
@@ -68,4 +70,5 @@ FORMS += \
     modifieretudiant.ui \
     modifieruv_fen.ui \
     modifierform.ui \
-    modifierform.ui
+    modifierform.ui \
+    editerdossier.ui
