@@ -15,6 +15,7 @@ MainFenetre::MainFenetre(QWidget *parent) :
     QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
     //Rafraichir
     QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
+    QObject::connect(ui->actionAjouter_UV, SIGNAL(triggered()), this, SLOT(ajouterUV()) );
     //Affichage UV
     updateUV();
     //Affichage Etudiant
@@ -124,8 +125,8 @@ void MainFenetre::updateFormation()
         //config modif
         QSignalMapper* sig2 = new QSignalMapper(this);
         QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
-        sig->setMapping(modif, i);
-        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(modifierFormation(int)));
+        sig2->setMapping(modif, i);
+        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierFormation(int)));
     }
 }
 
@@ -169,9 +170,12 @@ void MainFenetre::deleteFormation(int i)
 
 void MainFenetre::modifierUV(int i)
 {
-    //fenModif=new Modifieruv_fen(uv);
-    //fenModif.show();
-    //updateUV();
+    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+    UV& uv=tUV.getIterator()[i];
+    Modifieruv_fen* fenModif=new Modifieruv_fen(uv);
+    fenModif->exec();
+    delete fenModif;
+    updateUV();
 }
 
 void MainFenetre::modifierEtudiant(int i)
@@ -196,6 +200,15 @@ void MainFenetre::ajouterEtudiant()
     ModifierEtudiant* fenModif=new ModifierEtudiant();
     fenModif->exec();
     delete fenModif;
+    updateEtudiant();
+}
+
+void MainFenetre::ajouterUV()
+{
+    Modifieruv_fen* fenModif=new Modifieruv_fen();
+    fenModif->exec();
+    delete fenModif;
+    updateUV();
 }
 
 MainFenetre::~MainFenetre()

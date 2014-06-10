@@ -35,6 +35,7 @@ private slots:
     void modifierEtudiant(int i);
     void modifierFormation(int i);
     void ajouterEtudiant();
+    void ajouterUV();
 public:
     explicit MainFenetre(QWidget *parent = 0);
     ~MainFenetre();

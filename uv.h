@@ -9,6 +9,7 @@
 #include <QString>
 #include <QDebug>
 #include "templatemanager.h"
+
 class UvException : public std::exception
 {
 protected :

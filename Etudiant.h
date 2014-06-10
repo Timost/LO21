@@ -55,6 +55,7 @@ private :
                 login+=QString::number(t);
                 t++;
             }
+            login=login.toLower();
             TemplateManager<Etudiant>::getInstance().New(*this);
         }
         catch(TemplateManagerException<Etudiant>& e)
