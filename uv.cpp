@@ -31,7 +31,7 @@ UV::UV(const char* c,const char*t, std::map<Categorie, unsigned int> cre, bool a
 void UV::setCode(std::string c)
 {
     TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
-    if(!tUV.alreadyExist(c))
+    if(!tUV.alreadyExist(c) || tUV.getElement(c)==*this)
     {
         tUV.erase(*this);
         code=c;

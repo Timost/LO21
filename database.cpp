@@ -312,7 +312,7 @@ void Database::SaverLoader::load()
        {
            uvcre[StringToCategorie(res1.value(1).toString())]=res1.value(2).toInt();
        }
-       UV uv=UV(res.value(0).toString().toStdString(), res.value(1).toString().toStdString(), uvcre, res.value(2).toBool(), res.value(3).toBool());
+       UV(res.value(0).toString().toStdString(), res.value(1).toString().toStdString(), uvcre, res.value(2).toBool(), res.value(3).toBool());
 
     }
     //load Formation
