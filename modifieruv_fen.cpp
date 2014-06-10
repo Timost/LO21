@@ -87,10 +87,14 @@ void Modifieruv_fen::afficheCredits(QString q)
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
     if(b)
     {
-        if(uv->getCredits().find(tCat.getElement(q.toStdString()))!=uv->getCredits().end())
+        const map<Categorie, unsigned int> cre=uv->getCredits();
+        if(cre.find(tCat.getElement(q.toStdString()))!=cre.end())
         {
-            qDebug() << QString::number(uv->getCredits().find(tCat.getElement(q.toStdString()))->second);
             ui->nb_credit->setText(QString::number(uv->getCredits().find(tCat.getElement(q.toStdString()))->second));
+        }
+        else
+        {
+           ui->nb_credit->setText("0");
         }
     }
     else
