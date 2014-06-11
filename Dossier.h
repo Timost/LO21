@@ -44,7 +44,8 @@ public:
     }
     void addFormation(Formation* f);//ajoute une formation
     void deleteFormation(Formation* f);//supprime la formation du dossier
-    const std::vector<Formation*> getFormation() const
+    void deleteFormation(QString f);//supprime la formation du dossier
+    std::vector<Formation*> getFormation() const
     {
         return forma;
     }
@@ -60,7 +61,7 @@ public:
     void addInscription(Inscription f);//ajoute une inscription au dossier
     void deleteInscription(Inscription f);//supprime une inscription du dossier
     const std::vector<Inscription> getInscription() const{return inscri;}
-
+    std::vector<Formation*> getFormationsNotInDossier();
     unsigned int getValidatedCredits(QString c);//retourne le nombre de crédits validés pour une catégorie donnée
 
     std::map<Categorie, unsigned int> getInscriptionCurrentStatus();//retourne le nombre de crédits validés par l'étudiant dans chaque catégorie.

@@ -5,7 +5,7 @@ void Dossier::addFormation(Formation* f)//ajoute une formation
 {
     if(containsFormation(f))
     {
-        throw DossierException("Erreur : cette formation fait déjà partie du dossier.");
+        throw DossierException("Erreur : la formation "+f->getStrLabel()+"fait déjà partie du dossier.");
     }
     forma.push_back(f);
 }
@@ -16,11 +16,17 @@ void Dossier::deleteFormation(Formation* f)//supprime la formation du dossier
 
     if(it==forma.end())
     {
-        throw DossierException("Erreur : cette formation ne fait pas partie du dossier.");
+        throw DossierException("Erreur : la formation "+f->getStrLabel()+"fait pas partie du dossier.");
     }
 
     forma.erase(it);
 }
+void Dossier::deleteFormation(QString f)
+{
+    TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
+    deleteFormation(&(tForm.getElement(f)));
+}
+
 
 void Dossier::addInscription(Inscription i)//ajoute une inscription au dossier
 {
@@ -68,6 +74,22 @@ std::map<Categorie, unsigned int> Dossier::getInscriptionCurrentStatus()
         }
     }
     return res;
+}
+
+std::vector<Formation*>  Dossier::getFormationsNotInDossier()
+{
+        std::vector<Formation*> res;
+     TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
+
+     for(std::vector<Formation>::iterator it=tForm.getIterator();it != tForm.end() ; it++)
+     {
+         if(!containsFormation(&(*it)))
+         {
+             res.push_back(&(*it));
+         }
+     }
+
+     return res;
 }
 
 std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > Dossier::getDossierCurrentStatus()

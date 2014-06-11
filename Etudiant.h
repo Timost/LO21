@@ -101,7 +101,7 @@ private :
     {
         Etudiant(Dossier(std::vector<Inscription>(),std::vector<Formation*>()),i,n,p,d);
     }
-    const Dossier getDossier() const
+    Dossier getDossier() const
     {
         return dos;
     }

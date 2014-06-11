@@ -51,21 +51,28 @@ public:
     ~creerDossier();
 
 private slots:
-    void ajouterFormation(int i);
-    void supprimerFormation(int i);
+    void ajouterFormationTobeAdded(int i);
+    void supprimerFormationTobeAdded(int i);
+    void ajouterFormationToBeRemoved(int i);
+    void supprimerFormationToBeRemoved(int i);
     void validerFormation();
-    void ajouterInscription(int i);
-    void supprimerInscription(int i);
+    void ajouterInscriptionTobeAdded(int i);
+    void supprimerInscriptionTobeAdded(int i);
+    void ajouterInscriptionToBeRemoved(int i);
+    void supprimerInscriptionToBeRemoved(int i);
     void fillInscriptionTable(int i);
     void addRowInscription();
     void validerInscription();
     void suivant();
+    void displayFormationTables();
 
 private:
     Ui::creerDossier *ui;
     Etudiant& e;
     std::vector<int> formationToBeAdded;
+    std::vector<int> formationToBeRemoved;
     std::vector<int> inscriptionsToBeAdded;
+    std::vector<int> inscriptionsToBeRemoved;
 };
 
 #endif // CREERDOSSIER_H
