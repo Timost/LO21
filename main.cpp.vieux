@@ -227,9 +227,9 @@ int main(int argc, char *argv[]) {
         vInscr.push_back(nI2);
 
         std::vector<Formation*> vForme;
-        vForme.push_back(&nF);
-        vForme.push_back(&nF2);
-        vForme.push_back(&nF3);
+        vForme.push_back(&tFormation.getIterator()[0]);
+        vForme.push_back(&tFormation.getIterator()[1]);
+        vForme.push_back(&tFormation.getIterator()[2]);
 
         Dossier dos(vInscr,vForme);
         std::vector<Inscription>::iterator itINSC= dos.findUVInscription(StringToUV("EE32"));

@@ -100,7 +100,7 @@ public:
         }
         if(n==nb && s!=elements[n-1].getStrLabel())
         {
-            throw TemplateManagerException<T>("Erreur getElement : Valeur introuvable.");
+            throw TemplateManagerException<T>("Erreur getElement : Valeur introuvable. "+s);
         }
         else
         {

@@ -184,7 +184,7 @@ void Database::SaverLoader::save()
     vector<Etudiant>::const_iterator itEtu=tEtudiant.getIterator();
     for(unsigned int i=0; i<tEtudiant.size(); i++)
     {
-        qDebug()<<"Etudiant :";
+        qDebug()<<"Etudiant : INSERT INTO Etudiant";
         string q="INSERT INTO Etudiant (ine, login, nom, prenom, dateNaissance) VALUES ('"+to_string(itEtu[i].getIne())+"', '"+itEtu[i].getLogin().toStdString()+"', '"+itEtu[i].getNom().toStdString()+"', '"+itEtu[i].getPrenom().toStdString()+"', '"+itEtu[i].getDateNaissance().toString(QString("yyyy-MM-dd")).toStdString()+"');";
         db.query(q);
         vector<Inscription> it2=itEtu[i].getDossier().getInscription();
@@ -193,13 +193,17 @@ void Database::SaverLoader::save()
             q="INSERT INTO Inscription (login, code, saison, annee, resultat) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it2[j].getUV().getCode()+"', '"+it2[j].getSemestre().getSaison().getNom().toStdString()+"', '"+to_string(it2[j].getSemestre().getAnnee())+"', '"+it2[j].getResultat().getNote().toStdString()+"');";
             db.query(q);
         }
+        qDebug()<<"Etudiant : INSERT INTO Inscription";
 
         vector<Formation*> it3=itEtu[i].getDossier().getFormation();
-        for(unsigned int j=0; j<itEtu[i].getDossier().getInscription().size(); j++)
+        qDebug()<<"TEst";
+        for(unsigned int j=0; j<itEtu[i].getDossier().getFormation().size(); j++)
         {
+            qDebug()<<"TEst";
             q="INSERT INTO FormationEtudiant (login, formation) VALUES ('"+itEtu[i].getLogin().toStdString()+"', '"+it3[j]->getNom().toStdString()+"');";
             db.query(q);
         }
+        qDebug()<<"Etudiant : INSERT INTO FormationEtudiant";
     }
     qDebug()<<"Save : Etudiant() Fin";
     qDebug()<<"Save : Formations() Debut";
