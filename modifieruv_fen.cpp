@@ -3,8 +3,9 @@
 
 
 Modifieruv_fen::Modifieruv_fen(UV& uv, QWidget *parent) :
-    QDialog(parent), uv(&uv),
-    ui(new Ui::Modifieruv_fen)
+    QDialog(parent),
+    ui(new Ui::Modifieruv_fen),
+     uv(&uv)
 {
     ui->setupUi(this);
     b=1;
@@ -14,7 +15,7 @@ Modifieruv_fen::Modifieruv_fen(UV& uv, QWidget *parent) :
     ui->automne->setChecked(uv.ouvertureAutomne());
     ui->printemps->setChecked(uv.ouverturePrintemps());
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
-    for(int i=0; i<tCat.size(); i++)
+    for(unsigned int i=0; i<tCat.size(); i++)
     {
         ui->type_cat->addItem(tCat.getIterator()[i].getCode());
     }
@@ -32,7 +33,7 @@ Modifieruv_fen::Modifieruv_fen(QWidget *parent) :
     b=0;
     ui->setupUi(this);
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
-    for(int i=0; i<tCat.size(); i++)
+    for(unsigned int i=0; i<tCat.size(); i++)
     {
         ui->type_cat->addItem(tCat.getIterator()[i].getCode());
     }
