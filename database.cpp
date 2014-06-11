@@ -22,6 +22,7 @@ QSqlQuery Database::query(string q)
     {
         QString e=QString("Erreur lors de l'exécution de la requête ");
         e+=QString(q.c_str());
+        e+=" Erreur : "+query.lastError().databaseText();
         throw DatabaseException(e.toStdString());
     }
     return query;
@@ -29,10 +30,19 @@ QSqlQuery Database::query(string q)
 
 void Database::SaverLoader::init()
 {
+
+    qDebug()<<"debut init";
     //on drop toutes les tables
     try
     {
         db.query("DROP Table Saison;");
+    }
+    catch (const DatabaseException& e)
+    {
+    }
+    try
+    {
+        db.query("DROP Table Semestre;");
     }
     catch (const DatabaseException& e)
     {
@@ -129,7 +139,9 @@ void Database::SaverLoader::init()
     {
     }
     //On recree les tables
+
     db.query("CREATE TABLE Saison (nom varchar(255), description varchar(255));");
+    db.query("CREATE TABLE Semestre (code varchar(255), saison varchar(255), year int);");
     db.query("CREATE TABLE Note (note varchar(255), description varchar(255),rang int,eliminatoire int);");
     db.query("CREATE TABLE Categorie (code varchar(255), description varchar(255));");
     db.query("CREATE TABLE SousCategorie (codeParent varchar(255), codeFille varchar(255));");
@@ -247,7 +259,14 @@ void Database::SaverLoader::save()
         db.query(q);
     }
 
-
+    //Sauvegarde des Semestre
+    vector<Semestre>::iterator itSemestre = tSemestre.getIterator();
+    for(; itSemestre != tSemestre.end(); itSemestre++)
+    {
+        int temp=itSemestre->getAnnee();
+        string q="INSERT INTO Semestre (code, saison, year) VALUES ('"+itSemestre->getCode().toStdString() +"', '"+itSemestre->getSaison().getNomStdString()+"', '"+ std::to_string(temp)+"');";
+        db.query(q);
+    }
 
 
 
@@ -262,7 +281,7 @@ void Database::SaverLoader::load()
     tCategorie.clear();
     tNote.clear();
     tSaison.clear();
-
+    tSemestre.clear();
     //load Notes
     string q="SELECT note, description, rang, eliminatoire FROM Note;";
     QSqlQuery res=db.query(q);
@@ -279,6 +298,14 @@ void Database::SaverLoader::load()
         Saison Sais(res.value(0).toString(),res.value(1).toString());
     }
 
+    //load Semestres
+     q="SELECT code, saison, year FROM Semestre;";
+     res=db.query(q);
+    while(res.next())
+    {
+        Semestre sem(tSaison.getElement(res.value(1).toString()),res.value(2).toInt());
+    }
+    qDebug()<<"test";
 
     //load Catégories
 
@@ -356,10 +383,10 @@ void Database::SaverLoader::load()
         QSqlQuery res1=db.query(q1);
         while(res1.next())
         {
-            Semestre s=Semestre(StringToSaison(res1.value(2).toString()), res1.value(3).toInt());
+            //Semestre s=Semestre(StringToSaison(res1.value(2).toString()), res1.value(3).toInt());
             string code=res1.value(1).toString().toStdString();
             const UV& uv=tUV.getElement(code);
-            Inscription inscription=Inscription(uv, s, StringToNote(res1.value(4).toString()));
+            Inscription inscription=Inscription(uv, tSemestre.getElement(res1.value(2).toString()+res1.value(3).toString()), StringToNote(res1.value(4).toString()));
             insc.push_back(inscription);
         }
         vector<Formation*> form= vector<Formation*>();

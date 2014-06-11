@@ -44,6 +44,11 @@ public:
         return code;
     }
 
+    QString getCodeQString()
+    {
+        return QString::fromStdString(code);
+    }
+
 
 
     std::string getStrLabel() const

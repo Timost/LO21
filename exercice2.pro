@@ -32,7 +32,8 @@ SOURCES += \
     ConditionChecker.cpp \
     main2.cpp \
     editerdossier.cpp \
-    creerdossier.cpp
+    creerdossier.cpp \
+    Semestre.cpp
 
 HEADERS += \
     templatemanager.h \

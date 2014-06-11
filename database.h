@@ -44,6 +44,7 @@ public:
         TemplateManager<Categorie>& tCategorie=TemplateManager<Categorie>::getInstance();
         TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
         TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
+        TemplateManager<Semestre>& tSemestre=TemplateManager<Semestre>::getInstance();
         Database& db;
         void init();
 

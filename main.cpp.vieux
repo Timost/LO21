@@ -60,6 +60,7 @@ template<> TemplateManager<Etudiant>* TemplateManager<Etudiant>::handler=0;
 template<> TemplateManager<Categorie>* TemplateManager<Categorie>::handler=0;
 template<> TemplateManager<Note>* TemplateManager<Note>::handler=0;
 template<> TemplateManager<Saison>* TemplateManager<Saison>::handler=0;
+template<> TemplateManager<Semestre>* TemplateManager<Semestre>::handler=0;
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     try
@@ -68,8 +69,8 @@ int main(int argc, char *argv[]) {
         TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
         TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
         TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
-        //TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
-        //TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
+        TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+        TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
 
         Saison ("Automne","We love it !");
         Saison ("Printemps","We eat it !");
@@ -209,9 +210,10 @@ int main(int argc, char *argv[]) {
 
 
 
-
-        Inscription nI(uv2,Semestre(StringToSaison("Automne"),2012),StringToNote("A"));
-        Inscription nI2(newUV,Semestre(StringToSaison("Automne"),2011),StringToNote("B"));
+        Semestre sem1(tSaison.getElement("Automne"),2014);
+        Semestre sem2(tSaison.getElement("Printemps"),2015);
+        Inscription nI(uv2,sem1,StringToNote("A"));
+        Inscription nI2(newUV,sem2,StringToNote("B"));
 
         nI.display();
         qDebug() << QString(nI.getUV().getCode().c_str());
@@ -256,8 +258,8 @@ int main(int argc, char *argv[]) {
        QDate date(2014,5,3);
        Etudiant e1(dos,1320123,"nom","prenom",date);
        Etudiant e2(dos,1320123,"nom","prenom",date);
-       Database db=Database("c:/sqlite/lo21");
-       //Database db=Database("e:/sqlite/lo21.db");
+       //Database db=Database("c:/sqlite/lo21");
+       Database db=Database("e:/sqlite/lo21_2.db");
        db.save();
        db.load();
        tUV.getElement("EE32").display();

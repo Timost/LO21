@@ -16,12 +16,19 @@ public:
     ~SemestreException()throw() {}
 };
 
-class Semestre {
+class Semestre : public EntityStd
+{
+    QString code;
     Saison saison;
     unsigned int annee;
 public:
-    Semestre(Saison s, unsigned int a):saison(s),annee(a){ if (annee<1972||annee>2099) throw SemestreException("annee non valide"); }
+    std::string getStrLabel() const
+    {
+        return code.toStdString();
+    }
+    Semestre(Saison s, unsigned int a);
     Saison getSaison() const { return saison; }
+    QString getCode() const { return code; }
     unsigned int getAnnee() const { return annee; }
 };
 

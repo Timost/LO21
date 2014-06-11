@@ -16,9 +16,9 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>-50</x>
+     <x>210</x>
      <y>240</y>
-     <width>341</width>
+     <width>121</width>
      <height>32</height>
     </rect>
    </property>
@@ -49,7 +49,7 @@
     </property>
    </column>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="FormationText">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -73,6 +73,62 @@
    </property>
    <property name="text">
     <string>Valider</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="InscriptionTable">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>291</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>UV</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Semestre</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Note</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ajouter</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="Suivant">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>150</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Suivant</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="InscriptionText">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>10</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Renseignez vos inscriptions :</string>
    </property>
   </widget>
  </widget>

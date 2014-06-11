@@ -50,7 +50,9 @@ public:
 private slots:
     void ajouterFormation(int i);
     void supprimerFormation(int i);
-    void valider();
+    void validerFormation();
+    void ajouterInscription();
+    void suivant();
 
 private:
     Ui::creerDossier *ui;
