@@ -51,7 +51,7 @@ public:
 
     bool containsInscription(Inscription i)
     {
-        return (std::find(inscri.begin(), inscri.end(), i)!=inscri.end());
+        return ((find_if(inscri.begin(),inscri.end(), [i] (const Inscription& i2) { return ((i==i2)||((i.getUV() == i2.getUV())&&(i.getResultat().isValidatory()==i2.getResultat().isValidatory()))); }))!=inscri.end());
     }
 
     std::vector<Inscription>::iterator findUVInscription(UV u);

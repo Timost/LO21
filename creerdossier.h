@@ -2,11 +2,14 @@
 #define CREERDOSSIER_H
 
 #include <QDialog>
+#include <QObject>
 #include "Formation.h"
 #include "templatemanager.h"
 #include <QCheckBox>
 #include "Etudiant.h"
 #include <QMessageBox>
+#include <QComboBox>
+#include "Inscription.h"
 namespace Ui {
 class creerDossier;
 }
@@ -51,13 +54,18 @@ private slots:
     void ajouterFormation(int i);
     void supprimerFormation(int i);
     void validerFormation();
-    void ajouterInscription();
+    void ajouterInscription(int i);
+    void supprimerInscription(int i);
+    void fillInscriptionTable(int i);
+    void addRowInscription();
+    void validerInscription();
     void suivant();
 
 private:
     Ui::creerDossier *ui;
     Etudiant& e;
     std::vector<int> formationToBeAdded;
+    std::vector<int> inscriptionsToBeAdded;
 };
 
 #endif // CREERDOSSIER_H
