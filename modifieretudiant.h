@@ -5,6 +5,7 @@
 #include "templatemanager.h"
 #include "Dossier.h"
 #include "Etudiant.h"
+#include <QMessageBox>
 
 namespace Ui {
 class ModifierEtudiant;
@@ -22,6 +23,8 @@ public:
     explicit ModifierEtudiant(Etudiant& etu, QWidget *parent = 0);
     explicit ModifierEtudiant(QWidget *parent = 0);
     ~ModifierEtudiant();
+    void closeEvent(QCloseEvent *event);
+
 
 private:
     Etudiant* etudiant;

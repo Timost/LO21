@@ -2,6 +2,15 @@
 #include "ui_modifieretudiant.h"
 #include <QDebug>
 
+void ModifierEtudiant::closeEvent(QCloseEvent *event)
+{
+    QMessageBox* test= new QMessageBox();
+
+    test->setText("TEST");
+
+    test->exec();
+}
+
 ModifierEtudiant::ModifierEtudiant(Etudiant& etu, QWidget *parent) :
     QDialog(parent), etudiant(&etu),
     ui(new Ui::ModifierEtudiant)

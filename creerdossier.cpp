@@ -1,6 +1,8 @@
 #include "creerdossier.h"
 #include "ui_creerdossier.h"
 
+
+
 creerDossier::creerDossier(Etudiant& etu,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::creerDossier),
@@ -139,7 +141,7 @@ void creerDossier::fillInscriptionTable(int i)
 
 
     ui->InscriptionTable->insertRow(ui->InscriptionTable->rowCount());
-    qDebug()<<"test";
+    //qDebug()<<"test";
     QComboBox* uv= new QComboBox(ui->InscriptionTable);
     for(unsigned int j=0; j<tUV.size(); j++)
     {

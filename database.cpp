@@ -158,7 +158,10 @@ void Database::SaverLoader::init()
 
 void Database::SaverLoader::save()
 {
+    qDebug()<<"Save : init() Debut";
     init();
+    qDebug()<<"Save : init() Fin";
+    qDebug()<<"Save : UV() Debut";
     vector<UV>::const_iterator it=tUV.getIterator();
     //sauvegarde des UVs
     for(unsigned int i=0; i<tUV.size(); i++)
@@ -175,10 +178,13 @@ void Database::SaverLoader::save()
             db.query(q);
         }
     }
+    qDebug()<<"Save : UV() Fin";
+    qDebug()<<"Save : Etudiant() Debut";
     //sauvegarde des étudiants, inscription et formations par étudiants
     vector<Etudiant>::const_iterator itEtu=tEtudiant.getIterator();
     for(unsigned int i=0; i<tEtudiant.size(); i++)
     {
+        qDebug()<<"Etudiant :";
         string q="INSERT INTO Etudiant (ine, login, nom, prenom, dateNaissance) VALUES ('"+to_string(itEtu[i].getIne())+"', '"+itEtu[i].getLogin().toStdString()+"', '"+itEtu[i].getNom().toStdString()+"', '"+itEtu[i].getPrenom().toStdString()+"', '"+itEtu[i].getDateNaissance().toString(QString("yyyy-MM-dd")).toStdString()+"');";
         db.query(q);
         vector<Inscription> it2=itEtu[i].getDossier().getInscription();
@@ -195,6 +201,8 @@ void Database::SaverLoader::save()
             db.query(q);
         }
     }
+    qDebug()<<"Save : Etudiant() Fin";
+    qDebug()<<"Save : Formations() Debut";
     //Sauvegarde des formations
     vector<Formation>::const_iterator itForm=tFormation.getIterator();
     for(unsigned int i=0; i<tFormation.size(); i++)
@@ -223,6 +231,8 @@ void Database::SaverLoader::save()
             db.query(q);
         }
     }
+    qDebug()<<"Save : Formations() Fin";
+    qDebug()<<"Save : Catégories() Debut";
 
     //Sauvegarde des Catégories
     vector<Categorie>::iterator itCat = tCategorie.getIterator();
@@ -239,7 +249,8 @@ void Database::SaverLoader::save()
             db.query(q);
         }
     }
-
+    qDebug()<<"Save : Catégories() Fin";
+    qDebug()<<"Save : Saisons() Debut";
 
 
     //Sauvegarde des Saisons
@@ -250,6 +261,9 @@ void Database::SaverLoader::save()
         db.query(q);
     }
 
+    qDebug()<<"Save : Saisons() Fin";
+    qDebug()<<"Save : Notes() Debut";
+
     //Sauvegarde des Notes
     vector<Note>::iterator itNote = tNote.getIterator();
     for(; itNote != tNote.end(); itNote++)
@@ -259,6 +273,9 @@ void Database::SaverLoader::save()
         db.query(q);
     }
 
+    qDebug()<<"Save : Notes() Fin";
+    qDebug()<<"Save : Semestres() Debut";
+
     //Sauvegarde des Semestre
     vector<Semestre>::iterator itSemestre = tSemestre.getIterator();
     for(; itSemestre != tSemestre.end(); itSemestre++)
@@ -267,7 +284,7 @@ void Database::SaverLoader::save()
         string q="INSERT INTO Semestre (code, saison, year) VALUES ('"+itSemestre->getCode().toStdString() +"', '"+itSemestre->getSaison().getNomStdString()+"', '"+ std::to_string(temp)+"');";
         db.query(q);
     }
-
+    qDebug()<<"Save : Semestres() Fin";
 
 
     qDebug()<<"fin save";
