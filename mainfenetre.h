@@ -24,6 +24,10 @@ class MainFenetre : public QMainWindow
     void updateUV();
     void updateEtudiant();
     void updateFormation();
+    void updateCategorie();
+    void updateNote();
+    void updateSaison();
+    void updateSemestre();
 
 private slots:
     void refresh();
@@ -32,9 +36,17 @@ private slots:
     void deleteUV(int i);
     void deleteEtudiant(int i);
     void deleteFormation(int i);
+    void deleteCategorie(int i);
+    void deleteNote(int i);
+    void deleteSaison(int i);
+    void deleteSemestre(int i);
     void modifierUV(int i);
     void modifierEtudiant(int i);
     void modifierFormation(int i);
+    void modifierCategorie(int i);
+    void modifierNote(int i);
+    void modifierSaison(int i);
+    void modifierSemestre(int i);
     void ajouterEtudiant();
     void test();
     void ajouterUV();

@@ -60,9 +60,9 @@ HEADERS += \
     Saison.h \
     Condition.h \
     ConditionChecker.h \
-    main.cpp.vieux \
     editerdossier.h \
-    creerdossier.h
+    creerdossier.h \
+    main.cpp.vieux
 
 FORMS += \
     mainfenetre.ui \

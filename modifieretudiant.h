@@ -5,6 +5,7 @@
 #include "templatemanager.h"
 #include "Dossier.h"
 #include "Etudiant.h"
+#include "creerdossier.h"
 #include <QMessageBox>
 
 namespace Ui {
@@ -18,6 +19,7 @@ class ModifierEtudiant : public QDialog
 private slots:
     void ok();
     void cancel();
+    void editDossier();
 
 public:
     explicit ModifierEtudiant(Etudiant& etu, QWidget *parent = 0);

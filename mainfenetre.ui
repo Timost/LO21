@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="UVTab">
      <attribute name="title">
@@ -122,6 +122,156 @@
       <column>
        <property name="text">
         <string>Description</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Modifier</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Supprimer</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="CategorieTab">
+     <attribute name="title">
+      <string>Categorie</string>
+     </attribute>
+     <widget class="QTableWidget" name="CategorieTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>791</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Description</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Modifier</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Supprimer</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="NoteTab">
+     <attribute name="title">
+      <string>Note</string>
+     </attribute>
+     <widget class="QTableWidget" name="NoteTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>791</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Description</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Rang</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Modifier</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Supprimer</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="SaisonTab">
+     <attribute name="title">
+      <string>Saison</string>
+     </attribute>
+     <widget class="QTableWidget" name="SaisonTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>791</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Description</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Modifier</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Supprimer</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="SemestreTab">
+     <attribute name="title">
+      <string>Semestre</string>
+     </attribute>
+     <widget class="QTableWidget" name="SemestreTable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>791</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Code</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Saison</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Année</string>
        </property>
       </column>
       <column>

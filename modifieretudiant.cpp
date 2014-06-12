@@ -2,14 +2,6 @@
 #include "ui_modifieretudiant.h"
 #include <QDebug>
 
-void ModifierEtudiant::closeEvent(QCloseEvent *event)
-{
-    QMessageBox* test= new QMessageBox();
-
-    test->setText("TEST");
-
-    test->exec();
-}
 
 ModifierEtudiant::ModifierEtudiant(Etudiant& etu, QWidget *parent) :
     QDialog(parent), etudiant(&etu),
@@ -23,17 +15,20 @@ ModifierEtudiant::ModifierEtudiant(Etudiant& etu, QWidget *parent) :
     ui->dateNaissance->setDate(etu.getDateNaissance());
     QObject::connect(ui->OK, SIGNAL(clicked()), this, SLOT(ok()) );
     QObject::connect(ui->Annuler, SIGNAL(clicked()), this, SLOT(cancel()) );
+    QObject::connect(ui->Dossier, SIGNAL(clicked()), this, SLOT(editDossier()));
 }
 
 ModifierEtudiant::ModifierEtudiant(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ModifierEtudiant)
 {
-    etudiant=NULL;
+    Dossier dos=Dossier();
+    etudiant=new Etudiant(dos);
     b=0;
     ui->setupUi(this);
     QObject::connect(ui->OK, SIGNAL(clicked()), this, SLOT(ok()) );
     QObject::connect(ui->Annuler, SIGNAL(clicked()), this, SLOT(cancel()) );
+    QObject::connect(ui->Dossier, SIGNAL(clicked()), this, SLOT(editDossier()));
 }
 
 ModifierEtudiant::~ModifierEtudiant()
@@ -45,9 +40,8 @@ void ModifierEtudiant::ok()
 {
     if(!b)
     {
-        Dossier dos=Dossier();
-        etudiant = new Etudiant(dos, ui->INE->text().toUInt(), ui->Nom->text(), ui->Prenom->text(), ui->dateNaissance->date());
-        delete etudiant;
+        Dossier dos=etudiant->getDossier();
+        Etudiant(dos, ui->INE->text().toUInt(), ui->Nom->text(), ui->Prenom->text(), ui->dateNaissance->date());
     }
     else
     {
@@ -62,4 +56,16 @@ void ModifierEtudiant::ok()
 void ModifierEtudiant::cancel()
 {
     this->close();
+}
+
+void ModifierEtudiant::editDossier()
+{
+    creerDossier* fenModif=new creerDossier(*etudiant);
+    fenModif->exec();
+    delete fenModif;
+}
+
+void ModifierEtudiant::closeEvent(QCloseEvent *event)
+{
+    if(!b) delete etudiant;
 }

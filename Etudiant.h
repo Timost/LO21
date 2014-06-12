@@ -96,6 +96,8 @@ private :
             qDebug()<<e.what()<<"\n";
         }
     }
+    //cree un Etudiant factice.
+    Etudiant(Dossier dos):dos(dos){}
 
     Etudiant(unsigned int i, QString n, QString p, QDate d)
     {
