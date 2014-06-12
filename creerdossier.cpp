@@ -15,7 +15,11 @@ creerDossier::creerDossier(Etudiant& etu,QWidget *parent) :
     ui->InscriptionText->hide();
     ui->InscriptionText2->hide();
     ui->AjouterLigne->hide();
-    ui->Suivant->setEnabled(false);
+    if(e.getDossier().getFormation().size()==0)
+    {
+        ui->Suivant->setEnabled(false);
+    }
+
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     ui->buttonBox->button(QDialogButtonBox::Cancel)->hide();
 
