@@ -313,6 +313,10 @@
     <addaction name="actionAjouter_UV"/>
     <addaction name="actionAjouter_Formation"/>
     <addaction name="actionTest"/>
+    <addaction name="actionCategorie"/>
+    <addaction name="actionNote"/>
+    <addaction name="actionSaison"/>
+    <addaction name="actionSemestre"/>
    </widget>
    <widget class="QMenu" name="menuRechercher_2">
     <property name="title">
@@ -384,6 +388,26 @@
   <action name="actionTest">
    <property name="text">
     <string>Test</string>
+   </property>
+  </action>
+  <action name="actionCategorie">
+   <property name="text">
+    <string>Categorie</string>
+   </property>
+  </action>
+  <action name="actionNote">
+   <property name="text">
+    <string>Note</string>
+   </property>
+  </action>
+  <action name="actionSaison">
+   <property name="text">
+    <string>Saison</string>
+   </property>
+  </action>
+  <action name="actionSemestre">
+   <property name="text">
+    <string>Semestre</string>
    </property>
   </action>
  </widget>
