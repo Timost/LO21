@@ -41,5 +41,4 @@ int main(int argc, char *argv[]) {
     MainFenetre fen;
     fen.show();
     return app.exec();
-    return 0;
 }
