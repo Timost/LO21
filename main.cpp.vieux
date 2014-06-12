@@ -259,8 +259,8 @@ int main(int argc, char *argv[]) {
        QDate date(2014,5,3);
        Etudiant e1(dos,1320123,"nom","prenom",date);
        Etudiant e2(dos,1320123,"nom","prenom",date);
-       //Database db=Database("c:/sqlite/lo21");
-       Database db=Database("e:/sqlite/lo21_2.db");
+       Database db=Database("c:/sqlite/lo21.db");
+      // Database db=Database("e:/sqlite/lo21_2.db");
        db.save();
        db.load();
        tUV.getElement("EE32").display();

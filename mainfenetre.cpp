@@ -13,13 +13,13 @@ MainFenetre::MainFenetre(QWidget *parent) :
     QObject::connect(ui->actionCharger, SIGNAL(triggered()), this, SLOT(load()) );
     //ajout
     QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
+    QObject::connect(ui->actionAjouter_UV, SIGNAL(triggered()), this, SLOT(ajouterUV()) );
     //Rafraichir
     QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
 
     //Test des fenêtres de Timothée
     QObject::connect(ui->actionTest, SIGNAL(triggered()), this, SLOT(test()) );
 
-    QObject::connect(ui->actionAjouter_UV, SIGNAL(triggered()), this, SLOT(ajouterUV()) );
 
     //Affichage UV
     updateUV();
@@ -27,6 +27,14 @@ MainFenetre::MainFenetre(QWidget *parent) :
     updateEtudiant();
     //Affichage Formation
     updateFormation();
+    //Affichage Catégorie
+    updateCategorie();
+    //Affichage note
+    updateNote();
+    //Affichage Saison
+    updateSaison();
+    //Affichage Semestre
+    updateSemestre();
 }
 
 //rafraichit tout
@@ -35,6 +43,10 @@ void MainFenetre::refresh()
     updateUV();
     updateEtudiant();
     updateFormation();
+    updateCategorie();
+    updateNote();
+    updateSaison();
+    updateSemestre();
 }
 
 //met à jour le tableau UV
@@ -135,6 +147,134 @@ void MainFenetre::updateFormation()
     }
 }
 
+//met à jour le tableau de catégorie
+void MainFenetre::updateCategorie()
+{
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+    ui->CategorieTable->setRowCount(tCat.size());
+    for(unsigned int i=0; i<tCat.size(); i++)
+    {
+        QTableWidgetItem* nom=new QTableWidgetItem(tCat.getIterator()[i].getCode());
+        QTableWidgetItem* description=new QTableWidgetItem(tCat.getIterator()[i].getDescription());
+        QPushButton* modif=new QPushButton("Modifier");
+        ui->CategorieTable->setCellWidget(i, 2, modif);
+        QPushButton* suppr=new QPushButton("Supprimer");
+        ui->CategorieTable->setCellWidget(i, 3, suppr);
+        description->setFlags(Qt::ItemIsEnabled);
+        nom->setFlags(Qt::ItemIsEnabled);
+        ui->CategorieTable->setItem(i, 1, description);
+        ui->CategorieTable->setItem(i, 0, nom);
+
+        //config du suppr
+        QSignalMapper* sig = new QSignalMapper(this);
+        QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
+        sig->setMapping(suppr, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteCategorie(int)));
+        //config modif
+        QSignalMapper* sig2 = new QSignalMapper(this);
+        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
+        sig2->setMapping(modif, i);
+        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierCategorie(int)));
+    }
+}
+
+//met à jour le tableau de note
+void MainFenetre::updateNote()
+{
+    TemplateManager<Note>& tNot=TemplateManager<Note>::getInstance();
+    ui->NoteTable->setRowCount(tNot.size());
+    for(unsigned int i=0; i<tNot.size(); i++)
+    {
+        QTableWidgetItem* note=new QTableWidgetItem(tNot.getIterator()[i].getNote());
+        QTableWidgetItem* description=new QTableWidgetItem(tNot.getIterator()[i].getDescription());
+        QTableWidgetItem* rang=new QTableWidgetItem(QString::number(tNot.getIterator()[i].getRang()));
+        QPushButton* modif=new QPushButton("Modifier");
+        ui->NoteTable->setCellWidget(i, 3, modif);
+        QPushButton* suppr=new QPushButton("Supprimer");
+        ui->NoteTable->setCellWidget(i, 4, suppr);
+        description->setFlags(Qt::ItemIsEnabled);
+        note->setFlags(Qt::ItemIsEnabled);
+        rang->setFlags(Qt::ItemIsEnabled);
+        ui->NoteTable->setItem(i, 1, description);
+        ui->NoteTable->setItem(i, 0, note);
+        ui->NoteTable->setItem(i, 2, rang);
+
+        //config du suppr
+        QSignalMapper* sig = new QSignalMapper(this);
+        QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
+        sig->setMapping(suppr, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteNote(int)));
+        //config modif
+        QSignalMapper* sig2 = new QSignalMapper(this);
+        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
+        sig2->setMapping(modif, i);
+        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierNote(int)));
+    }
+}
+
+//met à jour le tableau de saison
+void MainFenetre::updateSaison()
+{
+    TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
+    ui->SaisonTable->setRowCount(tSai.size());
+    for(unsigned int i=0; i<tSai.size(); i++)
+    {
+        QTableWidgetItem* nom=new QTableWidgetItem(tSai.getIterator()[i].getNom());
+        QTableWidgetItem* description=new QTableWidgetItem(tSai.getIterator()[i].getDescription());
+        QPushButton* modif=new QPushButton("Modifier");
+        ui->SaisonTable->setCellWidget(i, 2, modif);
+        QPushButton* suppr=new QPushButton("Supprimer");
+        ui->SaisonTable->setCellWidget(i, 3, suppr);
+        description->setFlags(Qt::ItemIsEnabled);
+        nom->setFlags(Qt::ItemIsEnabled);
+        ui->SaisonTable->setItem(i, 1, description);
+        ui->SaisonTable->setItem(i, 0, nom);
+
+        //config du suppr
+        QSignalMapper* sig = new QSignalMapper(this);
+        QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
+        sig->setMapping(suppr, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteSaison(int)));
+        //config modif
+        QSignalMapper* sig2 = new QSignalMapper(this);
+        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
+        sig2->setMapping(modif, i);
+        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierSaison(int)));
+    }
+}
+
+//met à jour le tableau de semestre
+void MainFenetre::updateSemestre()
+{
+    TemplateManager<Semestre>& tSem=TemplateManager<Semestre>::getInstance();
+    ui->SemestreTable->setRowCount(tSem.size());
+    for(unsigned int i=0; i<tSem.size(); i++)
+    {
+        QTableWidgetItem* saison=new QTableWidgetItem(tSem.getIterator()[i].getSaison().getNom());
+        QTableWidgetItem* annee=new QTableWidgetItem(QString::number(tSem.getIterator()[i].getAnnee()));
+        QTableWidgetItem* code=new QTableWidgetItem(tSem.getIterator()[i].getCode());
+        QPushButton* modif=new QPushButton("Modifier");
+        ui->SemestreTable->setCellWidget(i, 3, modif);
+        QPushButton* suppr=new QPushButton("Supprimer");
+        ui->SemestreTable->setCellWidget(i, 4, suppr);
+        saison->setFlags(Qt::ItemIsEnabled);
+        annee->setFlags(Qt::ItemIsEnabled);
+        ui->SemestreTable->setItem(i, 2, annee);
+        ui->SemestreTable->setItem(i, 1, saison);
+        ui->SemestreTable->setItem(i, 0, code);
+        //config du suppr
+        QSignalMapper* sig = new QSignalMapper(this);
+        QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
+        sig->setMapping(suppr, i);
+        QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteSemestre(int)));
+        //config modif
+        QSignalMapper* sig2 = new QSignalMapper(this);
+        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
+        sig2->setMapping(modif, i);
+        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierSemestre(int)));
+    }
+}
+
 void MainFenetre::save()
 {
     QFileDialog* file= new QFileDialog();
@@ -153,6 +293,10 @@ void MainFenetre::load()
     updateUV();
     updateEtudiant();
     updateFormation();
+    updateCategorie();
+    updateNote();
+    updateSaison();
+    updateSemestre();
 }
 
 void MainFenetre::deleteUV(int i)
@@ -191,6 +335,70 @@ void MainFenetre::modifierEtudiant(int i)
     fenModif->exec();
     delete fenModif;
     updateEtudiant();
+}
+
+void MainFenetre::modifierCategorie(int i)
+{
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+    Categorie& cat=tCat.getIterator()[i];
+    //ModifierCategorie* fenModif=new ModifierCategorie(cat);
+    //fenModif->exec();
+    //delete fenModif;
+    updateCategorie();
+}
+
+void MainFenetre::deleteCategorie(int i)
+{
+    TemplateManager<Categorie>::getInstance().erase(i);
+    updateCategorie();
+}
+
+void MainFenetre::modifierNote(int i)
+{
+    TemplateManager<Note>& tNot=TemplateManager<Note>::getInstance();
+    Note& note=tNot.getIterator()[i];
+    //ModifierNote* fenModif=new ModifierNote(note);
+    //fenModif->exec();
+    //delete fenModif;
+    updateNote();
+}
+
+void MainFenetre::deleteNote(int i)
+{
+    TemplateManager<Note>::getInstance().erase(i);
+    updateNote();
+}
+
+void MainFenetre::modifierSaison(int i)
+{
+    TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
+    Saison& sai=tSai.getIterator()[i];
+    //ModifierSaison* fenModif=new ModifierSaison(sai);
+    //fenModif->exec();
+    //delete fenModif;
+    updateSaison();
+}
+
+void MainFenetre::deleteSaison(int i)
+{
+    TemplateManager<Saison>::getInstance().erase(i);
+    updateSaison();
+}
+
+void MainFenetre::modifierSemestre(int i)
+{
+    TemplateManager<Semestre>& tSem=TemplateManager<Semestre>::getInstance();
+    Semestre& sem=tSem.getIterator()[i];
+    //ModifierSemestre* fenModif=new ModifierSemestre(sem);
+    //fenModif->exec();
+    //delete fenModif;
+    updateSemestre();
+}
+
+void MainFenetre::deleteSemestre(int i)
+{
+    TemplateManager<Semestre>::getInstance().erase(i);
+    updateSemestre();
 }
 
 void MainFenetre::modifierFormation(int i)
