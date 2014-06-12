@@ -33,7 +33,8 @@ SOURCES += \
     main2.cpp \
     editerdossier.cpp \
     creerdossier.cpp \
-    Semestre.cpp
+    Semestre.cpp \
+    gererformation.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -62,7 +63,8 @@ HEADERS += \
     ConditionChecker.h \
     main.cpp.vieux \
     editerdossier.h \
-    creerdossier.h
+    creerdossier.h \
+    gererformation.h
 
 FORMS += \
     mainfenetre.ui \
@@ -75,4 +77,5 @@ FORMS += \
     modifierform.ui \
     modifierform.ui \
     editerdossier.ui \
-    creerdossier.ui
+    creerdossier.ui \
+    gererformation.ui

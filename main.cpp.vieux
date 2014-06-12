@@ -146,6 +146,7 @@ int main(int argc, char *argv[]) {
         UV newUV(s1,s2,m,true,true);
         UV* pUV=&newUV;
 
+
         m.clear();
         m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),5));
         s1="EE33";

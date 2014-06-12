@@ -13,6 +13,7 @@
 #include "modifieruv_fen.h"
 #include "editerdossier.h"
 #include "creerdossier.h"
+#include "gererformation.h"
 namespace Ui {
 class MainFenetre;
 }

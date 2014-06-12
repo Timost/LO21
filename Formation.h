@@ -29,7 +29,6 @@ class Formation:public EntityStd
         QString nom;
         QString description;
         std::map<UV*,bool> uvs;//contient les Uvs Faisant partie de la formation et si elles sont obligatoires ou pas.
-        //std::vector<UV*> uvsObligatoires;//contient les UVS obligatoires pour une formation donnée
         std::map<Categorie, unsigned int> nbCredits;//Contient le nombre de crédits à valider pour chaque catégories d'UVS
         std::vector<Condition> critereValidation;
 

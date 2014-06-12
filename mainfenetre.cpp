@@ -218,9 +218,9 @@ void MainFenetre::ajouterUV()
 
 void MainFenetre::test()
 {
-    TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
-    Etudiant& etu=tEtu.getIterator()[0];
-    creerDossier* fenModif=new creerDossier(etu);
+    //TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
+    //Formation& f=tForm.getIterator()[0];
+    gererFormation* fenModif=new gererFormation();
     fenModif->exec();
     delete fenModif;
 }
