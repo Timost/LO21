@@ -11,6 +11,19 @@
 #include <vector>
 class Dossier;
 
+class ConditionCheckerException : public std::exception
+{
+protected :
+    std::string info;
+public:
+    ConditionCheckerException(const std::string& i="") throw() :info(i) {}
+    const char* what() const throw()
+    {
+        return info.c_str();
+    }
+    ~ConditionCheckerException()throw() {}
+};
+
 class ConditionChecker: public QObject
 {
     Q_OBJECT
@@ -26,7 +39,7 @@ public:
     bool evaluate();
 public slots:
     /*
-     *Warning !!! Les slots ne peuvent prendre en paramêtre que les types supporté par QScript faire un maximum de conversion dans les fonctions C++
+     *Warning !!! Les slots ne peuvent prendre en paramêtre que les types supporté par QScript : faire un maximum de conversion dans les fonctions C++(ou implémenter la conversion des customs types si besoin)
      */
     bool isUvValidated(QString u);
     unsigned int getValidatedCredits(QString c);

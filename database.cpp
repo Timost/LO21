@@ -389,7 +389,7 @@ void Database::SaverLoader::load()
         res1=db.query(q1);
         while(res1.next())
         {
-           conds.push_back(Condition(res1.value(2).toString()));
+           conds.push_back(Condition(res1.value(1).toString()));
         }
         Formation(res.value(0).toString(), res.value(1).toString(), uvs, Cat,conds);
     }

@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
         //Création d'une condition
 
         Condition condition1("cc.isUvValidated(\"EE32\")");
-        Condition condition2("(cc.getValidatedCredits(\"TM\")==3)&&(cc.getValidatedCredits(\"CS\")>19)");
+        Condition condition2("(cc.getValidatedCredits(\"TM\")>12)&&(cc.getValidatedCredits(\"CS\")>19)");
         //qDebug() <<condition1.getCond();
         //condition1.setCond("cc.isUvValidated(\"EE33\")>3");
         //condition1.setCond("cc.test(3)");
@@ -187,9 +187,6 @@ int main(int argc, char *argv[]) {
         std::map<Categorie,unsigned int>m2;
         m2.insert(std::pair<Categorie,unsigned int> (StringToCategorie( "CS"),12));
 
-        Formation nF("Nom Formation1","Description Formation1",m1,m2);
-
-        Formation nF2("Nom Formation2","Description Formation2",m1,m2);
 
         qDebug()<<"test";
         //nF2.setDescription("Description Formation2");
@@ -199,12 +196,17 @@ int main(int argc, char *argv[]) {
         conds.push_back(condition1);
         conds.push_back(condition2);
 
-        Formation nF3("Nom Formation3","Description Formation3",m1,m2,conds);
-        nF3.setDescription("Description Formation3");
+
+        Formation nF("Nom Formation1","Description Formation1",m1,m2,conds);
+
+        Formation nF2("Nom Formation2","Description Formation2",m1,m2);
+
+        Formation nF3("Nom Formation3","Description Formation3",m1,m2);
+        //nF3.setDescription("Description Formation3");
 
         for(std::vector<Formation>::iterator it= tFormation.getIterator();it !=tFormation.end();it++)
         {
-            qDebug()<<"Formation : "<<it->getNom();
+            qDebug()<<"Formation : "<<it->getNom()<< " conditions : "<<it->getConditions().size() ;
         }
 
 
@@ -240,9 +242,11 @@ int main(int argc, char *argv[]) {
         std::vector<Formation*> formationstest=dos.getFormation();
         std::vector<Formation*>::iterator itFormation= formationstest.begin();
         std::vector<Condition> resucsd=(*(itFormation))->getConditions();
+//        std::vector<Condition> resucsd;
+//        resucsd.push_back(condition2);
         qDebug()<<"Nombre de crédits dans la catégorie TM :"<<dos.conditionsChecked(resucsd);
 
-       // qDebug()<<"Test moteur de conditions : "<<condition1.getCond()<<"  : "<<dos.conditionChecked(condition1);
+        //qDebug()<<"Test moteur de conditions : "<<condition1.getCond()<<"  : "<<dos.conditionsChecked(resucsd);
 
         std::map<Categorie, unsigned int>  res222=dos.getInscriptionCurrentStatus();
         for(std::map<Categorie, unsigned int>::iterator it=res222.begin();it!=res222.end();it++)

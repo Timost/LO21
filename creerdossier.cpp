@@ -137,7 +137,7 @@ void creerDossier::validerFormation()
    displayFormationTables();
 }
 
-void creerDossier::fillInscriptionTable(int i)
+void creerDossier::fillInscriptionTable(int i)//rempli le tableau des inscriptions avec i lignes
 {
     TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     TemplateManager<Semestre>& tSemestre=TemplateManager<Semestre>::getInstance();

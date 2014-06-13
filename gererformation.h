@@ -7,6 +7,8 @@
 #include "templatemanager.h"
 #include "QTgraphTools.h"
 #include <QSpinBox>
+#include <QTableWidgetItem>
+#include "Dossier.h"
 namespace Ui {
 class gererFormation;
 }
@@ -37,6 +39,16 @@ private slots:
     void validerCategoriesFormation();
     void displayCategories();
     void initGererConditions();
+    void displayConditions();
+    void validerCondition();
+    void ajouterConditionToBeRemoved(int i);
+    void supprimerConditionToBeRemoved(int i);
+    void ajouterConditionToBeAdded(int i);
+    void supprimerConditionToBeAdded(int i);
+    void fillConditionTable(int i);
+    void addRowInscription();
+    void testerCondition(QTableWidgetItem *item);
+    void validerTout();
 
 private:
     Ui::gererFormation *ui;
@@ -51,6 +63,8 @@ private:
     std::vector<int> uvToSetRequired;
     std::vector<int> uvToBeAdded;
     std::vector<int> uvToBeRemoved;
+    std::vector<int> conditionToBeAdded;
+    std::vector<int> conditionToBeRemoved;
 };
 
 #endif // GERERFORMATION_H

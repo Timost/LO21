@@ -1,24 +1,24 @@
 #include "Formation.h"
 Formation::Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred)
 {
-   TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
-   if(!tFormation.alreadyExist(n))
-    {
-        nom=n;
-        description=d;
-        uvs=uv;
-        nbCredits=nbCred;
-
-        tFormation.New(*this);
-    }
-    else
-    {
-        throw FormationException("Erreur : la formation "+n.toStdString()+" existe deja !");
-    }
+  Formation(n,d,uv,nbCred,std::vector<Condition>());
 }
 Formation::Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred,std::vector<Condition> cv)
 {
-    Formation(n,d,uv,nbCred).setConditions(cv);
+    TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+    if(!tFormation.alreadyExist(n))
+     {
+         nom=n;
+         description=d;
+         uvs=uv;
+         nbCredits=nbCred;
+         critereValidation=cv;
+         tFormation.New(*this);
+     }
+     else
+     {
+         throw FormationException("Erreur : la formation "+n.toStdString()+" existe deja !");
+     }
 }
 
 

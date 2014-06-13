@@ -192,6 +192,45 @@
     </property>
    </column>
   </widget>
+  <widget class="QLabel" name="labelCondition">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>140</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Condition</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelConditionManuel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>40</y>
+     <width>531</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pour entrer une condition, veuillez respecter la syntaxe suivante (Cf. Documentation pour plus de détails) : par exemple pour faire des tests sur le nombre de crédit d'une catégorie d'uv : cc.getValidatedCredits(&quot;Nom_de_la_categorie&quot;)&gt;12</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="AjouterLigne">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>270</y>
+     <width>111</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ajouter une Ligne</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

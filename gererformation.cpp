@@ -56,13 +56,14 @@ void gererFormation::init()
 {
     ui->NomFormation->setText(nom);
     ui->textEditFormation->setText(description);
-
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     if(nouvelle)
     {
 //        ui->Suivant->setStyleSheet(QString::fromUtf8("QPushButton:disabled","{ color: gray }"));
 //        ui->Valider->setStyleSheet(QString::fromUtf8("QPushButton:disabled","{ color: gray }"));
         ui->Suivant->setEnabled(false);
         ui->Valider->setEnabled(false);
+
     }
     else
     {
@@ -70,14 +71,17 @@ void gererFormation::init()
         ui->Valider->setEnabled(true);
         ui->Suivant->setEnabled(false);
     }
-
+    ui->AjouterLigne->hide();
     ui->TableUVAjouter->hide();
     ui->TableUVSupprimer->hide();
     ui->tableWidgetCategorie->hide();
     ui->LabelUvformation->hide();
+    ui->labelCondition->hide();
+    ui->labelConditionManuel->setWordWrap(true);
+    ui->labelConditionManuel->hide();
 
 
-
+    QObject::connect(ui->buttonBox->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(validerTout()));
     QObject::connect(ui->NomFormation,SIGNAL(editingFinished()),this,SLOT(verifierFormationInfo()));
     QObject::connect(ui->Valider,SIGNAL(pressed()),this,SLOT(ajouterFormationInfo()));
 }
@@ -121,12 +125,14 @@ void gererFormation::ajouterFormationInfo()
 
     ui->Suivant->setEnabled(true);
 
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     QObject::connect( ui->Suivant,SIGNAL(pressed()),this,SLOT(initGererUVs()));
 
 }
 
 void gererFormation::initGererUVs()
 {
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     ui->NomFormation->hide();
     ui->textEditFormation->hide();
     ui->TableUVAjouter->horizontalHeader()->setStretchLastSection(true);
@@ -192,6 +198,7 @@ void gererFormation::validerUVFormation()
     if(uvs.size()>0)
     {
         ui->Suivant->setEnabled(true);
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     }
     displayUvs();
 }
@@ -252,6 +259,9 @@ void gererFormation::displayUvs()
         QObject::connect(ajouter, SIGNAL(addMyNumber(int)),  this, SLOT(ajouterUVToBeAdded(int)));
         QObject::connect(ajouter, SIGNAL(removeMyNumber(int)),  this, SLOT(supprimerUVToBeAdded(int)));
     }
+
+    ui->TableUVAjouter->resizeColumnsToContents();
+    ui->TableUVSupprimer->resizeColumnsToContents();
 }
 void gererFormation::ajouterObligatoireUV(int i)
 {
@@ -292,7 +302,8 @@ void gererFormation::ajouterUVToBeAdded(int i)
 
 void  gererFormation::initGererCategories()
 {
-    validerUVFormation()
+    validerUVFormation();
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     ui->tableWidgetCategorie->horizontalHeader()->setStretchLastSection(true);
     ui->tableWidgetCategorie->resizeColumnsToContents();
     ui->tableWidgetCategorie->show();
@@ -327,6 +338,7 @@ void gererFormation::validerCategoriesFormation()
               throw FormationException("Erreur gérerFormation : le qobject_cast n'a pas marché");
           }
     }
+     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     ui->Suivant->setEnabled(true);
 }
 void gererFormation::displayCategories()
@@ -350,15 +362,175 @@ void gererFormation::displayCategories()
 void gererFormation::initGererConditions()
 {
     validerCategoriesFormation();
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     ui->tableWidgetCategorie->hide();
     ui->tableWidgetCategorie->setRowCount(0);
     ui->Suivant->hide();
 
+    ui->TableUVSupprimer->setColumnCount(2);
+    ui->TableUVAjouter->setColumnCount(2);
+    QStringList changeHeader;
+
+    changeHeader << "Condition" << "Ajouter";
+    ui->TableUVAjouter->setHorizontalHeaderLabels(changeHeader);
+    changeHeader.clear();
+    changeHeader << "Condition" << "Supprimer";
+    ui->TableUVSupprimer->setHorizontalHeaderLabels(changeHeader);
+
+    ui->TableUVAjouter->resizeColumnsToContents();
+    ui->TableUVSupprimer->resizeColumnsToContents();
+    ui->labelConditionManuel->show();
+    ui->TableUVAjouter->show();
+    ui->TableUVSupprimer->show();
+    ui->AjouterLigne->show();
     QObject::disconnect(ui->Valider,SIGNAL(pressed()),this,SLOT(validerCategoriesFormation()));
     QObject::disconnect( ui->Suivant,SIGNAL(pressed()),this,SLOT(initGererConditions()));
-
+    QObject::connect(ui->Valider,SIGNAL(pressed()),this,SLOT(validerCondition()));
+    QObject::connect(ui->AjouterLigne, SIGNAL(clicked()),  this, SLOT(addRowInscription()));
+    displayConditions();
 }
 
+void gererFormation::displayConditions()
+{
+    QObject::disconnect( ui->TableUVSupprimer,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(testerCondition(QTableWidgetItem*)));
+    ui->TableUVSupprimer->setRowCount(critereValidation.size());
+    unsigned int j=0;
+    for(std::vector<Condition>::iterator i=critereValidation.begin();i!=critereValidation.end();i++)
+    {
+        QTableWidgetItem* code=new QTableWidgetItem(i->getCond());
+        //code->setFlags(Qt::ItemFlag::ItemIsEnabled);
+        code->setFlags(code->flags() |= Qt::ItemIsEditable);
+
+        MyCheckBox* supprimerCondition=new MyCheckBox(j);
+        QObject::connect(supprimerCondition, SIGNAL(stateChanged(int)),  supprimerCondition, SLOT(isChecked(int)));
+        QObject::connect(supprimerCondition, SIGNAL(addMyNumber(int)),  this, SLOT(ajouterConditionToBeRemoved(int)));
+        QObject::connect(supprimerCondition, SIGNAL(removeMyNumber(int)),  this, SLOT(supprimerConditionToBeRemoved(int)));
+
+        ui->TableUVSupprimer->setCellWidget(j, 1, supprimerCondition);
+        ui->TableUVSupprimer->setItem(j, 0, code);
+        j++;
+    }
+    fillConditionTable(0);
+    ui->TableUVAjouter->resizeColumnsToContents();
+    ui->TableUVSupprimer->resizeColumnsToContents();
+    QObject::connect( ui->TableUVSupprimer,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(testerCondition(QTableWidgetItem*)));
+}
+void gererFormation::fillConditionTable(int i)
+{
+    QObject::disconnect( ui->TableUVAjouter,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(testerCondition(QTableWidgetItem*)));
+    ui->TableUVAjouter->insertRow(ui->TableUVAjouter->rowCount());
+    QTableWidgetItem* cond=new QTableWidgetItem("");
+    //cond->setFlags(Qt::ItemFlag::ItemIsEnabled);
+    cond->setFlags(cond->flags() |= Qt::ItemIsEditable);
+    MyCheckBox* ajouterCondition=new MyCheckBox(i);
+    QObject::connect(ajouterCondition, SIGNAL(stateChanged(int)),  ajouterCondition, SLOT(isChecked(int)));
+    QObject::connect(ajouterCondition, SIGNAL(addMyNumber(int)),  this, SLOT(ajouterConditionToBeAdded(int)));
+    QObject::connect(ajouterCondition, SIGNAL(removeMyNumber(int)),  this, SLOT(supprimerConditionToBeAdded(int)));
+
+
+    ui->TableUVAjouter->setCellWidget(i, 1, ajouterCondition);
+    ui->TableUVAjouter->setItem(i, 0, cond);
+    QObject::connect( ui->TableUVAjouter,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(testerCondition(QTableWidgetItem*)));
+
+}
+void gererFormation::addRowInscription()
+{
+    int nbLignes = ui->TableUVAjouter->rowCount();
+    fillConditionTable(nbLignes);
+}
+
+void gererFormation::validerCondition()
+{
+      Dossier dos();
+      std::vector<Condition> testConds;
+
+      //Réalisation des modifications
+
+      if(conditionToBeRemoved.size()>0)
+      {
+          for(unsigned int i=0; i<conditionToBeRemoved.size();i++)
+          {
+               critereValidation.erase(critereValidation.begin()+conditionToBeRemoved[i]);
+          }
+          conditionToBeRemoved.clear();
+      }
+
+      if(conditionToBeAdded.size()>0)
+      {
+          for(unsigned int i=0; i<conditionToBeAdded.size();i++)
+          {
+              if(ui->TableUVAjouter->item(conditionToBeAdded[i],0)->text() != "")
+              {
+                    critereValidation.push_back(Condition(ui->TableUVAjouter->item(conditionToBeAdded[i],0)->text()));
+              }
+          }
+          conditionToBeAdded.clear();
+      }
+      ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
+      ui->TableUVAjouter->setRowCount(0);
+      displayConditions();
+}
+
+void gererFormation::testerCondition(QTableWidgetItem* item)
+{
+    if(item->text()!="")
+    {
+        Dossier dos;
+
+        std::vector<Condition> conds;
+        conds.push_back(item->text());
+
+        try
+        {
+            dos.conditionsChecked(conds);
+        }
+        catch(std::exception& e)
+        {
+            QMessageBox* err = new QMessageBox();
+            err->setText("Erreur la condition"+item->text()+" , n'est pas valide : "+QString(e.what()));
+            err->show();
+
+            item->setText("");
+        }
+    }
+}
+
+void gererFormation::ajouterConditionToBeRemoved(int i)
+{
+    conditionToBeRemoved.push_back(i);
+}
+void gererFormation::supprimerConditionToBeRemoved(int i)
+{
+    std::vector<int>::iterator it = std::find(conditionToBeRemoved.begin(),conditionToBeRemoved.end(),i);
+    conditionToBeRemoved.erase(it);
+}
+void gererFormation::ajouterConditionToBeAdded(int i)
+{
+     conditionToBeAdded.push_back(i);
+}
+void gererFormation::supprimerConditionToBeAdded(int i)
+{
+    std::vector<int>::iterator it = std::find(conditionToBeAdded.begin(),conditionToBeAdded.end(),i);
+    conditionToBeAdded.erase(it);
+}
+void gererFormation::validerTout()
+{
+
+    if(nouvelle)
+    {
+        Formation F(nom,description,uvs,nbCredits,critereValidation);
+    }
+    else
+    {
+        TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
+        tFormation.getElement(nom.toStdString()).setDescription(description);
+        tFormation.getElement(nom.toStdString()).setConditions(critereValidation);
+        tFormation.getElement(nom.toStdString()).setUVs(uvs);
+        tFormation.getElement(nom.toStdString()).setNbsCredsRequired(nbCredits);
+    }
+
+}
 gererFormation::~gererFormation()
 {
     delete ui;

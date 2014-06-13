@@ -121,7 +121,7 @@ std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >
     return res;
 }
 
-unsigned int Dossier::getCreditsCategorieOneLevel(QString s)
+unsigned int Dossier::getCreditsCategorieOneLevel(QString s)//retourne le nombre de crédits pour une catégorie donnée sans prendre en compte ses sous catégories
 {
     unsigned int res=0;
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
@@ -138,14 +138,14 @@ unsigned int Dossier::getCreditsCategorieOneLevel(QString s)
                 res = it2->second;
             }
         }
-        if(it2==uvCreditCat.end())
-        {
-            throw DossierException("Erreur getValidatedCredits, cette aucune inscription ne contient la catégorie : "+ct.getCode().toStdString());
-        }
+//        if(it2==uvCreditCat.end())
+//        {
+//            throw DossierException("Erreur getCreditsCategorieOneLevel, aucune inscription ne contient la catégorie : "+ct.getCode().toStdString());
+//        }
     }
     return res;
 }
-unsigned int Dossier::getValidatedCredits(QString c)//retourne le nombre de crédits validé pour un catégorie et toutes ces sous catégories
+unsigned int Dossier::getValidatedCredits(QString c)//retourne le nombre de crédits validé pour une catégorie et toutes ces sous catégories
 {
     unsigned int res=0;
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
@@ -198,12 +198,12 @@ bool Dossier::isUvValidated(UV u)
     myIT res = findUVInscription(u,begin,end);
     if(res==end)
     {
-        qDebug()<<"echec isUvValidated";
+        //qDebug()<<"echec isUvValidated";
         return false;
     }
     else
     {
-        qDebug()<<"succes isUvValidated :"<<res->getCode();
+        //qDebug()<<"succes isUvValidated :"<<res->getCode();
         return res->validee();
     }
 }

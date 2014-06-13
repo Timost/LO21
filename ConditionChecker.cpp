@@ -16,6 +16,10 @@ bool ConditionChecker::evaluate()//évalue toutes les conditions du checker et r
             allChecked=false;
             break;
         }
+        if(engine.hasUncaughtException())
+        {
+            throw ConditionCheckerException ("Erreur ConditionChecker :"+ engine.uncaughtException().toString().toStdString());
+        }
     }
 
     return allChecked;
@@ -24,7 +28,17 @@ bool ConditionChecker::evaluate()//évalue toutes les conditions du checker et r
 bool ConditionChecker::isUvValidated(QString u)
 {
     //qDebug()<<"#####################inside : ";//<<dossier.isUvValidated(u);
-    return dossier.isUvValidated(StringToUV(u));
+
+        TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+        if(tUV.alreadyExist(u.toStdString()))
+        {
+            return dossier.isUvValidated(StringToUV(u));
+        }
+        else
+        {
+            throw ConditionCheckerException ("Erreur ConditionChecker : l'UV "+ u.toStdString() +" n'éxiste pas");
+        }
+
 }
 
  unsigned int ConditionChecker::getValidatedCredits(QString c)

@@ -36,9 +36,23 @@ template<> TemplateManager<Categorie>* TemplateManager<Categorie>::handler=0;
 template<> TemplateManager<Note>* TemplateManager<Note>::handler=0;
 template<> TemplateManager<Saison>* TemplateManager<Saison>::handler=0;
 template<> TemplateManager<Semestre>* TemplateManager<Semestre>::handler=0;
+
+void test()
+{
+
+}
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     MainFenetre fen;
     fen.show();
-    return app.exec();
+    try
+    {
+        return app.exec();
+    }
+    catch(std::exception& e)
+    {
+        qDebug()<<e.what()<<"\n";
+    }
+
+
 }

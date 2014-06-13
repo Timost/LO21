@@ -67,6 +67,14 @@ public:
         {
             description=desc;
         }
+        void setUVs(std::map<UV*,bool> uv)
+        {
+            uvs=uv;
+        }
+        void setNbsCredsRequired(std::map<Categorie, unsigned int> nbcreds)
+        {
+            nbCredits=nbcreds;
+        }
 
         void setConditions(std::vector<Condition> c)
         {
