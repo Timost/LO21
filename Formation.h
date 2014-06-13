@@ -105,6 +105,7 @@ public:
         }
 };
 
+std::vector<UV*> uvNotIn(std::vector<UV*> thisVector);
 bool operator==(Formation f1, Formation f2 );
 
 

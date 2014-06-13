@@ -153,7 +153,7 @@ int main(int argc, char *argv[]) {
         s2="titre 2";
         UV uv2(s1,s2,m,true,true);
         //uv2.setCode("EE32");
-        //UV* pUV2=&uv2;
+        UV* pUV2=&uv2;
 
         m.clear();
         m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),12));
@@ -182,9 +182,10 @@ int main(int argc, char *argv[]) {
 
         //Création d'une formation directement
         std::map<UV*,bool>m1;
-        //m1.insert(std::pair<UV*,bool> (pUV,false));
+        m1.insert(std::pair<UV*,bool> (pUV,false));
+        m1.insert(std::pair<UV*,bool> (pUV2,true));
         std::map<Categorie,unsigned int>m2;
-        //m2.insert(std::pair<Categorie,unsigned int> (Categorie::CS,12));
+        m2.insert(std::pair<Categorie,unsigned int> (StringToCategorie( "CS"),12));
 
         Formation nF("Nom Formation1","Description Formation1",m1,m2);
 
@@ -259,8 +260,8 @@ int main(int argc, char *argv[]) {
        QDate date(2014,5,3);
        Etudiant e1(dos,1320123,"nom","prenom",date);
        Etudiant e2(dos,1320123,"nom","prenom",date);
-       Database db=Database("c:/sqlite/lo21.db");
-      // Database db=Database("e:/sqlite/lo21_2.db");
+       //Database db=Database("c:/sqlite/lo21.db");
+      Database db=Database("e:/sqlite/lo21_2.db");
        db.save();
        db.load();
        tUV.getElement("EE32").display();

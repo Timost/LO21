@@ -34,7 +34,8 @@ SOURCES += \
     editerdossier.cpp \
     creerdossier.cpp \
     Semestre.cpp \
-    gererformation.cpp
+    gererformation.cpp \
+    QTgraphTools.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -63,7 +64,8 @@ HEADERS += \
     ConditionChecker.h \
     editerdossier.h \
     creerdossier.h \
-    gererformation.h
+    gererformation.h \
+    QTgraphTools.h
     main.cpp.vieux
 
 

@@ -73,4 +73,21 @@ void Formation::setNom(QString n)
      }
 }
 
+
+std::vector<UV*> uvNotIn(std::vector<UV*> thisVector)
+{
+    std::vector<UV*> res;
+    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+
+    for(std::vector<UV>::iterator it=tUV.getIterator();it != tUV.end() ; it++)
+    {
+        if(std::find(thisVector.begin(),thisVector.end(),&(*it))==thisVector.end())
+        {
+            res.push_back(&(*it));
+        }
+    }
+
+    return res;
+}
+
 bool operator==(Formation f1, Formation f2 ){return (f1.getStrLabel()==f2.getStrLabel());}

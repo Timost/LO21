@@ -78,7 +78,7 @@ std::map<Categorie, unsigned int> Dossier::getInscriptionCurrentStatus()
 
 std::vector<Formation*>  Dossier::getFormationsNotInDossier()
 {
-        std::vector<Formation*> res;
+     std::vector<Formation*> res;
      TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
 
      for(std::vector<Formation>::iterator it=tForm.getIterator();it != tForm.end() ; it++)

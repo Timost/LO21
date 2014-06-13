@@ -426,9 +426,9 @@ void MainFenetre::ajouterUV()
 
 void MainFenetre::test()
 {
-    //TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
-    //Formation& f=tForm.getIterator()[0];
-    gererFormation* fenModif=new gererFormation();
+    TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
+    Formation& f=tForm.getIterator()[0];
+    gererFormation* fenModif=new gererFormation(f);
     fenModif->exec();
     delete fenModif;
 }
