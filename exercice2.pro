@@ -35,7 +35,11 @@ SOURCES += \
     creerdossier.cpp \
     Semestre.cpp \
     gererformation.cpp \
-    QTgraphTools.cpp
+    QTgraphTools.cpp \
+    modifiernote.cpp \
+    modifiersaison.cpp \
+    modifiersemestre.cpp \
+    modifiercategorie.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -65,7 +69,11 @@ HEADERS += \
     editerdossier.h \
     creerdossier.h \
     gererformation.h \
-    QTgraphTools.h
+    QTgraphTools.h \
+    modifiernote.h \
+    modifiersaison.h \
+    modifiersemestre.h \
+    modifiercategorie.h
     main.cpp.vieux
 
 
@@ -81,4 +89,8 @@ FORMS += \
     modifierform.ui \
     editerdossier.ui \
     creerdossier.ui \
-    gererformation.ui
+    gererformation.ui \
+    modifiernote.ui \
+    modifiersaison.ui \
+    modifiersemestre.ui \
+    modifiercategorie.ui

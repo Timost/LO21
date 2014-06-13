@@ -14,6 +14,11 @@
 #include "editerdossier.h"
 #include "creerdossier.h"
 #include "gererformation.h"
+#include "modifiercategorie.h"
+#include "modifiersaison.h"
+#include "modifiernote.h"
+#include "modifiersemestre.h"
+
 namespace Ui {
 class MainFenetre;
 }
@@ -51,6 +56,10 @@ private slots:
     void ajouterEtudiant();
     void test();
     void ajouterUV();
+    void ajouterCategorie();
+    void ajouterSaison();
+    void ajouterSemestre();
+    void ajouterNote();
 public:
     explicit MainFenetre(QWidget *parent = 0);
     ~MainFenetre();

@@ -14,6 +14,10 @@ MainFenetre::MainFenetre(QWidget *parent) :
     //ajout
     QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
     QObject::connect(ui->actionAjouter_UV, SIGNAL(triggered()), this, SLOT(ajouterUV()) );
+    QObject::connect(ui->actionCategorie, SIGNAL(triggered()), this, SLOT(ajouterCategorie()) );
+    QObject::connect(ui->actionSaison, SIGNAL(triggered()), this, SLOT(ajouterSaison()) );
+    QObject::connect(ui->actionNote, SIGNAL(triggered()), this, SLOT(ajouterNote()) );
+    QObject::connect(ui->actionSemestre, SIGNAL(triggered()), this, SLOT(ajouterSemestre()) );
     //Rafraichir
     QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
 
@@ -341,9 +345,9 @@ void MainFenetre::modifierCategorie(int i)
 {
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
     Categorie& cat=tCat.getIterator()[i];
-    //ModifierCategorie* fenModif=new ModifierCategorie(cat);
-    //fenModif->exec();
-    //delete fenModif;
+    ModifierCategorie* fenModif=new ModifierCategorie(cat);
+    fenModif->exec();
+    delete fenModif;
     updateCategorie();
 }
 
@@ -357,9 +361,9 @@ void MainFenetre::modifierNote(int i)
 {
     TemplateManager<Note>& tNot=TemplateManager<Note>::getInstance();
     Note& note=tNot.getIterator()[i];
-    //ModifierNote* fenModif=new ModifierNote(note);
-    //fenModif->exec();
-    //delete fenModif;
+    ModifierNote* fenModif=new ModifierNote(note);
+    fenModif->exec();
+    delete fenModif;
     updateNote();
 }
 
@@ -373,9 +377,9 @@ void MainFenetre::modifierSaison(int i)
 {
     TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
     Saison& sai=tSai.getIterator()[i];
-    //ModifierSaison* fenModif=new ModifierSaison(sai);
-    //fenModif->exec();
-    //delete fenModif;
+    ModifierSaison* fenModif=new ModifierSaison(sai);
+    fenModif->exec();
+    delete fenModif;
     updateSaison();
 }
 
@@ -389,9 +393,9 @@ void MainFenetre::modifierSemestre(int i)
 {
     TemplateManager<Semestre>& tSem=TemplateManager<Semestre>::getInstance();
     Semestre& sem=tSem.getIterator()[i];
-    //ModifierSemestre* fenModif=new ModifierSemestre(sem);
-    //fenModif->exec();
-    //delete fenModif;
+    ModifierSemestre* fenModif=new ModifierSemestre(sem);
+    fenModif->exec();
+    delete fenModif;
     updateSemestre();
 }
 
@@ -422,6 +426,38 @@ void MainFenetre::ajouterUV()
     fenModif->exec();
     delete fenModif;
     updateUV();
+}
+
+void MainFenetre::ajouterCategorie()
+{
+    ModifierCategorie* fenModif=new ModifierCategorie();
+    fenModif->exec();
+    delete fenModif;
+    updateCategorie();
+}
+
+void MainFenetre::ajouterSemestre()
+{
+    ModifierSemestre* fenModif=new ModifierSemestre();
+    fenModif->exec();
+    delete fenModif;
+    updateSemestre();
+}
+
+void MainFenetre::ajouterSaison()
+{
+    ModifierSaison* fenModif=new ModifierSaison();
+    fenModif->exec();
+    delete fenModif;
+    updateSaison();
+}
+
+void MainFenetre::ajouterNote()
+{
+    ModifierNote* fenModif=new ModifierNote();
+    fenModif->exec();
+    delete fenModif;
+    updateNote();
 }
 
 void MainFenetre::test()
