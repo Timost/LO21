@@ -1,11 +1,9 @@
  #include "gererformation.h"
 #include "ui_gererformation.h"
 /*
- * Charger les uvs de la formations
- * Charger les uvs
- * Ajouter supprimer Uvs de la formation
- * Changer le fait qu'une Uv soit obligatoire ou non
  * Editeur de nombres de crédits par catégories (en fonction des catégories des UVs).
+ * Récupérer les catégories des uvs
+ * tableau 2 colonnes
  * Editeur de conditions
  */
 
@@ -84,8 +82,6 @@ void gererFormation::init()
     QObject::connect(ui->Valider,SIGNAL(pressed()),this,SLOT(ajouterFormationInfo()));
 }
 
-
-
 void gererFormation::verifierFormationInfo()
 {
     TemplateManager<Formation>& tFormation=TemplateManager<Formation>::getInstance();
@@ -118,7 +114,6 @@ void gererFormation::verifierFormationInfo()
         }
     }
 }
-
 void gererFormation::ajouterFormationInfo()
 {
     nom=ui->NomFormation->text();
@@ -150,6 +145,7 @@ void gererFormation::initGererUVs()
     QObject::disconnect( ui->Suivant,SIGNAL(pressed()),this,SLOT(initGererUVs()));
     QObject::disconnect(ui->Valider,SIGNAL(pressed()),this,SLOT(ajouterFormationInfo()));
     QObject::connect(ui->Valider,SIGNAL(pressed()),this,SLOT(validerUVFormation()));
+    QObject::connect( ui->Suivant,SIGNAL(pressed()),this,SLOT(initGererCategories()));
     displayUvs();
 }
 void gererFormation::validerUVFormation()
@@ -192,6 +188,11 @@ void gererFormation::validerUVFormation()
         }
         uvToBeAdded.clear();
     }
+
+    if(uvs.size()>0)
+    {
+        ui->Suivant->setEnabled(true);
+    }
     displayUvs();
 }
 void gererFormation::displayUvs()
@@ -202,7 +203,8 @@ void gererFormation::displayUvs()
     for(std::map<UV*,bool>::iterator i=uvs.begin();i!=uvs.end();i++)
     {
         QTableWidgetItem* code=new QTableWidgetItem(i->first->getCodeQString());
-        code->setFlags(Qt::ItemFlag::ItemIsEnabled);
+        //code->setFlags(Qt::ItemFlag::ItemIsEnabled);
+        code->setFlags(code->flags() ^ Qt::ItemIsEditable);
 
         MyCheckBox* supprimerUV=new MyCheckBox(j);
         MyCheckBox* obligatoireUV=new MyCheckBox(j);
@@ -242,7 +244,7 @@ void gererFormation::displayUvs()
     {
         QTableWidgetItem* code=new QTableWidgetItem(uvNotInFormation[i]->getCodeQString());
         MyCheckBox* ajouter=new MyCheckBox(i);
-        code->setFlags(Qt::ItemIsEnabled);
+        code->setFlags(code->flags() ^ Qt::ItemIsEditable);
         ui->TableUVAjouter->setItem(i, 0, code);
         ui->TableUVAjouter->setCellWidget(i, 1, ajouter);
 
@@ -251,8 +253,6 @@ void gererFormation::displayUvs()
         QObject::connect(ajouter, SIGNAL(removeMyNumber(int)),  this, SLOT(supprimerUVToBeAdded(int)));
     }
 }
-
-
 void gererFormation::ajouterObligatoireUV(int i)
 {
      uvToSetRequired.push_back(i);
@@ -275,7 +275,6 @@ void gererFormation::ajouterUVToBeRemoved(int i)
 {
     uvToBeRemoved.push_back(i);
 }
-
 void gererFormation::supprimerUVToBeAdded(int i)
 {
     std::vector<int>::iterator it = std::find(uvToBeAdded.begin(),uvToSetRequired.end(),i);
@@ -288,6 +287,76 @@ void gererFormation::supprimerUVToBeAdded(int i)
 void gererFormation::ajouterUVToBeAdded(int i)
 {
     uvToBeAdded.push_back(i);
+}
+
+
+void  gererFormation::initGererCategories()
+{
+    validerUVFormation()
+    ui->tableWidgetCategorie->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidgetCategorie->resizeColumnsToContents();
+    ui->tableWidgetCategorie->show();
+    ui->TableUVAjouter->setRowCount(0);
+    ui->TableUVSupprimer->setRowCount(0);
+    ui->TableUVAjouter->hide();
+    ui->TableUVSupprimer->hide();
+    ui->LabelUvformation->hide();
+    if(nouvelle)
+    {
+        ui->Suivant->setEnabled(false);
+    }
+    QObject::disconnect(ui->Valider,SIGNAL(pressed()),this,SLOT(validerUVFormation()));
+    QObject::disconnect( ui->Suivant,SIGNAL(pressed()),this,SLOT(initGererCategories()));
+    QObject::connect(ui->Valider,SIGNAL(pressed()),this,SLOT(validerCategoriesFormation()));
+    QObject::connect( ui->Suivant,SIGNAL(pressed()),this,SLOT(initGererConditions()));
+
+    displayCategories();
+}
+void gererFormation::validerCategoriesFormation()
+{
+    TemplateManager<Categorie>& tCategorie=TemplateManager<Categorie>::getInstance();
+    for(unsigned int i=0; i<ui->tableWidgetCategorie->rowCount();i++)
+    {
+          QSpinBox *creds = qobject_cast<QSpinBox*>(ui->tableWidgetCategorie->cellWidget(i,1));
+          if(creds!=0)
+          {
+              nbCredits[tCategorie.getElement(ui->tableWidgetCategorie->item(i,0)->text())]=creds->text().toUInt();
+          }
+          else
+          {
+              throw FormationException("Erreur gérerFormation : le qobject_cast n'a pas marché");
+          }
+    }
+    ui->Suivant->setEnabled(true);
+}
+void gererFormation::displayCategories()
+{
+    std::map<Categorie, unsigned int> Cats=getCategorieOfUV(getUVVector());
+    ui->tableWidgetCategorie->setRowCount(Cats.size());
+    unsigned int i=0;
+    for(std::map<Categorie, unsigned int>::iterator it=Cats.begin(); it!=Cats.end();it++)
+    {
+        QTableWidgetItem* code=new QTableWidgetItem(it->first.getCode());
+        code->setFlags(code->flags() ^ Qt::ItemIsEditable);
+        QSpinBox* creds=new QSpinBox();
+        creds->setMinimum(0);
+        creds->setMaximum(it->second);
+        ui->tableWidgetCategorie->setItem(i, 0, code);
+        ui->tableWidgetCategorie->setCellWidget(i,1,creds);
+        i++;
+    }
+}
+
+void gererFormation::initGererConditions()
+{
+    validerCategoriesFormation();
+    ui->tableWidgetCategorie->hide();
+    ui->tableWidgetCategorie->setRowCount(0);
+    ui->Suivant->hide();
+
+    QObject::disconnect(ui->Valider,SIGNAL(pressed()),this,SLOT(validerCategoriesFormation()));
+    QObject::disconnect( ui->Suivant,SIGNAL(pressed()),this,SLOT(initGererConditions()));
+
 }
 
 gererFormation::~gererFormation()

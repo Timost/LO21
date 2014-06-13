@@ -74,6 +74,21 @@ void Formation::setNom(QString n)
 }
 
 
+std::map<Categorie, unsigned int> getCategorieOfUV(std::vector<UV*> uvs)
+{
+    std::map<Categorie, unsigned int> res;
+    for(std::vector<UV*>::iterator it=uvs.begin();it != uvs.end() ; it++)
+    {
+         std::map<Categorie, unsigned int> temp=(*it)->getCredits();
+         for(std::map<Categorie, unsigned int>::iterator it2=temp.begin();it2 != temp.end() ; it2++)
+         {
+             res[it2->first]+=it2->second;
+         }
+    }
+
+    return res;
+}
+
 std::vector<UV*> uvNotIn(std::vector<UV*> thisVector)
 {
     std::vector<UV*> res;

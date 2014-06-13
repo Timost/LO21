@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include "templatemanager.h"
 #include "QTgraphTools.h"
+#include <QSpinBox>
 namespace Ui {
 class gererFormation;
 }
@@ -32,6 +33,10 @@ private slots:
     void supprimerUVToBeAdded(int i);
     void ajouterUVToBeAdded(int i);
     void validerUVFormation();
+    void initGererCategories();
+    void validerCategoriesFormation();
+    void displayCategories();
+    void initGererConditions();
 
 private:
     Ui::gererFormation *ui;

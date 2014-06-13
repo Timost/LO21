@@ -106,6 +106,7 @@ public:
 };
 
 std::vector<UV*> uvNotIn(std::vector<UV*> thisVector);
+std::map<Categorie, unsigned int> getCategorieOfUV(std::vector<UV*> uvs);
 bool operator==(Formation f1, Formation f2 );
 
 

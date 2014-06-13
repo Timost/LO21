@@ -78,7 +78,7 @@
    </column>
    <column>
     <property name="text">
-     <string>Nombre de crédits obliqatoires</string>
+     <string>Nombre de crédits obligatoires</string>
     </property>
    </column>
   </widget>

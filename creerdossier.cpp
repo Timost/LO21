@@ -40,7 +40,7 @@ void creerDossier::displayFormationTables()
         QTableWidgetItem* nom=new QTableWidgetItem(availableForms[i]->getNom());
         MyCheckBox* choisir=new MyCheckBox(i);
         ui->FormationTable->setCellWidget(i, 1, choisir);
-        nom->setFlags(Qt::ItemFlag::ItemIsEnabled);
+        nom->setFlags(nom->flags() ^ Qt::ItemIsEditable);
         ui->FormationTable->setItem(i, 0, nom);
 
         //config du checkbox
@@ -57,7 +57,7 @@ void creerDossier::displayFormationTables()
         QTableWidgetItem* nom=new QTableWidgetItem(formaDos[i]->getNom());
         MyCheckBox* choisir=new MyCheckBox(i);
         ui->FormationTable_2->setCellWidget(i, 1, choisir);
-        nom->setFlags(Qt::ItemFlag::ItemIsEnabled);
+        nom->setFlags(nom->flags() ^ Qt::ItemIsEditable);
         ui->FormationTable_2->setItem(i, 0, nom);
 
         //config du checkbox
@@ -192,8 +192,6 @@ void creerDossier::fillInscriptionTable(int i)
         ui->InscriptionTable_2->setItem(i, 1, semestre);
         ui->InscriptionTable_2->setItem(i, 2, resultat);
         ui->InscriptionTable_2->setCellWidget(i, 3, choisir);
-        //nom->setFlags(Qt::ItemFlag::ItemIsEnabled);
-       // ui->FormationTable->setItem(i, 0, nom);
         QObject::connect(choisir, SIGNAL(stateChanged(int)),  choisir, SLOT(isChecked(int)));
         QObject::connect(choisir, SIGNAL(addMyNumber(int)),  this, SLOT(ajouterInscriptionToBeRemoved(int)));
         QObject::connect(choisir, SIGNAL(removeMyNumber(int)),  this, SLOT(supprimerInscriptionToBeRemoved(int)));
