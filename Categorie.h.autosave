@@ -1,14 +1,15 @@
-/**
-\file Categorie.h
-\version 1
-\brief Ce fichier est le header de la classe Catégorie.
-**/
 #ifndef CATEGORIE_H
 #define CATEGORIE_H
 #include <QString>
 #include <QTextStream>
 #include "EntityStd.h"
 #include <string>
+/**
+* @file Categorie.h
+* @version 1
+* @brief Ce fichier est le header de la classe Catégorie.
+**/
+
 
 /**
  * @brief CategorieException class permet de récupérerles exceptions sur Catégorie.
