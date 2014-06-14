@@ -200,9 +200,27 @@ std::vector<Categorie> getFullSousCat(QString c);
  * @return ensemble des categories et leurs sous categories. std::map<Categorie,std::vector<Categorie> >
  */
 std::vector<Categorie> getFullSousCat(QString c);//retourne toutes les sous catégories d'une catégorie dans une représentation à plat
+/**
+ * @brief getCatsWithSousCat est une fonction récursive qui permet de récupérer l'ensemble des sous catégories pour chaque catégorie en possédant.
+ * @return map dont la clef est une catégorie.
+ * Le second membre contient, sous forme d'un vector, l'ensemble des sous catégories de la catégorie en allant jusqu'au niveeau maximale de profondeur( sous-sous catégories etc...)
+ */
 std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat();//retourne un map des catégories possedant des sous catégories (retourne tous les niveaux de sous catégories)
+/**
+ * @brief getCatsWithoutSousCat permet de connaître le Catégories "feuilles" c'est à dire celles qui n'ont pas de sous-catégories
+ * @return vector contenant les catégories "feuilles"
+ */
 std::vector<Categorie> getCatsWithoutSousCat();//retourne un vector contenant les catégories sans sous catégories
+/**
+ * @brief getParentCat permet de connaître la catégorie "mère" de la catégorie appelante
+ * @param c contient le code de la catégorie.
+ * @return Le code de la catégorie s'il éxiste une catégorie "mère", sinon retourne la chaine vide :""
+ */
 QString getParentCat(QString c);//retourne le code de la catégorie parente d'une catégorie, "" si pas de parent
+/**
+ * @brief getOriginCat retourne l'ensemble des catégories racines, C'est à dire n'ayant pas de parents.
+ * @return Vector contenant les catégories racines.
+ */
 std::vector<Categorie> getOriginCat();//retourne l'ensemble des catégories n'ayant pas de parents
 
 
