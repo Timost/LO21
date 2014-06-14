@@ -59,8 +59,12 @@ public :
     std::vector<Categorie> getSousCategorie()const {return sousCategorie;}
 };
 
-std::vector<Categorie> getFullSousCat(QString c);
-std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat();
+std::vector<Categorie> getFullSousCat(QString c);//retourne toutes les sous catégories d'une catégorie dans une représentation à plat
+std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat();//retourne un map des catégories possedant des sous catégories (retourne tous les niveaux de sous catégories)
+std::vector<Categorie> getCatsWithoutSousCat();//retourne un vector contenant les catégories sans sous catégories
+QString getParentCat(QString c);//retourne le code de la catégorie parente d'une catégorie, "" si pas de parent
+std::vector<Categorie> getOriginCat();//retourne l'ensemble des catégories n'ayant pas de parents
+
 
 bool operator<(const Categorie c1, const Categorie c2);
 bool operator==(const Categorie c1, const Categorie c2);
