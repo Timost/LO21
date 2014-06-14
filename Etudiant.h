@@ -4,6 +4,15 @@
 #include <QString>
 #include <QDate>
 #include "templatemanager.h"
+/**
+* @file Etudiant.h
+* @version 1
+* @brief Ce fichier est le header de la classe Etudiant.
+**/
+
+/**
+ * @brief EtudiantException class gère les exceptions d'etudiant.
+ */
 class EtudiantException : public std::exception
 {
 protected :
@@ -17,22 +26,55 @@ public:
     ~EtudiantException()throw() {}
 };
 
+/**
+ * @brief Etudiant class permet de créer des étudiants hérite de EntityStd
+ */
 class Etudiant: public EntityStd
 {
 private :
+    /**
+     * @brief dos dossier associé à l'étudiant.
+     */
     Dossier dos;
+    /**
+     * @brief ine numéro ine de l'Etudiant
+     */
     unsigned int ine;
+    /**
+     * @brief login de l'Etudiant
+     */
     QString login;
+    /**
+     * @brief nom de l'Etudiant
+     */
     QString nom;
+    /**
+     * @brief prenom de l'Etudiant
+     */
     QString prenom;
+    /**
+     * @brief dateNaissance , Date de Naissance de l'étudiant.
+     */
     QDate dateNaissance;
 
     public :
+    /**
+     * @brief getStrLabel
+     * @return login en std::string
+     */
     std::string getStrLabel() const
     {
         return login.toStdString();
     }
 
+    /**
+     * @brief Etudiant constructeur de l'Etudiant. Le login sera généré automatiquement. L'étudiant sera automatiquement mis dans le manager.
+     * @param doss Dossier
+     * @param i numero ine int
+     * @param n nom QString
+     * @param p prenom QString
+     * @param d date de naissance QDate
+     */
     Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d)
     {
         if(nom.length()>=7)
@@ -64,6 +106,15 @@ private :
         }
     }
 
+    /**
+     * @brief Etudiant constructeur de l'Etudiant. Le login sera vérifié. L'étudiant sera automatiquement mis dans le manager.
+     * @param doss Dossier
+     * @param i numero ine int
+     * @param n nom QString
+     * @param p prenom QString
+     * @param d date de naissance QDate
+     * @param log login
+     */
     Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d,  QString log):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d)
     {
         QString test;
@@ -96,60 +147,119 @@ private :
             qDebug()<<e.what()<<"\n";
         }
     }
-    //cree un Etudiant factice.
+
+    /**
+     * @brief Etudiant cree un Etudiant factice avec un seul dossier nécessaire pour l'interface graphique...
+     * @param dos Dossier
+     */
     Etudiant(Dossier dos):dos(dos){}
 
+    /**
+     * @brief Etudiant constructeur d'un Etudiant ayant un dossier vide.  L'étudiant sera automatiquement mis dans le manager.
+     * @param i numero ine int
+     * @param n nom QString
+     * @param p prenom QString
+     * @param d date de naissance QDate
+     */
     Etudiant(unsigned int i, QString n, QString p, QDate d)
     {
         Etudiant(Dossier(std::vector<Inscription>(),std::vector<Formation*>()),i,n,p,d);
     }
+
+    /**
+     * @brief getDossier getter du Dossier
+     * @return Dossier
+     */
     Dossier getDossier() const
     {
         return dos;
     }
 
+    /**
+     * @brief getIne getter de l'INE
+     * @return unsigned int
+     */
     unsigned int getIne()const
     {
         return ine;
     }
 
+    /**
+     * @brief getLogin getter de login
+     * @return const QString
+     */
     const QString getLogin()const
     {
         return login;
     }
 
+    /**
+     * @brief getNom getter de nom
+     * @return const QString
+     */
     const QString getNom()const
     {
         return nom;
     }
+
+    /**
+     * @brief getPrenom getter de prenom
+     * @return const QString
+     */
     const QString getPrenom()const
     {
         return prenom;
     }
+
+    /**
+     * @brief getDateNaissance getter de dateNaissance
+     * @return QDate
+     */
     const QDate getDateNaissance()const
     {
         return dateNaissance;
     }
 
-
+    /**
+     * @brief setDossier setter du Dossier (pour en remplacer un autre).
+     * @param d Dossier
+     */
     void setDossier(Dossier d)
     {
         dos=d;
     }
 
+    /**
+     * @brief setIne setter de l'INE
+     * @param i unsigned int
+     */
     void setIne(unsigned int i)
     {
         ine = i;
     }
 
+    /**
+     * @brief setNom setter de nom
+     * @param n QString
+     */
     void setNom(QString n)
     {
         nom = n;
     }
+
+    /**
+     * @brief setPrenom setter de prenom
+     * @param pv QString
+     */
     void setPrenom(QString p)
     {
         prenom = p;
     }
+
+    /**
+     * @brief setDateNaissance setter de dateNaissance
+     * @param da QDate
+     */
     void setDateNaissance(QDate da)
     {
         dateNaissance=da;

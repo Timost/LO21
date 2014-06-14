@@ -7,10 +7,15 @@
 #include <vector>
 #include "EntityStd.h"
 
-//enum class Note { A, B, C, D, E, F, FX, RES, ABS, /* en cours */ EC, first=A, last=EC  };
-//Note StringToNote(const QString& s);
-//QString NoteToString(Note c);
+/**
+* @file note.h
+* @version 1
+* @brief Ce fichier est le header de la classe note.
+**/
 
+/**
+ * @brief NoteException class exception sur les notes.
+ */
 class NoteException : public std::exception
 {
 protected :
@@ -24,32 +29,107 @@ public:
     ~NoteException()throw() {}
 };
 
+/**
+ * @brief Note class permet de stocker une note sont rang et si elle est eliminatoire.
+ */
 class Note : public EntityStd
 {
 private :
+    /**
+     * @brief note
+     */
     QString note;
+
+    /**
+     * @brief description
+     */
     QString description;
-    unsigned int rang; //permet d'implémenter la relation d'ordre entre les notes
-    unsigned int eliminatoire;//0 pas éliminatoire, 1 éliminatoire, 2 en attente
+
+    /**
+     * @brief rang plus il est faible plus la note est bonne
+     */
+    unsigned int rang;
+    /**
+     * @brief eliminatoire 0 pas éliminatoire, 1 éliminatoire, 2 en attente
+     */
+    unsigned int eliminatoire;
 public :
+    /**
+     * @brief getStrLabel
+     * @return retourne la note
+     */
     std::string getStrLabel() const
     {
         return note.toStdString();
     }
 
+    /**
+     * @brief Note
+     * @param n note
+     * @param d description
+     * @param r rang
+     * @param e eliminatoire
+     */
     Note(std::string n, std::string d, unsigned int r, unsigned int e);
+
+    /**
+     * @brief Note
+     * @param n note
+     * @param d description
+     * @param r rang
+     * @param e eliminatoire
+     */
     Note(QString n,QString d, unsigned int r, unsigned int e);
+
+    /**
+     * @brief Note
+     * @param n note
+     * @param d description
+     * @param r rang
+     * @param e eliminatoire
+     */
     Note(const char* c, const char*d, unsigned int r, unsigned int e);
 
+    /**
+     * @brief getNote getter sur note
+     * @return
+     */
     QString getNote() const {return note;}
+
+    /**
+     * @brief getNoteStdString getter sur note
+     * @return
+     */
     std::string getNoteStdString() const {return note.toStdString();}
 
+    /**
+     * @brief getDescription getter sur description
+     * @return
+     */
     QString getDescription() const {return description;}
+
+    /**
+     * @brief getDescription getter sur description
+     * @return
+     */
     std::string getDescriptionStdString() const {return description.toStdString();}
 
+    /**
+     * @brief getRang getter sur rang
+     * @return
+     */
     unsigned int getRang()const{return rang;}
+
+    /**
+     * @brief getEliminatoire getter sur eliminatoire
+     * @return
+     */
     unsigned int getEliminatoire()const{return eliminatoire;}
 
+    /**
+     * @brief isEliminatory
+     * @return retourne vrai si la note est eliminatoire
+     */
     bool isEliminatory()const{return (eliminatoire==1);}
     bool isValidatory()const{return (eliminatoire==0);}
 
