@@ -445,9 +445,10 @@ void MainFenetre::ajouterNote()
 
 void MainFenetre::test()
 {
-    TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
-    Formation& f=tForm.getIterator()[0];
-    gererFormation* fenModif=new gererFormation(f);
+//    TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
+//    Formation& f=tForm.getIterator()[0];
+    //gererFormation* fenModif=new gererFormation(f);
+    gererCategorie* fenModif = new gererCategorie();
     fenModif->exec();
     delete fenModif;
 }

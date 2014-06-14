@@ -158,6 +158,7 @@ public :
      * @param c Categorie à ajouter
      */
     void addSousCategorie(Categorie c);
+    void removeSousCategorie(Categorie c);
 
     /**
      * @brief hasSousCategorie permet de vérifier si c est une sous catégorie de la catégorie courante.
@@ -179,6 +180,7 @@ public :
     std::vector<Categorie> getSousCategorie()const {return sousCategorie;}
 };
 
+<<<<<<< HEAD
 /**
  * @brief getFullSousCat permet de récupérer l'ensemple des sous catégorie de c.
  * @param c QString associer à un code de Categorie
@@ -191,6 +193,14 @@ std::vector<Categorie> getFullSousCat(QString c);
  * @return ensemble des categories et leurs sous categories. std::map<Categorie,std::vector<Categorie> >
  */
 std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat();
+=======
+std::vector<Categorie> getFullSousCat(QString c);//retourne toutes les sous catégories d'une catégorie dans une représentation à plat
+std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat();//retourne un map des catégories possedant des sous catégories (retourne tous les niveaux de sous catégories)
+std::vector<Categorie> getCatsWithoutSousCat();//retourne un vector contenant les catégories sans sous catégories
+QString getParentCat(QString c);//retourne le code de la catégorie parente d'une catégorie, "" si pas de parent
+std::vector<Categorie> getOriginCat();//retourne l'ensemble des catégories n'ayant pas de parents
+
+>>>>>>> origin/master
 
 /**
  * @brief operator < de comparaison sur deux catégories. Compare les codes.

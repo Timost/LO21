@@ -79,6 +79,17 @@ void Categorie::addSousCategorie(Categorie c)
         throw CategorieException("Erreur addSousCategorie : La categorie :"+c.getCode().toStdString()+" Fait déjà partie des sous catégories de "+this->getCode().toStdString());
     }
 }
+void  Categorie::removeSousCategorie(Categorie c)
+{
+    if(hasSousCategorie(c))
+    {
+        sousCategorie.erase(std::find(sousCategorie.begin(),sousCategorie.end(),c));
+    }
+    else
+    {
+        throw CategorieException("Erreur removeSousCategorie : La categorie :"+c.getCode().toStdString()+" ne fait pas partie des sous catégories de "+this->getCode().toStdString());
+    }
+}
 
 Categorie StringToCategorie(const QString& str){//renvoie une référence vers la catégorie si elle existe, exception sinon.
    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
@@ -129,6 +140,75 @@ std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat()
            res[*it]=temp;
         }
     }
+    return res;
+}
+
+std::vector<Categorie> getCatsWithoutSousCat()
+{
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+
+    std::vector<Categorie> res;
+
+    for(std::vector<Categorie>::iterator it=tCat.getIterator(); it!=tCat.end();it++)
+    {
+
+
+        if(!it->hasSousCategorie())
+        {
+           res.push_back(*it);
+        }
+    }
+    return res;
+}
+QString getParentCat(QString c)
+{
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+    std::map<Categorie,std::vector<Categorie> > SousCatStruct = getCatsWithSousCat();
+    QString res="";
+
+    for(std::vector<Categorie>::iterator it= tCat.getIterator();it != tCat.end() ; it++)
+    {
+        std::vector<Categorie> t=it->getSousCategorie();
+        std::vector<Categorie>::iterator temp = std::find(t.begin(),t.end(),tCat.getElement(c));
+        if(temp!= t.end())
+        {
+            res= it->getCode();
+            break;
+        }
+    }
+    return res;
+}
+std::vector<Categorie> getOriginCat()
+{
+   std::vector<Categorie> res;
+   TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+
+   for(std::vector<Categorie>::iterator it=tCat.getIterator(); it!=tCat.end();it++)
+   {
+       if(getParentCat(it->getCode())=="")
+       {
+           if(std::find(res.begin(),res.end(),*it)==res.end())
+           {
+               res.push_back(*it);
+           }
+       }
+       else
+       {
+
+           QString s = getParentCat(it->getCode());
+           QString s2 = it->getCode();
+           while(s!="")
+           {
+               s2=s;
+               s=getParentCat(s);
+           }
+
+           if(std::find(res.begin(),res.end(),tCat.getElement(s2))==res.end())
+           {
+               res.push_back(tCat.getElement(s2));
+           }
+       }
+   }
     return res;
 }
 

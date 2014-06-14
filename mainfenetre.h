@@ -18,7 +18,7 @@
 #include "modifiersaison.h"
 #include "modifiernote.h"
 #include "modifiersemestre.h"
-
+#include "gerercategorie.h"
 namespace Ui {
 class MainFenetre;
 }
