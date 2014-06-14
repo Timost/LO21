@@ -18,7 +18,6 @@ ModifierCategorie::ModifierCategorie(Categorie& c, QWidget *parent) :
     ui->code->setText(cat->getCode());
     ui->code->setDisabled(1);
     ui->description->setText(cat->getDescription());
-    scat=cat->getSousCategorie();
     this->connect();
 }
 
@@ -33,11 +32,10 @@ void ModifierCategorie::ok()
     if(b)
     {
         cat->setDescription(ui->description->toPlainText());
-        cat->setSousCategorie(scat);
     }
     else
     {
-        cat=new Categorie(ui->code->text(), ui->description->toPlainText(), scat);
+        cat=new Categorie(ui->code->text(), ui->description->toPlainText(), std::vector<Categorie>());
         delete cat;
     }
     this->close();

@@ -26,7 +26,6 @@ private:
     Ui::ModifierCategorie *ui;
     bool b;
     Categorie* cat;
-    std::vector<Categorie> scat;
 };
 
 #endif // MODIFIERCATEGORIE_H
