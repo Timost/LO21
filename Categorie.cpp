@@ -1,5 +1,6 @@
 #include "Categorie.h"
 #include "templatemanager.h"
+#include<uv.h>
 
 Categorie::Categorie(QString c,QString d,std::vector<Categorie>sc)
 {
@@ -66,6 +67,30 @@ bool Categorie::hasSousCategorie(Categorie c)
     {
         return true;
     }
+}
+void Categorie::destroy()
+{
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+     if(tUV.size()>0)
+     {
+         for(std::vector<UV>::iterator it = tUV.getIterator();it!=tUV.end();it++)//on supprime toutes les uvs de cette catégorie
+         {
+             std::map<Categorie, unsigned int> cats = it->getCredits();
+             if(cats.find(*this)!=cats.end())
+             {
+                 tUV.erase(*it);
+             }
+         }
+     }
+     //si cette catégorie est une sous catégorie d'une autre, on l'enlève de ses sous catégories
+
+     QString parent=getParentCat(this->getCode());
+
+     if(parent !="")
+     {
+         tCat.getElement(parent).removeSousCategorie(*this);
+     }
 }
 
 void Categorie::addSousCategorie(Categorie c)

@@ -346,7 +346,10 @@ void MainFenetre::modifierCategorie(int i)
 
 void MainFenetre::deleteCategorie(int i)
 {
-    TemplateManager<Categorie>::getInstance().erase(i);
+    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
+    (tCat.getIterator()+i)->destroy();
+
+    tCat.getInstance().erase(i);
     updateCategorie();
 }
 

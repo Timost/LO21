@@ -35,8 +35,7 @@ void ModifierCategorie::ok()
     }
     else
     {
-        cat=new Categorie(ui->code->text(), ui->description->toPlainText(), std::vector<Categorie>());
-        delete cat;
+        Categorie(ui->code->text(), ui->description->toPlainText(), std::vector<Categorie>());
     }
     this->close();
 }

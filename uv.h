@@ -28,7 +28,7 @@ class UV : public EntityStd
 {
     std::string code;
     std::string titre;
-    std::map<Categorie, unsigned int> credits;//voirs enums.h pour Categorie
+    std::map<Categorie, unsigned int> credits;
 
     bool automne;
     bool printemps;
@@ -66,8 +66,6 @@ public:
         return credits;
     }
 
-
-
     bool ouvertureAutomne() const
     {
         return automne;
@@ -83,12 +81,10 @@ public:
     {
         titre=t;
     }
-
     void setCredits(Categorie t, unsigned int nb)
     {
         credits[t]=nb;
     }
-
     void setAutomne(bool b)
     {
         automne=b;
@@ -98,6 +94,7 @@ public:
     {
         printemps=b;
     }
+
 
     void addCategorie(Categorie c, unsigned int creds)
     {

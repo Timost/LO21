@@ -5,6 +5,7 @@
 #include "EntityStd.h"
 #include <string>
 
+
 class CategorieException : public std::exception
 {
 protected :
@@ -30,6 +31,8 @@ public :
     {
         return code.toStdString();
     }
+
+    void destroy();
 
     Categorie(std::string c,std::string d,std::vector<Categorie>sc);
     Categorie(QString c,QString d,std::vector<Categorie>sc);

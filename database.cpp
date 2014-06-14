@@ -336,7 +336,7 @@ void Database::SaverLoader::load()
     {
         Categorie cat(res.value(0).toString(),res.value(1).toString());
     }
-
+    qDebug()<<"test";
     //Mise en place des sous Catégories
     for(std::vector<Categorie>::iterator it_cat=tCategorie.getIterator();it_cat!=tCategorie.end();it_cat++)
     {
@@ -347,6 +347,7 @@ void Database::SaverLoader::load()
             tCategorie.getElement(res.value(0).toString()).addSousCategorie(tCategorie.getElement(res.value(1).toString()));
         }
     }
+    qDebug()<<"test";
 
     //load UVS
     q="SELECT code, titre, automne, printemps FROM UV;";
