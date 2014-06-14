@@ -12,6 +12,11 @@ class ModifierSemestre : public QDialog
 {
     Q_OBJECT
 
+    void connect();
+private slots:
+    void ok();
+    void cancel();
+
 public:
     explicit ModifierSemestre(QWidget *parent = 0);
     explicit ModifierSemestre(Semestre& s, QWidget *parent = 0);

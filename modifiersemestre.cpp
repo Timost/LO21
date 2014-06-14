@@ -1,18 +1,37 @@
 #include "modifiersemestre.h"
 #include "ui_modifiersemestre.h"
 
-ModifierSemestre::ModifierSemestre(QWidget *parent) :
+ModifierSemestre::ModifierSemestre( QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ModifierSemestre)
 {
     ui->setupUi(this);
+    this->connect();
+    ui->spinBox->setRange(1900, 23000);
+    ui->spinBox->setValue(2014);
 }
 
-ModifierSemestre::ModifierSemestre(Semestre& s, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ModifierSemestre)
+void ModifierSemestre::connect()
 {
-    ui->setupUi(this);
+    TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
+    for(unsigned int i=0; i<tSai.size(); i++)
+    {
+        ui->comboBox->addItem(tSai.getIterator()[i].getNom());
+    }
+    QObject::connect(ui->Valider, SIGNAL(clicked()), this, SLOT(ok()) );
+    QObject::connect(ui->Annuler, SIGNAL(clicked()), this, SLOT(cancel()) );
+}
+
+void ModifierSemestre::ok()
+{
+    TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
+    Semestre(tSai.getIterator()[ui->comboBox->currentIndex()], ui->spinBox->value());
+    this->close();
+}
+
+void ModifierSemestre::cancel()
+{
+    this->close();
 }
 
 ModifierSemestre::~ModifierSemestre()

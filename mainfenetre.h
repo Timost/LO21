@@ -52,7 +52,6 @@ private slots:
     void modifierCategorie(int i);
     void modifierNote(int i);
     void modifierSaison(int i);
-    void modifierSemestre(int i);
     void ajouterEtudiant();
     void test();
     void ajouterUV();

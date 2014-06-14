@@ -12,6 +12,11 @@ class ModifierNote : public QDialog
 {
     Q_OBJECT
 
+    void connect();
+private slots:
+    void ok();
+    void cancel();
+
 public:
     explicit ModifierNote(QWidget *parent = 0);
     explicit ModifierNote(Note& n, QWidget *parent = 0);
@@ -19,6 +24,8 @@ public:
 
 private:
     Ui::ModifierNote *ui;
+    bool b;
+    Note* note;
 };
 
 #endif // MODIFIERNOTE_H

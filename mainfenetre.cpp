@@ -257,10 +257,8 @@ void MainFenetre::updateSemestre()
         QTableWidgetItem* saison=new QTableWidgetItem(tSem.getIterator()[i].getSaison().getNom());
         QTableWidgetItem* annee=new QTableWidgetItem(QString::number(tSem.getIterator()[i].getAnnee()));
         QTableWidgetItem* code=new QTableWidgetItem(tSem.getIterator()[i].getCode());
-        QPushButton* modif=new QPushButton("Modifier");
-        ui->SemestreTable->setCellWidget(i, 3, modif);
         QPushButton* suppr=new QPushButton("Supprimer");
-        ui->SemestreTable->setCellWidget(i, 4, suppr);
+        ui->SemestreTable->setCellWidget(i, 3, suppr);
         saison->setFlags(Qt::ItemIsEnabled);
         annee->setFlags(Qt::ItemIsEnabled);
         ui->SemestreTable->setItem(i, 2, annee);
@@ -271,11 +269,6 @@ void MainFenetre::updateSemestre()
         QObject::connect(suppr, SIGNAL(clicked()), sig, SLOT(map()));
         sig->setMapping(suppr, i);
         QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteSemestre(int)));
-        //config modif
-        QSignalMapper* sig2 = new QSignalMapper(this);
-        QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
-        sig2->setMapping(modif, i);
-        QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierSemestre(int)));
     }
 }
 
@@ -387,16 +380,6 @@ void MainFenetre::deleteSaison(int i)
 {
     TemplateManager<Saison>::getInstance().erase(i);
     updateSaison();
-}
-
-void MainFenetre::modifierSemestre(int i)
-{
-    TemplateManager<Semestre>& tSem=TemplateManager<Semestre>::getInstance();
-    Semestre& sem=tSem.getIterator()[i];
-    ModifierSemestre* fenModif=new ModifierSemestre(sem);
-    fenModif->exec();
-    delete fenModif;
-    updateSemestre();
 }
 
 void MainFenetre::deleteSemestre(int i)

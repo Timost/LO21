@@ -12,6 +12,11 @@ class ModifierSaison : public QDialog
 {
     Q_OBJECT
 
+    void connect();
+private slots:
+    void ok();
+    void cancel();
+
 public:
     explicit ModifierSaison(QWidget *parent = 0);
     explicit ModifierSaison(Saison& s, QWidget *parent = 0);
@@ -19,6 +24,8 @@ public:
 
 private:
     Ui::ModifierSaison *ui;
+    bool b;
+    Saison* sai;
 };
 
 #endif // MODIFIERSAISON_H
