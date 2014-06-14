@@ -54,6 +54,7 @@ public :
 
     void setSousCategorie(std::vector<Categorie> sc){sousCategorie=sc;}
     void addSousCategorie(Categorie c);
+    void removeSousCategorie(Categorie c);
     bool hasSousCategorie(Categorie c);
     bool hasSousCategorie(){return(sousCategorie.size()>0);}
     std::vector<Categorie> getSousCategorie()const {return sousCategorie;}

@@ -79,6 +79,17 @@ void Categorie::addSousCategorie(Categorie c)
         throw CategorieException("Erreur addSousCategorie : La categorie :"+c.getCode().toStdString()+" Fait déjà partie des sous catégories de "+this->getCode().toStdString());
     }
 }
+void  Categorie::removeSousCategorie(Categorie c)
+{
+    if(hasSousCategorie(c))
+    {
+        sousCategorie.erase(std::find(sousCategorie.begin(),sousCategorie.end(),c));
+    }
+    else
+    {
+        throw CategorieException("Erreur removeSousCategorie : La categorie :"+c.getCode().toStdString()+" ne fait pas partie des sous catégories de "+this->getCode().toStdString());
+    }
+}
 
 Categorie StringToCategorie(const QString& str){//renvoie une référence vers la catégorie si elle existe, exception sinon.
    TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();

@@ -7,16 +7,17 @@ gererCategorie::gererCategorie(QWidget *parent) :
     //sousCategorie(std::vector);
 {
     ui->setupUi(this);
-    ui->treeWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    ui->treeWidget->setSelectionMode(QAbstractItemView::MultiSelection);
     ui->treeWidget->setDragEnabled(true);
     ui->treeWidget->viewport()->setAcceptDrops(true);
     ui->treeWidget->setDropIndicatorShown(true);
     ui->treeWidget->setDragDropMode(QAbstractItemView::InternalMove);
     // Set the number of columns in the tree
     ui->treeWidget->setColumnCount(2);
-   //QObject::connect(ui->buttonBox->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(validerTree()));
+    QObject::connect(ui->Valider,SIGNAL(clicked()),this,SLOT(validerTree()));
     displayTree();
-    //validerTree();
+
 }
 
 void gererCategorie::displayTree()
@@ -79,12 +80,33 @@ void gererCategorie::displayTree()
 
 void gererCategorie::validerTree()
 {
+     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
     for(std::map<Categorie, QTreeWidgetItem *>::iterator it = tree.begin(); it!=tree.end();it++)
     {
         QMessageBox* test = new QMessageBox();
-        test->setText("Parent de : "+it->first.getCode()+" est "+it->second->parent()->text(0));
-        test->show();
+        if(it->second->parent()!=0)
+        {
+            if((getParentCat(it->first.getCode())!=0)&&(getParentCat(it->first.getCode()) != it->second->parent()->text(0)))// si une catégorie a changée de parent
+            {
+                tCat.getElement(getParentCat(it->first.getCode())).removeSousCategorie(tCat.getElement(it->first.getCode()));
+                tCat.getElement(it->second->parent()->text(0)).addSousCategorie(tCat.getElement(it->first.getCode()));
+            }
+            else if((getParentCat(it->first.getCode())==0)&&(getParentCat(it->first.getCode()) != it->second->parent()->text(0)))
+            {
+                 tCat.getElement(it->second->parent()->text(0)).addSousCategorie(tCat.getElement(it->first.getCode()));
+            }
+
+        }
+        else
+        {
+            if(getParentCat(it->first.getCode()) != "")// si une catégorie n'a plus de parents alors qu'elle en avait un
+            {
+                tCat.getElement(getParentCat(it->first.getCode())).removeSousCategorie(tCat.getElement(it->first.getCode()));
+            }
+        }
     }
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 
 
