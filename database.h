@@ -61,7 +61,7 @@ public:
     /**
      * @brief query effectue une requete vers la bdd.
      * @param q requete
-     * @return QSqlQuery resultat de la requete
+     * @return resultat de la requete
      */
     QSqlQuery query(string q);
 
@@ -105,7 +105,7 @@ public:
     public:
         /**
          * @brief SaverLoader constructeur
-         * @param database Database&
+         * @param database
          */
         SaverLoader(Database& database):db(database){}
         /**

@@ -70,93 +70,93 @@ public :
 
     /**
      * @brief Categorie constructeur de Categorie
-     * @param c code std::string
-     * @param d description std::string
-     * @param sc sous categorie std::vector<Categorie>
+     * @param c code
+     * @param d description
+     * @param sc sous categorie
      */
     Categorie(std::string c,std::string d,std::vector<Categorie>sc);
 
     /**
      * @brief Categorie constructeur de Categorie
-     * @param c code QString
-     * @param d description QString
+     * @param c code
+     * @param d description
      * @param sc sous categorie std::vector<Categorie>
      */
     Categorie(QString c,QString d,std::vector<Categorie>sc);
 
     /**
      * @brief Categorie constructeur de Categorie
-     * @param c code const char*
-     * @param d description const char*
-     * @param sc sous categorie std::vector<Categorie>
+     * @param c code
+     * @param d description
+     * @param sc sous categorie
      */
     Categorie(const char* c,const char* d,std::vector<Categorie>sc);
 
     /**
      * @brief Categorie constructeur de Categorie
-     * @param c code std::string
-     * @param d description std::string
+     * @param c code
+     * @param d description
      */
     Categorie(std::string c,std::string d);
 
     /**
      * @brief Categorie constructeur de Categorie
-     * @param c code QString
-     * @param d description QString
+     * @param c code
+     * @param d description
      */
     Categorie(QString c,QString d);
 
     /**
      * @brief Categorie constructeur de Categorie
-     * @param c code const char*
-     * @param d description const char *
+     * @param c code
+     * @param d description
      */
     Categorie(const char* c, const char*d);
 
     /**
      * @brief getCode getter sur le code
-     * @return code QString
+     * @return code
      */
     QString getCode() const {return code;}
 
     /**
      * @brief getCodeStdString getter sur le code
-     * @return code std::string
+     * @return code
      */
     std::string getCodeStdString() const {return code.toStdString();}
 
     /**
      * @brief getDescription getter sur la description
-     * @return description QString
+     * @return description
      */
     QString getDescription() const {return description;}
 
     /**
      * @brief getDescriptionStdString getter sur description
-     * @return description std::string
+     * @return description
      */
     std::string getDescriptionStdString() const {return description.toStdString();}
 
     /**
      * @brief setDescription permet de changer la description.
-     * @param d description QString
+     * @param d description
      */
     void setDescription(QString d){description = d;}
     /**
      * @brief setDescription permet de changer la descirption.
-     * @param d description std::string
+     * @param d description
      */
     void setDescription(std::string d){setDescription(QString::fromStdString(d));}
 
     /**
      * @brief setDescription permet de changer la descirption.
-     * @param d description const char*
+     * @param d description
      */
     void setDescription(const char* d){setDescription(std::string(d));}
 
     /**
      * @brief setSousCategorie permet de mettre un ensemble de sous catégorie.
-     * @param sc sous categorie std::vector<Categorie>
+     * @param sc sous categorie
      */
     void setSousCategorie(std::vector<Categorie> sc){sousCategorie=sc;}
 
@@ -182,24 +182,23 @@ public :
 
     /**
      * @brief getSousCategorie permet de récupérer l'ensemple des sous catégorie.
-     * @return sousCategorie std::vector<Categorie>
+     * @return sousCategorie
      */
     std::vector<Categorie> getSousCategorie()const {return sousCategorie;}
 };
 
-
 /**
  * @brief getFullSousCat permet de récupérer l'ensemple des sous catégorie de c.
  * @param c QString associer à un code de Categorie
- * @return sousCategorie de la categorie associer à c std::vector<Categorie>
+ * @return sousCategorie de la categorie associer à c
  */
 std::vector<Categorie> getFullSousCat(QString c);
 
 /**
  * @brief getCatsWithSousCat permet de récupérer un map de catégorie et de leur sous catégorie.
- * @return ensemble des categories et leurs sous categories. std::map<Categorie,std::vector<Categorie> >
+ * @return ensemble des categories et leurs sous categories.
  */
-std::vector<Categorie> getFullSousCat(QString c);//retourne toutes les sous catégories d'une catégorie dans une représentation à plat
+std::map<Categorie,std::vector<Categorie> > getCatsWithSousCat();
 /**
  * @brief getCatsWithSousCat est une fonction récursive qui permet de récupérer l'ensemble des sous catégories pour chaque catégorie en possédant.
  * @return map dont la clef est une catégorie.
@@ -223,26 +222,25 @@ QString getParentCat(QString c);//retourne le code de la catégorie parente d'un
  */
 std::vector<Categorie> getOriginCat();//retourne l'ensemble des catégories n'ayant pas de parents
 
-
 /**
  * @brief operator < de comparaison sur deux catégories. Compare les codes.
- * @param c1 Categorie
- * @param c2 Catégorie
- * @return booléen
+ * @param c1
+ * @param c2
+ * @return
  */
 bool operator<(const Categorie c1, const Categorie c2);
 
 /**
  * @brief operator == regarder si les codes de deux catégories sont égaux.
- * @param c1 Categorie
- * @param c2 Categorie
- * @return booléen
+ * @param c1
+ * @param c2
+ * @return
  */
 bool operator==(const Categorie c1, const Categorie c2);
 
 /**
  * @brief StringToCategorie
- * @param s QString
+ * @param s
  * @return Categorie associer à la chaine de caractère.
  */
 Categorie StringToCategorie(const QString& s);

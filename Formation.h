@@ -65,20 +65,20 @@ class Formation:public EntityStd
 public:
     /**
      * @brief Formation Constructeur de formation. Met automatiquement la Formation dans son manager associé.
-     * @param n QString nom
-     * @param d QString Description
-     * @param uv std::map<UV*,bool> uvs
-     * @param nbCred std::map<Categorie,unsigned int>  nbCredits
+     * @param n nom
+     * @param d Description
+     * @param uv uvs
+     * @param nbCred nbCredits
      */
     Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred);
 
     /**
      * @brief Formation Constructeur de formation. Met automatiquement la Formation dans son manager associé.
-     * @param n QString nom
-     * @param d QString Description
-     * @param uv std::map<UV*,bool> uvs
-     * @param nbCred std::map<Categorie,unsigned int>  nbCredits
-     * @param cv std::map<Categorie,unsigned int> critereValidation
+     * @param n nom
+     * @param d Description
+     * @param uv uvs
+     * @param nbCred nbCredits
+     * @param cv critereValidation
      */
     Formation(QString n,QString d,std::map<UV*,bool> uv,std::map<Categorie,unsigned int> nbCred,std::vector<Condition> cv);
 
@@ -90,7 +90,7 @@ public:
 
     /**
      * @brief getStrLabel ici utilisera le nom
-     * @return nom std::string
+     * @return nom
      */
     std::string getStrLabel() const
     {
@@ -99,7 +99,7 @@ public:
 
     /**
      * @brief getNom getter sur le nom
-     * @return nom QString
+     * @return nom
      */
     QString getNom() const
     {
@@ -108,7 +108,7 @@ public:
 
     /**
      * @brief getDescription getter sur la description
-     * @return description QString
+     * @return description
      */
     QString getDescription()const
     {
@@ -117,7 +117,7 @@ public:
 
     /**
      * @brief getUVs getters sur uvs
-     * @return uvs std::map<UV*,bool>
+     * @return uvs
      */
     std::map<UV*,bool> getUVs() const
     {
@@ -126,13 +126,13 @@ public:
 
     /**
      * @brief setNom setter sur le nom
-     * @param n QString
+     * @param n
      */
     void setNom(QString n);
 
     /**
      * @brief setDescription setter sur la description
-     * @param desc QString
+     * @param desc
      */
     void setDescription(QString desc)
     {
@@ -141,7 +141,7 @@ public:
 
     /**
      * @brief setUVs setter sur uvs
-     * @param uv std::map<UV*,bool>
+     * @param uv
      */
     void setUVs(std::map<UV*,bool> uv)
     {

@@ -54,7 +54,7 @@ private:
      * @param u UV cherché.
      * @param begin itérateur de départ sur les incriptions
      * @param end itérateur de fin sur les incriptions
-     * @return  std::vector<Inscription>::iterator
+     * @return
      */
     std::vector<Inscription>::iterator findUVInscription(UV u,std::vector<Inscription>::iterator begin, std::vector<Inscription>::iterator end);
 
@@ -68,7 +68,7 @@ public:
 
     /**
      * @brief Dossier constructeur
-     * @param i vecteur d'incription
+     * @param i vecteur d'inscription
      * @param f vecteur de formation
      */
     Dossier(std::vector<Inscription> i,std::vector<Formation*> f):forma(f),inscri(i){}
@@ -109,7 +109,7 @@ public:
 
     /**
      * @brief deleteFormation supprime la formation du dossier
-     * @param f QString associer à la formation
+     * @param f associer à la formation
      */
     void deleteFormation(QString f);
 
@@ -124,8 +124,8 @@ public:
 
     /**
      * @brief containsInscription vérifie si un dossier possède déjà cette inscription
-     * @param i Inscription
-     * @return booleen
+     * @param i
+     * @return
      */
     bool containsInscription(Inscription i)
     {
@@ -135,14 +135,14 @@ public:
     /**
      * @brief findUVInscription fonction privée pour récupérer un itérateur vers une uv
      * @param u UV cherché.
-     * @return  std::vector<Inscription>::iterator
+     * @return
      */
     std::vector<Inscription>::iterator findUVInscription(UV u);
 
     /**
      * @brief isUvValidated vérifie si l'uv est validé
-     * @param u uv
-     * @return booléen
+     * @param u
+     * @return
      */
     bool isUvValidated(UV u);
     /**
@@ -154,25 +154,25 @@ public:
 
     /**
      * @brief addInscription ajoute une inscription au dossier
-     * @param f Inscription
+     * @param f
      */
     void addInscription(Inscription f);
 
     /**
      * @brief deleteInscription supprime une inscription du dossier
-     * @param f Inscription
+     * @param f
      */
     void deleteInscription(Inscription f);
 
     /**
      * @brief getInscription getter sur inscriptions.
-     * @return vecteur d'incription associé au dossier
+     * @return
      */
     const std::vector<Inscription> getInscription() const{return inscri;}
 
     /**
      * @brief getFormationsNotInDossier recuere les formations qui ne sont pas dans le  Dossier
-     * @return vecteur de pointeur vers des formations.
+     * @return
      */
     std::vector<Formation*> getFormationsNotInDossier();
     /**
@@ -184,20 +184,20 @@ public:
 
     /**
      * @brief getValidatedCredits
-     * @param c QString associé à une Categorie.
-     * @return le nombre de crédits validés pour une catégorie donnée (int)
+     * @param c associé à une Categorie.
+     * @return le nombre de crédits validés pour une catégorie donnée
      */
     unsigned int getValidatedCredits(QString c);
 
     /**
      * @brief getInscriptionCurrentStatus
-     * @return le nombre de crédits validés par l'étudiant dans chaque catégorie (std::map<Categorie, unsigned int>)
+     * @return le nombre de crédits validés par l'étudiant dans chaque catégorie
      */
     std::map<Categorie, unsigned int> getInscriptionCurrentStatus();
 
     /**
      * @brief getDossierCurrentStatus
-     * @return retourne le nombre de crédits restant à valider par l'étudiant dans chaque catégorie pour chaque formation. le premier entier est pour les crédits restant à valider le deuxième pour les crédits en trop. (std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >)
+     * @return retourne le nombre de crédits restant à valider par l'étudiant dans chaque catégorie pour chaque formation. le premier entier est pour les crédits restant à valider le deuxième pour les crédits en trop.
      */
     std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > getDossierCurrentStatus();
     /**

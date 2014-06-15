@@ -7,8 +7,19 @@
 #include <QDebug>
 #include <QString>
 using namespace std;
+/**
+* @file templatemanager.h
+* @version 1
+* @brief Ce fichier est le header de la classe templatemanager.
+**/
 
+/**
+ * @brief la class T doit être du type EntityStd pour que TemplateManager fonctionne.
+ */
 template <class T>
+/**
+ * @brief TemplateManagerException class gère les exceptions
+ */
 class TemplateManagerException : public exception
 {
 protected :
@@ -23,61 +34,112 @@ public:
 };
 
 
-
+/**
+ * @brief la class T doit être du type EntityStd pour que TemplateManager fonctionne.
+ */
 template <class T>
+/**
+ * @brief TemplateManager class est singleton. Il fonctionne pour toutes les entité de notre programme tant qu'elles hérite de entityStd.
+ */
 class TemplateManager
 {
-vector<T> elements;
-static TemplateManager<T>* handler;
+     /**
+     * @brief elements vecteur stockant tous les éléments
+     */
+    vector<T> elements;
 
+    /**
+     * @brief handler adresse du manager
+     */
+    static TemplateManager<T>* handler;
+
+    /**
+    * @brief Destructeur privé détrusant tous les éléments.
+    * /
     ~TemplateManager<T>()
     {
         elements.clear();
     }
 
+    /**
+     * @brief TemplateManager<T> constructeur privé
+     */
     TemplateManager<T>()
     {
     }
 
 public:
+
+    /**
+     * @brief getInstance
+     * @return retourn l'adresse du manager.
+     */
     static TemplateManager<T>& getInstance()
     {
         if (handler==0) handler = new TemplateManager<T>();
         return *handler;
     }
 
+    /**
+     * @brief destroyInstance détruit le manager
+     */
     void destroyInstance()
     {
         delete handler;
     }
 
+    /**
+     * @brief getIterator
+     * @return retourne un itérateur sur le premier élément du manager.
+     */
     typename vector<T>::iterator getIterator()
     {
         return elements.begin();
     }
 
+    /**
+     * @brief getIterator
+     * @return retourne un const_itérateur sur le premier élément du manager.
+     */
     typename vector<T>::const_iterator getIterator() const
     {
         return elements.begin();
     }
 
+    /**
+     * @brief end
+     * @return retourne un itérateur sur le dernier élément du manager
+     */
     typename vector<T>::iterator end()
     {
         return elements.end();
     }
 
 
+    /**
+     * @brief end
+     * @return retourne un const_itérateur sur le dernier élément du manager
+     */
     typename vector<T>::const_iterator end() const
     {
         return elements.end();
     }
 
+    /**
+     * @brief New Crée un nouvel élément. \n
+     *          on ne peut pas ajouter un élément ayant le même label qu'un autre dans le manager.\n
+     * @param element
+     */
     void New(T element)
-    {//on ne peut pas ajouter un élément ayant le même label qu'un autre dans le manager
-     //Néenmoins les tests sont à faire dans les constructeurs des objets
+    {
         elements.push_back(element);
     }
 
+    /**
+     * @brief getElement
+     * @param s
+     * @return retourne l'element qui a pour label s
+     */
     T& getElement(std::string s)
     {
 
@@ -87,7 +149,6 @@ public:
         unsigned int n=0;
         for(unsigned int i=0;i<nb; i++)
         {
-            //qDebug()<<QString::fromStdString(s)<<"="<<QString::fromStdString(elements[i].getStrLabel())<<" : "<<(s==elements[i].getStrLabel());
             if(s==elements[i].getStrLabel())
             {
                 n++;
@@ -107,16 +168,32 @@ public:
             return elements[n-1];
         }
     }
+
+    /**
+     * @brief getElement
+     * @param s
+     * @return
+     */
     T& getElement(const char* s)
     {
         return getElement(std::string(s));
     }
 
+    /**
+     * @brief getElement
+     * @param s
+     * @return retourne l'element qui a pour label s
+     */
     T& getElement(const QString& s)
     {
         return getElement(s.toStdString());
     }
 
+    /**
+     * @brief alreadyExist
+     * @param s
+     * @return retourne vrai si s existe déjà dans le manager
+     */
     bool alreadyExist(std::string s)
     {
         int nb=this->size();
@@ -142,31 +219,56 @@ public:
             return true;
     }
 
+    /**
+     * @brief alreadyExist
+     * @param s
+     * @return retourne vrai si s existe déjà dans le manager
+     */
     bool alreadyExist(QString s)
     {
         return alreadyExist(s.toStdString());
     }
 
+    /**
+     * @brief alreadyExist
+     * @param s
+     * @return retourne vrai si s existe déjà dans le manager
+     */
     bool alreadyExist(const char* s)
     {
         return alreadyExist(std::string(s));
     }
 
+    /**
+     * @brief size
+     * @return retourne le nombre d'element du manager
+     */
     unsigned int size() const
     {
         return elements.size();
     }
 
+    /**
+     * @brief clear vide les elements!!! Detruit tous les elements du manager !!!
+     */
     void clear()
     {
         elements.clear();
     }
 
+    /**
+     * @brief erase detruit l'element à l'index i du manager
+     * @param i
+     */
     void erase(int i)
     {
         elements.erase(elements.begin()+i);
     }
 
+    /**
+     * @brief erase detruit l'element e du manager
+     * @param e
+     */
     void erase(T e)
     {
         typename std::vector<T>::iterator it = find(getIterator(),end(),e);
