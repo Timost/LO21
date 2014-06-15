@@ -129,13 +129,26 @@ int main(int argc, char *argv[]) {
             qDebug()<<"ESSAI : "<<it->getCode();
         }
 
-        //test
+        //test getCatsWithSousCat
 
         std::map<Categorie,std::vector<Categorie> > testwithsouscat= getCatsWithSousCat();
         for(std::map<Categorie,std::vector<Categorie> >::iterator it= testwithsouscat.begin();it !=testwithsouscat.end();it++)
         {
             qDebug()<<"Categorie : "<<it->first.getCode()<<", Nombre de sous categories"<<it->second.size();
         }
+
+        //test ParentCat
+
+        qDebug()<<getParentCat("Communiquer Pratiques");
+
+        //test getOrigin cat
+
+        std::vector<Categorie> testorigincat= getOriginCat();
+        for(std::vector<Categorie>::iterator it= testorigincat.begin();it !=testorigincat.end();it++)
+        {
+            qDebug()<<"Categorie Origin: "<<it->getCode();
+        }
+
 
 
         //création d'une UV directement
@@ -261,22 +274,22 @@ int main(int argc, char *argv[]) {
         }
 
        //création d'un étudiant
-       QDate date(2014,5,3);
-       Etudiant e1(dos,1320123,"nom","prenom",date);
-       Etudiant e2(dos,1320123,"nom","prenom",date);
-       //Database db=Database("c:/sqlite/lo21.db");
-      Database db=Database("e:/sqlite/lo21_2.db");
-       db.save();
-       db.load();
-       tUV.getElement("EE32").display();
-       qDebug() <<tUV.size();
-       tUV.clear();
-       qDebug() <<tUV.size();
-       tFormation.getElement("Nom Formation1");
-       if(tFormation.alreadyExist("Nom Formation2")) qDebug()<<"marche";
-       if(tFormation.alreadyExist("Nom Forgrrgrgrgmation1")) qDebug()<<"marchepas";
-       tEtudiant.getElement("nompreno");
-       qDebug()<<"Ca marche";
+//       QDate date(2014,5,3);
+//       Etudiant e1(dos,1320123,"nom","prenom",date);
+//       Etudiant e2(dos,1320123,"nom","prenom",date);
+//       //Database db=Database("c:/sqlite/lo21.db");
+//      Database db=Database("e:/sqlite/lo21_2.db");
+//       db.save();
+//       db.load();
+//       tUV.getElement("EE32").display();
+//       qDebug() <<tUV.size();
+//       tUV.clear();
+//       qDebug() <<tUV.size();
+//       tFormation.getElement("Nom Formation1");
+//       if(tFormation.alreadyExist("Nom Formation2")) qDebug()<<"marche";
+//       if(tFormation.alreadyExist("Nom Forgrrgrgrgmation1")) qDebug()<<"marchepas";
+//       tEtudiant.getElement("nompreno");
+//       qDebug()<<"Ca marche";
     }
     catch(std::exception& e)
     {

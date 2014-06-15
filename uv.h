@@ -44,10 +44,11 @@ class UV : public EntityStd
      * @brief titre
      */
     std::string titre;
+
     /**
      * @brief credits
      */
-    std::map<Categorie, unsigned int> credits;//voirs enums.h pour Categorie
+    std::map<Categorie, unsigned int> credits;
 
     /**
      * @brief automne l'uv est ouverte en automne
@@ -135,7 +136,6 @@ public:
     {
         return credits;
     }
-
 
     /**
      * @brief ouvertureAutomne verifie si l'uv est ouverte en automne
