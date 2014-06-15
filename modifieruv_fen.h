@@ -2,6 +2,7 @@
 #define MODIFIERUV_FEN_H
 #include <QObject>
 #include <QDialog>
+#include <QMessageBox>
 #include "uv.h"
 #include "Categorie.h"
 

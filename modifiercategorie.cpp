@@ -29,15 +29,23 @@ void ModifierCategorie::connect()
 
 void ModifierCategorie::ok()
 {
-    if(b)
+    try
     {
-        cat->setDescription(ui->description->toPlainText());
+        if(b)
+        {
+            cat->setDescription(ui->description->toPlainText());
+        }
+        else
+        {
+            Categorie(ui->code->text(), ui->description->toPlainText(), std::vector<Categorie>());
+        }
+        this->close();
     }
-    else
+    catch(std::exception& e)
     {
-        Categorie(ui->code->text(), ui->description->toPlainText(), std::vector<Categorie>());
+        QMessageBox::warning(this, "Erreur", e.what());
     }
-    this->close();
+
 }
 
 void ModifierCategorie::cancel()

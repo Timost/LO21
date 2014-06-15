@@ -2,6 +2,7 @@
 #define MODIFIERSAISON_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "Saison.h"
 
 namespace Ui {

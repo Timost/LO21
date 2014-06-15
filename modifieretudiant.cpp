@@ -38,19 +38,26 @@ ModifierEtudiant::~ModifierEtudiant()
 
 void ModifierEtudiant::ok()
 {
-    if(!b)
+    try
     {
-        Dossier dos=etudiant->getDossier();
-        Etudiant(dos, ui->INE->text().toUInt(), ui->Nom->text(), ui->Prenom->text(), ui->dateNaissance->date());
+        if(!b)
+        {
+            Dossier dos=etudiant->getDossier();
+            Etudiant(dos, ui->INE->text().toUInt(), ui->Nom->text(), ui->Prenom->text(), ui->dateNaissance->date());
+        }
+        else
+        {
+            etudiant->setIne(ui->INE->text().toInt());
+            etudiant->setNom(ui->Nom->text());
+            etudiant->setPrenom(ui->Prenom->text());
+            etudiant->setDateNaissance(ui->dateNaissance->date());
+        }
+        this->close();
     }
-    else
+    catch(std::exception& e)
     {
-        etudiant->setIne(ui->INE->text().toInt());
-        etudiant->setNom(ui->Nom->text());
-        etudiant->setPrenom(ui->Prenom->text());
-        etudiant->setDateNaissance(ui->dateNaissance->date());
+        QMessageBox::warning(this, "Erreur", e.what());
     }
-    this->close();
 }
 
 void ModifierEtudiant::cancel()

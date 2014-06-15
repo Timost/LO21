@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "Note.h"
+#include <QMessageBox>
 
 namespace Ui {
 class ModifierNote;

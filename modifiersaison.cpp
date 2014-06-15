@@ -28,16 +28,23 @@ void ModifierSaison::connect()
 
 void ModifierSaison::ok()
 {
-    if(b)
+    try
     {
-        sai->setDescription(ui->Description->toPlainText());
+        if(b)
+        {
+            sai->setDescription(ui->Description->toPlainText());
+        }
+        else
+        {
+            sai=new Saison(ui->Nom->text().toStdString(), ui->Description->toPlainText().toStdString());
+            delete sai;
+        }
+        this->close();
     }
-    else
+    catch(std::exception& e)
     {
-        sai=new Saison(ui->Nom->text().toStdString(), ui->Description->toPlainText().toStdString());
-        delete sai;
+        QMessageBox::warning(this, "Erreur", e.what());
     }
-    this->close();
 }
 
 void ModifierSaison::cancel()

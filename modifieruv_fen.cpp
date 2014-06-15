@@ -50,18 +50,25 @@ Modifieruv_fen::~Modifieruv_fen()
 
 void Modifieruv_fen::ok()
 {
-    if(!b)
+    try
     {
-        uv = new UV(ui->code->text().toStdString(), ui->nom->text().toStdString(), cat, ui->automne->isChecked(), ui->printemps->isChecked());
-        delete uv;
+        if(!b)
+        {
+            uv = new UV(ui->code->text().toStdString(), ui->nom->text().toStdString(), cat, ui->automne->isChecked(), ui->printemps->isChecked());
+            delete uv;
+        }
+        else
+        {
+            uv->setTitre(ui->nom->text().toStdString());
+            uv->setAutomne(ui->automne->isChecked());
+            uv->setPrintemps(ui->printemps->isChecked());
+        }
+        this->close();
     }
-    else
+    catch(std::exception& e)
     {
-        uv->setTitre(ui->nom->text().toStdString());
-        uv->setAutomne(ui->automne->isChecked());
-        uv->setPrintemps(ui->printemps->isChecked());
+        QMessageBox::warning(this, "Erreur", e.what());
     }
-    this->close();
 }
 
 void Modifieruv_fen::cancel()

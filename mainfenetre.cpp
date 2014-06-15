@@ -275,18 +275,32 @@ void MainFenetre::updateSemestre()
 
 void MainFenetre::save()
 {
-    QFileDialog* file= new QFileDialog();
-    QString path = file->getOpenFileName(this, tr("Sauvegarder la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
-    Database db(path.toStdString());
-    db.save();
+    try
+    {
+        QFileDialog* file= new QFileDialog();
+        QString path = file->getOpenFileName(this, tr("Sauvegarder la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
+        Database db(path.toStdString());
+        db.save();
+    }
+    catch(std::exception& e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
 }
 
 void MainFenetre::load()
 {
-    QFileDialog* file= new QFileDialog();
-    QString path = file->getOpenFileName(this, tr("Charger la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
-    Database db(path.toStdString());
-    db.load();
+    try
+    {
+        QFileDialog* file= new QFileDialog();
+        QString path = file->getOpenFileName(this, tr("Charger la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
+        Database db(path.toStdString());
+        db.load();
+    }
+    catch(std::exception &e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
     //on met à jour les tableaux
     updateUV();
     updateEtudiant();
@@ -299,13 +313,29 @@ void MainFenetre::load()
 
 void MainFenetre::deleteUV(int i)
 {
-    TemplateManager<UV>::getInstance().erase(i);
+    try
+    {
+         TemplateManager<UV>::getInstance().erase(i);
+    }
+    catch(std::exception e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
+
     updateUV();
 }
 
 void MainFenetre::deleteEtudiant(int i)
 {
-    TemplateManager<Etudiant>::getInstance().erase(i);
+    try
+    {
+         TemplateManager<Etudiant>::getInstance().erase(i);
+    }
+    catch(std::exception e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
+
     updateEtudiant();
 }
 

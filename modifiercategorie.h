@@ -2,6 +2,7 @@
 #define MODIFIERCATEGORIE_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "Categorie.h"
 
 namespace Ui {
