@@ -225,7 +225,7 @@ public:
  * @param d le dossier pour vérifier qu'on ne retourne pas une UV déjà validée
  * @return  Le code de l'UV si on en a trouvée une, La chaine vide "" sinon.
  */
-QString getUVgivingCredits(Categorie c, Dossier &d);
+QString getUVgivingCredits(Categorie c, Dossier &d, std::map<UV *, bool> uvs);
 Dossier completeDossier(Dossier d, std::map<UV,int> preferences);
 
 

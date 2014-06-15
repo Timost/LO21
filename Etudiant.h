@@ -117,35 +117,9 @@ private :
      */
     Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d,  QString log):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d)
     {
-        QString test;
-        if(nom.length()>=7)
-        {
-          test=prenom;
-          test.insert(1, nom);
-          test.resize(8);
-        }
-        else
-        {
-          test=nom;
-          test.insert(nom.length(), prenom);
-          test.resize(8);
-        }
-        try
-        {
-            if(test!=log.left(8) || TemplateManager<Etudiant>::getInstance().alreadyExist(log.toStdString()))
-            {
-                throw EtudiantException("Login non valide.");
-            }
-            else
-            {
-                login=log;
-                TemplateManager<Etudiant>::getInstance().New(*this);
-            }
-        }
-        catch(TemplateManagerException<Etudiant>& e)
-        {
-            qDebug()<<e.what()<<"\n";
-        }
+        login=log;
+        TemplateManager<Etudiant>::getInstance().New(*this);
+
     }
 
     /**

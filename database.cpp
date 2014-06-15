@@ -198,7 +198,7 @@ void Database::SaverLoader::save()
         QSqlQuery query;
         query.prepare("INSERT INTO Etudiant (ine, login, nom, prenom, dateNaissance) VALUES (:ine, :login, :nom,:prenom,:dateNaissance)");
         query.bindValue(":ine", QString::fromStdString(to_string(itEtu[i].getIne())));
-        query.bindValue(":login", QString::fromStdString(itEtu[i].getLogin().toStdString()));
+        query.bindValue(":login", itEtu[i].getLogin());
         query.bindValue(":nom", QString::fromStdString(itEtu[i].getNom().toStdString()));
         query.bindValue(":prenom", QString::fromStdString(itEtu[i].getPrenom().toStdString()));
         query.bindValue(":dateNaissance", itEtu[i].getDateNaissance().toString(QString("yyyy-MM-dd")));

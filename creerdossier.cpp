@@ -274,71 +274,85 @@ void creerDossier::validerInscription()
     TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
 
 
-
-    if(inscriptionsToBeAdded.size()>0)
+    try
     {
-        Dossier dos=e.getDossier();
-
-        for(unsigned int i=0; i<inscriptionsToBeAdded.size();i++)
+        if(inscriptionsToBeAdded.size()>0)
         {
-            QComboBox *uv = qobject_cast<QComboBox*>(ui->InscriptionTable->cellWidget(i,0));
-            QComboBox *semestre = qobject_cast<QComboBox*>(ui->InscriptionTable->cellWidget(i,1));
-            QComboBox *note = qobject_cast<QComboBox*>(ui->InscriptionTable->cellWidget(i,2));
-            if((uv!=0)&&(semestre!=0)&&(note!=0))
+            Dossier dos=e.getDossier();
+
+            for(unsigned int i=0; i<inscriptionsToBeAdded.size();i++)
             {
-                Inscription ins(tUV.getElement(uv->currentText()),tSemestre.getElement(semestre->currentText()),tNote.getElement(note->currentText()));
-                if(!dos.containsInscription(ins))
+                QComboBox *uv = qobject_cast<QComboBox*>(ui->InscriptionTable->cellWidget(i,0));
+                QComboBox *semestre = qobject_cast<QComboBox*>(ui->InscriptionTable->cellWidget(i,1));
+                QComboBox *note = qobject_cast<QComboBox*>(ui->InscriptionTable->cellWidget(i,2));
+                if((uv!=0)&&(semestre!=0)&&(note!=0))
                 {
-                    dos.addInscription(ins);
+                    Inscription ins(tUV.getElement(uv->currentText()),tSemestre.getElement(semestre->currentText()),tNote.getElement(note->currentText()));
+                    if(!dos.containsInscription(ins))
+                    {
+                        try
+                        {
+                            dos.addInscription(ins);
+                        }
+                        catch(std::exception& e)
+                        {
+                             QMessageBox::warning(this, "Erreur", e.what());
+                        }
+                    }
+                    else
+                    {
+                        QMessageBox* err= new QMessageBox(this);
+                        err->setText("Vous avez entré deux inscriptions identiques, une seule sera prise en compte.");
+                        err->exec();
+                    }
                 }
                 else
                 {
-                    QMessageBox* err= new QMessageBox(this);
-                    err->setText("Vous avez entré deux inscriptions identiques, une seule sera prise en compte.");
-                    err->exec();
+                    throw DossierException("Erreur créerdossier : le qobject_cast n'a pas marché");
                 }
             }
-            else
-            {
-                throw DossierException("Erreur créerdossier : le qobject_cast n'a pas marché");
-            }
+            e.setDossier(dos);
         }
-        e.setDossier(dos);
-    }
 
-    inscriptionsToBeAdded.clear();
 
-    if(inscriptionsToBeRemoved.size()>0)
-    {
+        inscriptionsToBeAdded.clear();
 
-        Dossier dos=e.getDossier();
-
-        for(unsigned int i=0; i<inscriptionsToBeRemoved.size();i++)
+        if(inscriptionsToBeRemoved.size()>0)
         {
-            QString InscrUv= ui->InscriptionTable_2->item(inscriptionsToBeRemoved[i],0)->text();
-            QString InscrSem= ui->InscriptionTable_2->item(inscriptionsToBeRemoved[i],1)->text();
-            QString InscrRes= ui->InscriptionTable_2->item(inscriptionsToBeRemoved[i],2)->text();
 
-            Inscription inscr(tUV.getElement(InscrUv),tSemestre.getElement(InscrSem),tNote.getElement(InscrRes));
+            Dossier dos=e.getDossier();
 
-            if(dos.containsInscription(inscr))
+            for(unsigned int i=0; i<inscriptionsToBeRemoved.size();i++)
             {
-                dos.deleteInscription(inscr);
+                QString InscrUv= ui->InscriptionTable_2->item(inscriptionsToBeRemoved[i],0)->text();
+                QString InscrSem= ui->InscriptionTable_2->item(inscriptionsToBeRemoved[i],1)->text();
+                QString InscrRes= ui->InscriptionTable_2->item(inscriptionsToBeRemoved[i],2)->text();
+
+                Inscription inscr(tUV.getElement(InscrUv),tSemestre.getElement(InscrSem),tNote.getElement(InscrRes));
+
+                if(dos.containsInscription(inscr))
+                {
+                    dos.deleteInscription(inscr);
+                }
+                else
+                {
+                    throw DossierException("Erreur validerInscription : L'inscription "+inscr.getCode().toStdString()+" "+inscr.getSemestre().getCode().toStdString()+" "+inscr.getResultat().getStrLabel()+" N'est pas dans le dossier");
+                }
             }
-            else
-            {
-                throw DossierException("Erreur validerInscription : L'inscription "+inscr.getCode().toStdString()+" "+inscr.getSemestre().getCode().toStdString()+" "+inscr.getResultat().getStrLabel()+" N'est pas dans le dossier");
-            }
+
+            e.setDossier(dos);
         }
 
-        e.setDossier(dos);
+        inscriptionsToBeRemoved.clear();
+
+        fillInscriptionTable(0);
+
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     }
-
-    inscriptionsToBeRemoved.clear();
-
-    fillInscriptionTable(0);
-
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+    catch(std::exception& e)
+    {
+         QMessageBox::warning(this, "Erreur", e.what());
+    }
 }
 
 

@@ -68,8 +68,11 @@ void gererFormation::init()
     }
     ui->AjouterLigne->hide();
     ui->TableUVAjouter->hide();
+    ui->TableUVAjouter->setSortingEnabled(true);
     ui->TableUVSupprimer->hide();
+    ui->TableUVSupprimer->setSortingEnabled(true);
     ui->tableWidgetCategorie->hide();
+    ui->tableWidgetCategorie->setSortingEnabled(true);
     ui->LabelUvformation->hide();
     ui->labelCondition->hide();
     ui->labelConditionManuel->setWordWrap(true);

@@ -16,11 +16,9 @@
 #include "EntityStd.h"
 #include "uv.h"
 #include "Formation.h"
-#include "enums.h"
 #include "Dossier.h"
 #include "Semestre.h"
 #include "Inscription.h"
-#include "Exception.h"
 #include "Etudiant.h"
 #include "Categorie.h"
 #include "Note.h"
@@ -1729,7 +1727,7 @@ UV(s1,s2,m,false,false);
 
 
         m.clear();
-        m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),9));
+        m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),9));
         s1="EE33";
         s2="titre 2";
         UV uv2(s1,s2,m,true,true);
@@ -1768,7 +1766,7 @@ UV(s1,s2,m,false,false);
         m1.insert(std::pair<UV*,bool> (pUV2,false));
         std::map<Categorie,unsigned int>m2;
         m2.insert(std::pair<Categorie,unsigned int> (StringToCategorie( "CS"),12));
-
+        m2.insert(std::pair<Categorie,unsigned int> (StringToCategorie( "TM"),15));
 
         qDebug()<<"test";
         //nF2.setDescription("Description Formation2");
@@ -1800,7 +1798,7 @@ UV(s1,s2,m,false,false);
         Semestre sem2(tSaison.getElement("Printemps"),2015);
         Inscription nI(uv2,sem1,StringToNote("A"));
         Inscription nI2(newUV,sem2,StringToNote("B"));
-        Inscription ni3(uv2,sem2);
+        Inscription ni3(uv2,sem2,StringToNote("E"));
 
 
         nI.display();
@@ -1812,11 +1810,11 @@ UV(s1,s2,m,false,false);
         //création d'un dossier
         std::vector<Inscription> vInscr;
         vInscr.push_back(nI);
-        //vInscr.push_back(nI2);
+        vInscr.push_back(nI2);
 
         std::vector<Formation*> vForme;
         vForme.push_back(&tFormation.getIterator()[0]);
-        //vForme.push_back(&tFormation.getIterator()[1]);
+        vForme.push_back(&tFormation.getIterator()[1]);
         //vForme.push_back(&tFormation.getIterator()[2]);
 
         Dossier dos(vInscr,vForme);
@@ -1854,33 +1852,33 @@ UV(s1,s2,m,false,false);
             }
         }
 
-//        Inscription testinscr(tUV.getElement("BL01"),tSemestre.getElement("Automne2014"),tNote.getElement("TMP"));
-//        qDebug()<<" Test "<<dos.isUvValidated(tUV.getElement("BL01"));
-//        dos.getSemestreInscritpion(sem1);
-//        qDebug()<<"****************";
-//        dos.addInscription(ni3);
-//        qDebug()<<"****************";
-//        qDebug()<<"Test2"<<getUVgivingCredits(tCat.getElement("CS"),dos);
-//        Dossier test=completeDossier(dos,std::map<UV,int>());
-//        qDebug()<<"Dossier valider ?"<<test.isCompletelyValidated();
+        Inscription testinscr(tUV.getElement("BL01"),tSemestre.getElement("Automne2014"),tNote.getElement("TMP"));
+        qDebug()<<" Test "<<dos.isUvValidated(tUV.getElement("BL01"));
+        dos.getSemestreInscritpion(sem1);
+        qDebug()<<"****************";
+        //dos.addInscription(ni3);
+        qDebug()<<"****************";
+        //qDebug()<<"Test2"<<getUVgivingCredits(tCat.getElement("CS"),dos,dos);
+        Dossier test=completeDossier(dos,std::map<UV,int>());
+        qDebug()<<"Dossier valider ?"<<test.isCompletelyValidated();
 
        //création d'un étudiant
-      QDate date(2014,5,3);
-      Etudiant e1(dos,1320123,"nom","prenom",date);
-      Etudiant e2(dos,1320123,"nom","prenom",date);
-      //Database db=Database("c:/sqlite/lo21.db");
-     Database db=Database("e:/sqlite/lo21_3.db");
-      db.save();
-      db.load();
-      //tUV.getElement("EE32").display();
-      qDebug() <<tUV.size();
-      tUV.clear();
-      qDebug() <<tUV.size();
-      tFormation.getElement("Nom Formation1");
-      if(tFormation.alreadyExist("Nom Formation2")) qDebug()<<"marche";
-      if(tFormation.alreadyExist("Nom Forgrrgrgrgmation1")) qDebug()<<"marchepas";
-      tEtudiant.getElement("nompreno");
-      qDebug()<<"Ca marche";
+//      QDate date(2014,5,3);
+//      Etudiant e1(dos,1320123,"nom","prenom",date);
+//      Etudiant e2(dos,1320123,"nom","prenom",date);
+//      //Database db=Database("c:/sqlite/lo21.db");
+//     Database db=Database("e:/sqlite/lo21_3.db");
+//      db.save();
+//      db.load();
+//      //tUV.getElement("EE32").display();
+//      qDebug() <<tUV.size();
+//      tUV.clear();
+//      qDebug() <<tUV.size();
+//      tFormation.getElement("Nom Formation1");
+//      if(tFormation.alreadyExist("Nom Formation2")) qDebug()<<"marche";
+//      if(tFormation.alreadyExist("Nom Forgrrgrgrgmation1")) qDebug()<<"marchepas";
+//      tEtudiant.getElement("nompreno");
+//      qDebug()<<"Ca marche";
     }
     catch(std::exception& e)
     {

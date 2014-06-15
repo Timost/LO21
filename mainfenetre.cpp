@@ -60,6 +60,7 @@ void MainFenetre::updateUV()
 {
     TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     ui->UVTable->setRowCount(tUV.size());
+    ui->UVTable->setSortingEnabled(false);
     for(unsigned int i=0; i<tUV.size(); i++)
     {
         QTableWidgetItem* code=new QTableWidgetItem(QString(tUV.getIterator()[i].getCode().c_str()));
@@ -84,6 +85,7 @@ void MainFenetre::updateUV()
         sig2->setMapping(modif, i);
         QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierUV(int)));
     }
+    ui->UVTable->setSortingEnabled(true);
 }
 
 //Met à jour le tableau etudiant
@@ -91,6 +93,7 @@ void MainFenetre::updateEtudiant()
 {
     TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
     ui->EtudiantTable->setRowCount(tEtu.size());
+    ui->EtudiantTable->setSortingEnabled(true);
     for(unsigned int i=0; i<tEtu.size(); i++)
     {
         QTableWidgetItem* login=new QTableWidgetItem(tEtu.getIterator()[i].getLogin());
@@ -135,6 +138,7 @@ void MainFenetre::updateFormation()
 {
     TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
     ui->FormationTable->setRowCount(tForm.size());
+    ui->FormationTable->setSortingEnabled(true);
     for(unsigned int i=0; i<tForm.size(); i++)
     {
         QTableWidgetItem* nom=new QTableWidgetItem(tForm.getIterator()[i].getNom());
@@ -166,6 +170,7 @@ void MainFenetre::updateCategorie()
 {
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
     ui->CategorieTable->setRowCount(tCat.size());
+    ui->CategorieTable->setSortingEnabled(true);
     for(unsigned int i=0; i<tCat.size(); i++)
     {
         QTableWidgetItem* nom=new QTableWidgetItem(tCat.getIterator()[i].getCode());
@@ -197,6 +202,7 @@ void MainFenetre::updateNote()
 {
     TemplateManager<Note>& tNot=TemplateManager<Note>::getInstance();
     ui->NoteTable->setRowCount(tNot.size());
+    ui->NoteTable->setSortingEnabled(true);
     for(unsigned int i=0; i<tNot.size(); i++)
     {
         QTableWidgetItem* note=new QTableWidgetItem(tNot.getIterator()[i].getNote());
@@ -231,6 +237,7 @@ void MainFenetre::updateSaison()
 {
     TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
     ui->SaisonTable->setRowCount(tSai.size());
+    ui->SaisonTable->setSortingEnabled(true);
     for(unsigned int i=0; i<tSai.size(); i++)
     {
         QTableWidgetItem* nom=new QTableWidgetItem(tSai.getIterator()[i].getNom());
@@ -262,6 +269,7 @@ void MainFenetre::updateSemestre()
 {
     TemplateManager<Semestre>& tSem=TemplateManager<Semestre>::getInstance();
     ui->SemestreTable->setRowCount(tSem.size());
+    ui->SemestreTable->setSortingEnabled(false);
     for(unsigned int i=0; i<tSem.size(); i++)
     {
         QTableWidgetItem* saison=new QTableWidgetItem(tSem.getIterator()[i].getSaison().getNom());
@@ -280,6 +288,7 @@ void MainFenetre::updateSemestre()
         sig->setMapping(suppr, i);
         QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(deleteSemestre(int)));
     }
+    ui->SemestreTable->setSortingEnabled(true);
 }
 
 void MainFenetre::save()

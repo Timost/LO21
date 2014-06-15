@@ -54,7 +54,7 @@ void Dossier::addInscription(Inscription i)//ajoute une inscription au dossier
     }
     else
     {
-         throw DossierException("Erreur : Le nombre maximum d'inscription est atteint");
+         throw DossierException("Erreur addInscription : Le nombre maximum d'inscription est atteint");
     }
 }
 
@@ -355,18 +355,18 @@ QString Dossier::getNextSemestre()
     return res;
 }
 
-QString getUVgivingCredits(Categorie c,Dossier& d)
+QString getUVgivingCredits(Categorie c,Dossier& d,std::map<UV*,bool> uvs)
 {
-    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+    //TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
 
-    for(std::vector<UV>::iterator it= tUV.getIterator(); it!= tUV.end();it++)
+    for(std::map<UV*,bool>::iterator it= uvs.begin(); it!= uvs.end();it++)
     {
-        if((!d.isUvValidated(*it))&&(!d.isUvEnCours(*it)))
+        if((!d.isUvValidated(*(it->first)))&&(!d.isUvEnCours(*(it->first))))
         {
-            if(it->hasCategorie(c))
+            if((it->first)->hasCategorie(c))
             {
-                qDebug()<<"Test getUVgivingCredits uv proposée : "<<it->getCodeQString() <<" !d.isUvValidated(*it) : " <<(!d.isUvValidated(*it))<<" (!d.isUvEnCours(*it)) :"<<(!d.isUvEnCours(*it));
-                return it->getCodeQString();
+                qDebug()<<"Test getUVgivingCredits uv proposée : "<<(it->first)->getCodeQString() <<" !d.isUvValidated(*it) : " <<(!d.isUvValidated(*(it->first)))<<" (!d.isUvEnCours(*it)) :"<<(!d.isUvEnCours(*(it->first)));
+                return (it->first)->getCodeQString();
             }
         }
     }
@@ -380,31 +380,36 @@ Dossier completeDossier(Dossier d, std::map<UV,int> preferences)
     Dossier res=d;
 
     std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > profileToBeCompleted=res.getDossierCurrentStatus();
-    std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator it=profileToBeCompleted.begin();
+    std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >::iterator it=profileToBeCompleted.begin();
     while((it!=profileToBeCompleted.end())&&(!res.isCompletelyValidated()))
     {
         std::vector<Inscription> temp=res.getInscription();
-        qDebug()<<"****** Debut Dossier ******";
-        for(std::vector<Inscription>::iterator it=temp.begin();it!=temp.end();it++)
-        {
-            qDebug()<<"Inscription "<<it->getCode()<<" Semestre : "<<it->getSemestre().getCode();
-        }
+        qDebug()<<"****** Debut Dossier ******"<<"Categorie"<<std::get<1>(it->first).getCode();
+//        for(std::vector<Inscription>::iterator it=temp.begin();it!=temp.end();it++)
+//        {
+//            qDebug()<<"Inscription "<<it->getCode()<<" Semestre : "<<it->getSemestre().getCode();
+//        }
 
-        for(std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator it2=profileToBeCompleted.begin();it2!=profileToBeCompleted.end();it2++)
-        {
-            qDebug()<<"Formation : "<< std::get<0>(it2->first)->getNom()<<"Catégorie : "<< std::get<1>(it2->first).getCode()<<", crédits à valider : "<< std::get<0>(it2->second)<<" crédits supplémentaires : "<<std::get<1>(it2->second);
-        }
+//        for(std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator it2=profileToBeCompleted.begin();it2!=profileToBeCompleted.end();it2++)
+//        {
+//            qDebug()<<"Formation : "<< std::get<0>(it2->first)->getNom()<<"Catégorie : "<< std::get<1>(it2->first).getCode()<<", crédits à valider : "<< std::get<0>(it2->second)<<" crédits supplémentaires : "<<std::get<1>(it2->second);
+//        }
+
+                for(std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator itx=profileToBeCompleted.begin();itx!=profileToBeCompleted.end();itx++)
+                {
+                    qDebug()<<"Formation : "<< std::get<0>(itx->first)->getNom()<<"Catégorie : "<< std::get<1>(itx->first).getCode()<<", crédits à valider : "<< std::get<0>(itx->second)<<" crédits supplémentaires : "<<std::get<1>(itx->second);
+                }
 
         qDebug()<<"****** Fin Dossier ******";
         //qDebug()<<"Test";
         if(std::get<0>(it->second)>0)// si on est en manque de crédis dans cette Catégorie pour cette Formation
         {
 
-            QString uvPossible=getUVgivingCredits(std::get<1>(it->first),res);
+            QString uvPossible=getUVgivingCredits(std::get<1>(it->first),res,std::get<0>(it->first)->getUVs());
             if(uvPossible != "")
             {
-                qDebug()<<"Test2"<<uvPossible;
-                qDebug()<<"Test2"<<tSemestre.getElement(res.getNextSemestre()).getCode();
+//                qDebug()<<"Test2"<<uvPossible;
+//                qDebug()<<"Test2"<<tSemestre.getElement(res.getNextSemestre()).getCode();
                 if(res.getSemestreInscritpion(tSemestre.getElement(res.getLastSemestre())).size() >= NB_MAX_INSCR)
                 {
                     Inscription temp( tUV.getElement(uvPossible),tSemestre.getElement(res.getNextSemestre()),tNote.getElement("TMP"));
@@ -416,17 +421,15 @@ Dossier completeDossier(Dossier d, std::map<UV,int> preferences)
                     res.addInscription(temp);
                 }
 
-                qDebug()<<"Test3";
+//                qDebug()<<"Test3";
 
-               qDebug()<<"Test4";
+//               qDebug()<<"Test4";
                 profileToBeCompleted= res.getDossierCurrentStatus();
 
                 it=profileToBeCompleted.begin();
             }
             else
             {
-
-
                 throw DossierException("Le dossier ne peux pas être complété. Pas d'uvs disponibles dans la catégorie : "+std::get<1>(it->first).getCodeStdString()+" Credits manquant :"+std::to_string(std::get<0>(it->second)));
             }
         }
