@@ -240,16 +240,12 @@ inline bool operator==(UV u1, UV u2)
     return (u1.getCode()==u2.getCode());
 }
 
-<<<<<<< HEAD
 
-
-=======
 /**
  * @brief StringToUV retourne une uv à partir d'un string
  * @param str
  * @return
  */
->>>>>>> origin/master
 UV StringToUV(const QString& str);
 
 /**
