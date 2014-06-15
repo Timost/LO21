@@ -24,7 +24,7 @@ MainFenetre::MainFenetre(QWidget *parent) :
     QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
 
     //Test des fenêtres de Timothée
-    QObject::connect(ui->actionTest, SIGNAL(triggered()), this, SLOT(test()) );
+//    QObject::connect(ui->actionTest, SIGNAL(triggered()), this, SLOT(test()) );
 
 
     //Affichage UV
@@ -594,15 +594,15 @@ void MainFenetre::ajouterNote()
     updateNote();
 }
 
-void MainFenetre::test()
-{
-    TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
-    Etudiant& e=tEtu.getIterator()[0];
-    gererPrevision* fen=new gererPrevision(e);
+//void MainFenetre::test()
+//{
+//    TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
+//    Etudiant& e=tEtu.getIterator()[0];
+//    gererPrevision* fen=new gererPrevision(e);
 
-    fen->exec();
-    delete fen;
-}
+//    fen->exec();
+//    delete fen;
+//}
 
 
 MainFenetre::~MainFenetre()

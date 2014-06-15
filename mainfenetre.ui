@@ -312,7 +312,6 @@
     <addaction name="actionAjouter_Etudiant"/>
     <addaction name="actionAjouter_UV"/>
     <addaction name="actionAjouter_Formation"/>
-    <addaction name="actionTest"/>
     <addaction name="actionCategorie"/>
     <addaction name="actionNote"/>
     <addaction name="actionSaison"/>
