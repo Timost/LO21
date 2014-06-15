@@ -42,12 +42,17 @@ private slots:
     void save();
     void load();
     void deleteUV(int i);
+    void confirmerdeleteUV(int i);
     void deleteEtudiant(int i);
     void deleteFormation(int i);
     void deleteCategorie(int i);
+    void confirmerDeleteCategorie(int i);
     void deleteNote(int i);
+    void confirmerdeleteNote(int i);
     void deleteSaison(int i);
+    void confirmerdeleteSaison(int i);
     void deleteSemestre(int i);
+    void confirmerdeleteSemestre(int i);
     void modifierUV(int i);
     void modifierEtudiant(int i);
     void modifierFormation(int i);
@@ -63,6 +68,7 @@ private slots:
     void ajouterSemestre();
     void ajouterNote();
     void gererSousCat();
+
 public:
     explicit MainFenetre(QWidget *parent = 0);
     ~MainFenetre();

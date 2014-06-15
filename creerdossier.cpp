@@ -182,7 +182,7 @@ void creerDossier::fillInscriptionTable(int i)//rempli le tableau des inscriptio
     Dossier currentDos= e.getDossier();
     std::vector<Inscription> currentInscr = currentDos.getInscription();
     ui->InscriptionTable_2->setRowCount(currentInscr.size());
-    for(unsigned int i=0 ; i!=currentInscr.size();i++)
+    for(unsigned int i=0 ; i<currentInscr.size();i++)
     {
         QTableWidgetItem* uv=new QTableWidgetItem(currentInscr[i].getCode());
         QTableWidgetItem* semestre=new QTableWidgetItem(currentInscr[i].getSemestre().getCode());

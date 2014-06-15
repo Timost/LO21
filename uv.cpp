@@ -1,5 +1,6 @@
 #include "uv.h"
 #include "templatemanager.h"
+#include "Etudiant.h"
 UV::UV(std::string c, std::string t, std::map<Categorie, unsigned int> cre, bool a, bool p)
 {
     TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
@@ -56,7 +57,27 @@ UV StringToUV(const QString& str){//renvoie une référence vers la catégorie s
    }
 }
 
-
+void UV::destroy()
+{
+    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+    TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
+     if(tEtudiant.size()>0)//pour chaque étudiant, on enlève les isncriptions
+     {
+         for(std::vector<Etudiant>::iterator it = tEtudiant.getIterator();it!=tEtudiant.end();it++)//on supprime toutes les uvs de cette catégorie
+         {
+             Dossier dos=it->getDossier();
+             std::vector<Inscription> inscr = dos.getInscription();
+             for(std::vector<Inscription>::iterator it2= inscr.begin();it2 != inscr.end();it2++)
+             {
+                 if(it2->getUV()==*this)
+                 {
+                     dos.deleteInscription(*it2);
+                     it->setDossier(dos);
+                 }
+             }
+         }
+     }
+}
 
 
 QTextStream& operator<<(QTextStream& f, const UV& uv){

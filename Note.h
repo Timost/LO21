@@ -177,6 +177,10 @@ public :
      * @param r
      */
     void setRang(unsigned int r);
+    /**
+     * @brief destroy Détruit propremement une note
+     */
+    void destroy();
 
 };
 

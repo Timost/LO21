@@ -1,6 +1,6 @@
 #include "Note.h"
 #include "templatemanager.h"
-
+#include "Etudiant.h"
 Note::Note(std::string n, std::string d, unsigned int r, unsigned int e)
 {
     if(e>2)
@@ -78,6 +78,28 @@ void Note::setRang(unsigned int r)
          }
     }
 }
+
+ void Note::destroy()
+ {
+     TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+     TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
+      if(tEtudiant.size()>0)//pour chaque étudiant, on enlève les isncriptions
+      {
+          for(std::vector<Etudiant>::iterator it = tEtudiant.getIterator();it!=tEtudiant.end();it++)//on supprime toutes les inscriptions ayant cette note
+          {
+              Dossier dos=it->getDossier();
+              std::vector<Inscription> inscr = dos.getInscription();
+              for(std::vector<Inscription>::iterator it2= inscr.begin();it2 != inscr.end();it2++)
+              {
+                  if(it2->getResultat()==*this)
+                  {
+                      dos.deleteInscription(*it2);
+                      it->setDossier(dos);
+                  }
+              }
+          }
+      }
+ }
 
 Note getBestNote(std::vector<Note>::iterator begin,std::vector<Note>::iterator end)
 {

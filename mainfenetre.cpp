@@ -314,9 +314,26 @@ void MainFenetre::load()
 
 void MainFenetre::deleteUV(int i)
 {
+    QMessageBox* warning=new QMessageBox("", "", QMessageBox::NoIcon, QMessageBox::Ok, QMessageBox::Cancel, QMessageBox::Open);
+    warning->setText("Attention supprimer une UV entraine la suppression de toutes les Inscriptions la concernant");
+    warning->button(QMessageBox::Ok)->setText("Confirmer");
+    warning->button(QMessageBox::Open)->hide();
+    warning->button(QMessageBox::Cancel)->setText("Annuler");
+
+    warning->show();
+    QSignalMapper* sig = new QSignalMapper(this);
+    QObject::connect(warning->button(QMessageBox::Ok),SIGNAL(clicked()), sig, SLOT(map()));
+    sig->setMapping(warning->button(QMessageBox::Ok), i);
+    QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(confirmerdeleteUV(int)));
+
+}
+void MainFenetre::confirmerdeleteUV(int i)
+{
     try
     {
-         TemplateManager<UV>::getInstance().erase(i);
+        TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+       (tUV.getIterator()+i)->destroy();
+        tUV.erase(i);
     }
     catch(std::exception e)
     {
@@ -325,7 +342,6 @@ void MainFenetre::deleteUV(int i)
 
     updateUV();
 }
-
 void MainFenetre::deleteEtudiant(int i)
 {
     try
@@ -378,6 +394,20 @@ void MainFenetre::modifierCategorie(int i)
 
 void MainFenetre::deleteCategorie(int i)
 {
+    QMessageBox* warning=new QMessageBox("title", "text", QMessageBox::NoIcon, QMessageBox::Ok, QMessageBox::Cancel, QMessageBox::Open);
+    warning->setText("Attention supprimer une catégorie entraine la suppression de toutes les UVs de cette catégorie");
+    warning->button(QMessageBox::Ok)->setText("Confirmer");
+    warning->button(QMessageBox::Open)->hide();
+    warning->button(QMessageBox::Cancel)->setText("Annuler");
+
+    warning->show();
+    QSignalMapper* sig = new QSignalMapper(this);
+    QObject::connect(warning->button(QMessageBox::Ok),SIGNAL(clicked()), sig, SLOT(map()));
+    sig->setMapping(warning->button(QMessageBox::Ok), i);
+    QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(confirmerDeleteCategorie(int)));
+}
+void MainFenetre::confirmerDeleteCategorie(int i)
+{
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
     (tCat.getIterator()+i)->destroy();
 
@@ -404,7 +434,26 @@ void MainFenetre::modifierNote(int i)
 
 void MainFenetre::deleteNote(int i)
 {
-    TemplateManager<Note>::getInstance().erase(i);
+    QMessageBox* warning=new QMessageBox("", "", QMessageBox::NoIcon, QMessageBox::Ok, QMessageBox::Cancel, QMessageBox::Open);
+    warning->setText("Attention supprimer une Note entraine la suppression de toutes les Inscriptions la concernant");
+    warning->button(QMessageBox::Ok)->setText("Confirmer");
+    warning->button(QMessageBox::Open)->hide();
+    warning->button(QMessageBox::Cancel)->setText("Annuler");
+
+    warning->show();
+    QSignalMapper* sig = new QSignalMapper(this);
+    QObject::connect(warning->button(QMessageBox::Ok),SIGNAL(clicked()), sig, SLOT(map()));
+    sig->setMapping(warning->button(QMessageBox::Ok), i);
+    QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(confirmerdeleteNote(int)));
+
+}
+
+void MainFenetre::confirmerdeleteNote(int i)
+{
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    (tNote.getIterator()+i)->destroy();
+
+    tNote.getInstance().erase(i);
     updateNote();
 }
 
@@ -420,16 +469,51 @@ void MainFenetre::modifierSaison(int i)
 
 void MainFenetre::deleteSaison(int i)
 {
-    TemplateManager<Saison>::getInstance().erase(i);
+    QMessageBox* warning=new QMessageBox("", "", QMessageBox::NoIcon, QMessageBox::Ok, QMessageBox::Cancel, QMessageBox::Open);
+    warning->setText("Attention supprimer une Saison entraine la suppression de tous les Semestres et de toutes les Inscriptions concernés");
+    warning->button(QMessageBox::Ok)->setText("Confirmer");
+    warning->button(QMessageBox::Open)->hide();
+    warning->button(QMessageBox::Cancel)->setText("Annuler");
+
+    warning->show();
+    QSignalMapper* sig = new QSignalMapper(this);
+    QObject::connect(warning->button(QMessageBox::Ok),SIGNAL(clicked()), sig, SLOT(map()));
+    sig->setMapping(warning->button(QMessageBox::Ok), i);
+    QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(confirmerdeleteSaison(int)));
+}
+
+void MainFenetre::confirmerdeleteSaison(int i)
+{
+    TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
+    (tSaison.getIterator()+i)->destroy();
+
+    tSaison.getInstance().erase(i);
     updateSaison();
 }
 
 void MainFenetre::deleteSemestre(int i)
 {
-    TemplateManager<Semestre>::getInstance().erase(i);
-    updateSemestre();
+    QMessageBox* warning=new QMessageBox("", "", QMessageBox::NoIcon, QMessageBox::Ok, QMessageBox::Cancel, QMessageBox::Open);
+    warning->setText("Attention supprimer un Semestre entraine la suppression de toutes les Inscriptions le concernant");
+    warning->button(QMessageBox::Ok)->setText("Confirmer");
+    warning->button(QMessageBox::Open)->hide();
+    warning->button(QMessageBox::Cancel)->setText("Annuler");
+
+    warning->show();
+    QSignalMapper* sig = new QSignalMapper(this);
+    QObject::connect(warning->button(QMessageBox::Ok),SIGNAL(clicked()), sig, SLOT(map()));
+    sig->setMapping(warning->button(QMessageBox::Ok), i);
+    QObject::connect(sig, SIGNAL(mapped(int)), this, SLOT(confirmerdeleteSemestre(int)));
 }
 
+void  MainFenetre::confirmerdeleteSemestre(int i)
+{
+    TemplateManager<Semestre>& tSemestre=TemplateManager<Semestre>::getInstance();
+    (tSemestre.getIterator()+i)->destroy();
+
+    tSemestre.getInstance().erase(i);
+    updateSemestre();
+}
 void MainFenetre::ajouterFormation()
 {
     gererFormation* fenModif=new gererFormation();

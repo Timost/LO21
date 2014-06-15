@@ -76,6 +76,11 @@ public:
      * @return
      */
     unsigned int getAnnee() const { return annee; }
+
+    /**
+     * @brief destroy détruit proprement un Semestre
+     */
+    void destroy();
 };
 
 /**

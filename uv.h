@@ -227,6 +227,11 @@ public:
     {
         qDebug()<<"Code :"<<QString(getCode().c_str())<<" titre, "<<QString(getTitre().c_str());//c_str pour les types string
     }
+
+    /**
+     * @brief destroy Détruit proprement une UV en supprimant toutes les inscriptions qui y réfère
+     */
+    void destroy();
 };
 /**
  * @brief operator ==

@@ -1,5 +1,6 @@
 #include "Saison.h"
-
+#include "Etudiant.h"
+#include "Semestre.h"
 
 Saison::Saison(std::string n, std::string d)
 {
@@ -49,6 +50,22 @@ bool operator >(Saison s1,Saison s2)
     else
     {
         return false;
+    }
+}
+
+void Saison::destroy()
+{
+    TemplateManager<Semestre>& tSemestre=TemplateManager<Semestre>::getInstance();
+    if(tSemestre.size()>0)
+    {
+        for(std::vector<Semestre>::iterator it = tSemestre.getIterator();it!=tSemestre.end();it++)//on supprime tous les semstres concernés
+        {
+            if(it->getSaison()==*this)
+            {
+                it->destroy();
+                tSemestre.erase(*it);
+            }
+        }
     }
 }
 

@@ -79,6 +79,7 @@ void Categorie::destroy()
              std::map<Categorie, unsigned int> cats = it->getCredits();
              if(cats.find(*this)!=cats.end())
              {
+                 it->destroy();
                  tUV.erase(*it);
              }
          }

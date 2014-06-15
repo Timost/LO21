@@ -133,6 +133,11 @@ public:
      * @param d
      */
     void setDescription(const char* d){setDescription(std::string(d));}
+
+    /**
+     * @brief destroy détruit proprement une Saison
+     */
+    void destroy();
 };
 
 /**

@@ -282,7 +282,7 @@ void gererFormation::ajouterUVToBeRemoved(int i)
 }
 void gererFormation::supprimerUVToBeAdded(int i)
 {
-    std::vector<int>::iterator it = std::find(uvToBeAdded.begin(),uvToSetRequired.end(),i);
+    std::vector<int>::iterator it = std::find(uvToBeAdded.begin(),uvToBeAdded.end(),i);
     uvToBeAdded.erase(it);
     if((uvToBeRemoved.size()==0)&&(uvToBeAdded.size()==0)&&(uvToSetNotRequired.size()==0)&&(uvToSetRequired.size()==0))
     {
@@ -326,7 +326,9 @@ void gererFormation::validerCategoriesFormation()
           QSpinBox *creds = qobject_cast<QSpinBox*>(ui->tableWidgetCategorie->cellWidget(i,1));
           if(creds!=0)
           {
+
               nbCredits[tCategorie.getElement(ui->tableWidgetCategorie->item(i,0)->text())]=creds->text().toUInt();
+              qDebug()<<"test : "<<nbCredits[tCategorie.getElement(ui->tableWidgetCategorie->item(i,0)->text())];
           }
           else
           {
@@ -348,6 +350,7 @@ void gererFormation::displayCategories()
         QSpinBox* creds=new QSpinBox();
         creds->setMinimum(0);
         creds->setMaximum(it->second);
+        creds->setValue(it->second);
         ui->tableWidgetCategorie->setItem(i, 0, code);
         ui->tableWidgetCategorie->setCellWidget(i,1,creds);
         i++;
@@ -357,7 +360,7 @@ void gererFormation::displayCategories()
 void gererFormation::initGererConditions()
 {
     validerCategoriesFormation();
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     ui->tableWidgetCategorie->hide();
     ui->tableWidgetCategorie->setRowCount(0);
     ui->Suivant->hide();
@@ -461,7 +464,7 @@ void gererFormation::validerCondition()
           }
           conditionToBeAdded.clear();
       }
-      ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+      //ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
       ui->TableUVAjouter->setRowCount(0);
       displayConditions();
@@ -474,7 +477,7 @@ void gererFormation::testerCondition(QTableWidgetItem* item)
         Dossier dos;
 
         std::vector<Condition> conds;
-        conds.push_back(item->text());
+        conds.push_back(Condition(item->text()));
 
         try
         {
@@ -483,7 +486,8 @@ void gererFormation::testerCondition(QTableWidgetItem* item)
         catch(std::exception& e)
         {
             QMessageBox* err = new QMessageBox();
-            err->setText("Erreur la condition"+item->text()+" , n'est pas valide : "+QString(e.what()));
+            //err->setText(conds[0].getCond());
+            err->setText("Erreur la condition "+item->text()+" , n'est pas valide : "+QString(e.what()));
             err->show();
 
             item->setText("");

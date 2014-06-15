@@ -71,6 +71,7 @@ int main(int argc, char *argv[]) {
         TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
         TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
         TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
+        TemplateManager<Semestre>& tSemestre=TemplateManager<Semestre>::getInstance();
 
         Saison ("Automne","We love it !");
         Saison ("Printemps","We eat it !");
@@ -80,10 +81,13 @@ int main(int argc, char *argv[]) {
         Note C("C","C",3,0);
         Note D("D","D",4,0);
         Note E("E","E",5,0);
-        Note F("F","F",6,1);
-        Note FX("FX","FX",7,1);
-        Note RES("RES","Reservé",8,1);
-        Note ABS("ABS","Absent",9,1);
+        Note TMP("TMP","note temporaire pour les prévisions",6,0);
+        Note F("F","F",7,1);
+
+        Note FX("FX","FX",8,1);
+
+        Note RES("RES","Reservé",9,1);
+        Note ABS("ABS","Absent",10,1);
         Note EC("EC","En cours",0,2);
 
         qDebug()<<"A == F"<<(A==F);
@@ -1798,6 +1802,7 @@ UV(s1,s2,m,false,false);
         Inscription nI2(newUV,sem2,StringToNote("B"));
         Inscription ni3(uv2,sem2);
 
+
         nI.display();
         qDebug() << QString(nI.getUV().getCode().c_str());
         //qDebug()<<nI.validee();
@@ -1849,11 +1854,13 @@ UV(s1,s2,m,false,false);
             }
         }
 
-        //dos.getSemestreInscritpion(sem1);
-        //qDebug()<<"****************";
+//        Inscription testinscr(tUV.getElement("BL01"),tSemestre.getElement("Automne2014"),tNote.getElement("TMP"));
+//        qDebug()<<" Test "<<dos.isUvValidated(tUV.getElement("BL01"));
+//        dos.getSemestreInscritpion(sem1);
+//        qDebug()<<"****************";
 //        dos.addInscription(ni3);
 //        qDebug()<<"****************";
-        //qDebug()<<"Test2"<<getUVgivingCredits(tCat.getElement("CS"),dos);
+//        qDebug()<<"Test2"<<getUVgivingCredits(tCat.getElement("CS"),dos);
 //        Dossier test=completeDossier(dos,std::map<UV,int>());
 //        qDebug()<<"Dossier valider ?"<<test.isCompletelyValidated();
 
