@@ -6,6 +6,9 @@
 #include <string>
 #include <iostream>
 #include <QDebug>
+#include <QSqlField>
+#include <QSqlDriver>
+#include <QSqlRecord>
 #include "templatemanager.h"
 #include "Formation.h"
 #include "Etudiant.h"

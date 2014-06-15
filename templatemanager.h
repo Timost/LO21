@@ -83,7 +83,7 @@ public:
 
         unsigned int nb=this->size();
         if (nb==0)
-            throw TemplateManagerException<T>("Pas d'elements dans le manager.");
+            throw TemplateManagerException<T>("getElement : "+ s +"Pas d'elements dans le manager.");
         unsigned int n=0;
         for(unsigned int i=0;i<nb; i++)
         {

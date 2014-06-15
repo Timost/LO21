@@ -153,9 +153,1573 @@ int main(int argc, char *argv[]) {
 
         //création d'une UV directement
         map<Categorie,unsigned int> m;
+        std::string s1;
+        std::string s2;
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="BL01";
+s2="Sciences Biologiques Pour L'Ingénieur";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="BL10";
+s2="Structures Et Physicochimie Des Molécules Biologiques";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="BL22";
+s2="Microbiologie Et Biologie Moléculaire";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="CM01";
+s2="Physique De La Matière";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="CM11";
+s2="Chimie Générale";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="CM12";
+s2="Chimie Physique Minérale";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="CM13";
+s2="Chimie Des Substances Organiques Et Biologiques";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="CM15";
+s2="Systemes Colloidaux - Applications Agroalimentaires";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="EL01";
+s2="Phénomènes Electromagnétiques";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="EN21";
+s2="Bases De L'électronique Analogique";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="IA02";
+s2="Résolution De Problèmes Et Programmation Logique";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MQ01";
+s2="éléments De Resistance Des Matériaux";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MQ03";
+s2="Mécanique Des Vibrations I";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MQ17";
+s2="Introduction Aux Propriétés Mécaniques Et à L'Ingénierie Des Matériaux";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MQ18";
+s2="Cinématique Et Dynamique Des Systèmes";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MT10";
+s2="Structures,Calcul Formel Et Algorithmes";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MT12";
+s2="Methodes Mathematiques Pour L'Analyse Du Signal Et De L'Image";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MT22";
+s2="Fonctions De Plusieurs Variables Réelles Et Applications";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MT23";
+s2="Algèbre Linéaire Et Applications";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),4));
+s1="MT90";
+s2="Fonctions D'Une Variable Reelle 1";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="MT91";
+s2="Fonctions D'Une Variable Reelle 2";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="NF04";
+s2="Modélisation Numérique Des Problèmes De L'Ingénieur";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="NF16";
+s2="Algorithmique Et Structures De Données";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="PS04";
+s2="Thermodynamique";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="PS91";
+s2="Mecanique Physique";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="PS92";
+s2="Dynamique Des Systemes Et Des Solides";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="PS93";
+s2="Optique Geometrique";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="PS94";
+s2="Electricite";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="RO03";
+s2="Recherche Opérationnelle, Optimisation Combinatoire";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="RR01";
+s2="Cinétique Chimique Et Réacteurs Homogènes";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SR02";
+s2="Systèmes D'Exploitation : Des Concepts à La Programmation";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SY01";
+s2="éléments De Probabilités";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SY02";
+s2="Méthodes Statistiques Pour L'Ingénieur";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SY04";
+s2="Systèmes Asservis Linéaires : Analyse Et Commande";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SY14";
+s2="éléments D'Automatique";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="TF01";
+s2="Mécanique Des Fluides Incompressibles";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="TF06";
+s2="Transfert De Chaleur";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="TN06";
+s2="Transmission Des Efforts En Mécanique";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="BA07";
+s2="Modes Opératoires De La Construction";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="BL09";
+s2="Biophysique Des Systèmes Biologiques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="BM01";
+s2="Introduction à L'Instrumentation Biomédicale";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="BT02";
+s2="Opérations Agro-Industrielles";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),4));
+s1="C2I1";
+s2="Certificat Informatique Et Internet Niveau 1";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),3));
+s1="CM70";
+s2="Travaux Pratiques De Gp (1)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),3));
+s1="DD02";
+s2="Introduction A L'Eco-Conception Et A L'Analyse De Cycle De Vie";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="EL02";
+s2="électricité Industrielle Appliquée";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="FQ01";
+s2="économie Globale Et Maitrise De La Qualité";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="GE37";
+s2="Gestion De Projet";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="LO01";
+s2="Bases De La Programmation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="LO21";
+s2="Programmation Et Conception Orientees Objet ";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="LO22";
+s2="Genie Logiciel";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MT94";
+s2="Introduction Aux Mathematiques Appliquées";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF01";
+s2="Algorithmique Et Programmation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF02";
+s2="Du Circuit Intégré Au Microprocesseur";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF15";
+s2="Microprocesseurs, Interfaces Et Logiciels De Bases";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF17";
+s2="Conception De Bases De Données";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF22";
+s2="Micro-Ordinateurs Et Applications";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF92";
+s2="Traitement Automatique De L'Information";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),2));
+s1="NP90";
+s2="Nano-Projets";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NX17";
+s2="Introduction Aux Bases De Donnees";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="PR";
+s2="Réalisation De Projet";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="PS09";
+s2="Acoustique Appliquée";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),3));
+s1="PS90";
+s2="Introduction A La Mesure";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TF14";
+s2="Les Opérations De Transfert De Matière";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN01";
+s2="éléments De Dessin Technique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN02";
+s2="Introduction A La Conception Mécanique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN03";
+s2="Fabrication Mécanique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),4));
+s1="TN04";
+s2="Réalisation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="TN08";
+s2="Dessin De Communication";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN20";
+s2="Cao : Modélisation Géométrique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN22";
+s2="éléments De Bureau D'études";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),2));
+s1="TR91";
+s2="Techniques De Recherche D'Information Pour L'Ingenieur";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TS01";
+s2="Maitrise Des Risques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="TX";
+s2="étude Expérimentale";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="UB04";
+s2="Ambiances Et Environnement Lumineux";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="UR03";
+s2="Cartographie Sémiologie Graphique Et Cao/Dao";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="UR05";
+s2="Aménagement Et Environnement";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="AR03";
+s2="Art Et Technologies Contemporaines";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="DI01";
+s2="Initiation Au Design Industriel";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="DI02";
+s2="Initiation Au Design Graphique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="EI03";
+s2="Communication Interculturelle En Entreprises, Organisations Transnationales";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="EI04";
+s2="Intelligence économique : Stratégie D'Entreprise, Démarche Et Outils";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="EI05";
+s2="Science, Technologie Et Société Dans L'Union Européenne";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE10";
+s2="économie Politique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE12";
+s2="Géographie Et économie Des Territoires";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE13";
+s2="Les Risques Entre Technique Et Societe";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE15";
+s2="Initiation A La Création Et Gestion D'Entreprises Innovantes";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE20";
+s2="économie Industrielle";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE21";
+s2="économie Et Gestion De L'Innovation Et Du Numérique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE22";
+s2="économie Internationale";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE23";
+s2="Transferts De Technologies Et Développements";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE24";
+s2="Recherche Developpement : Ingenieur Et Investisseurs";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE25";
+s2="Gestion Et Organisation De La Production";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE26";
+s2="Management Stratégique Des Ressources Humaines";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE28";
+s2="économie Et Droit De La Propriété Intellectuelle (Industrielle Et Artistique) Dans Une économie Reposant Sur La Connaissance";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE29";
+s2="Gestion Et Management International De L'Entreprise";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE36";
+s2="Marketing";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="GE90";
+s2="Organisation, Innovation Et International";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="HE01";
+s2="épistémologie Et Histoire Des Sciences";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="HE03";
+s2="Logique : Histoire Et Formalisme";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="HE05";
+s2="Culture Et Histoire Des Techniques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="IC01";
+s2="Histoire Et Prospective Des Industries Culturelles";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="IC03";
+s2="Le Numérique : Des Formats Aux Chaines De Production";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="IC05";
+s2="Technologies Pour La Documentation Et L'Indexation Dans L'Hypermédia";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="IC07";
+s2="Techniques Et Technologies Du Musical Et Du Sonore";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA00";
+s2="Allemand Initiation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA01";
+s2="Allemand Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA02";
+s2="Allemand Niveau II";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA03";
+s2="Allemand Niveau III";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA04";
+s2="Pratique De La Communication En Allemand";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA11";
+s2="Anglais Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA12";
+s2="Anglais Niveau II";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA13";
+s2="Anglais Niveau III";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA14";
+s2="Civilisation Du Monde Anglophone";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA15";
+s2="Anglais Professionnel - Niveau V";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA20";
+s2="Espagnol Initiation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA21";
+s2="Espagnol Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA22";
+s2="Espagnol Niveau II";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA23";
+s2="Espagnol Niveau III";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA24";
+s2="Le Monde Hispanique Contemporain : L'Amérique Latine (Niveau IV)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA91";
+s2="Francais Langue étrangère Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA92";
+s2="Francais Langue étrangère Niveau II";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA93";
+s2="Francais Langue étrangère Niveau III";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LA94";
+s2="Francais Langue étrangère Niveau IV";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LB04";
+s2="Interculturalité Franco-Allemande";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LB14";
+s2="Interculturalité Appliquée Aux Pays Anglophones";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LB24";
+s2="Le Monde Hispanique (Niveau IV): L'Espagne";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LC14";
+s2="Communication Scientifique Et Technique En Anglais";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG30";
+s2="Japonais Initiation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG31";
+s2="Japonais Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG40";
+s2="Portugais Initiation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG41";
+s2="Portugais Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG42";
+s2="Portugais Niveau II";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG50";
+s2="Italien Initiation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG51";
+s2="Italien Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG52";
+s2="Italien Niveau II";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG60";
+s2="Chinois Initiation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="LG61";
+s2="Chinois Niveau I";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="MU01";
+s2="Pratique Instrumentale D'Ensemble";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),8));
+s1="MU02";
+s2="Pratique Instrumentale De Haut Niveau";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="MU03";
+s2="Pratique Collective Des Musiques Contemporaines";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="PH01";
+s2="Introduction à La Philosophie";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="PH09";
+s2="éthiques : Approche Pluridisciplinaire";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SA11";
+s2="Pratiques Théatrales";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SC01";
+s2="Séminaire Interdisciplinaire De Sciences Et Technologies Cognitives";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SC11";
+s2="Théorie Des Sciences Cognitives : Computation Et énaction";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SC12";
+s2="Technologie, Cognition, Perception";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SC21";
+s2="Linguistique Et Philosophie Du Langage";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SC22";
+s2="Sociologie Cognitive, Lien Social Et Techniques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI01";
+s2="Science Et Debat Public";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI02";
+s2="Communication Professionnelle De L'Ingénieur";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI05";
+s2="Theories De La Communication";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI06";
+s2="La Documentattion Cross-Media Pour Les Entreprises Et Les Collectivites Locales";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI07";
+s2="Medias Classiques Et Medias Numeriques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI11";
+s2="Expression Orale- Parole Publique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI14";
+s2="Parole Publique En Anglais";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI20";
+s2="Rhetorique Et Arts Du Discours";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI22";
+s2="Signes Et Contenus Numeriques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI24";
+s2="études Des écritures Numériques Ordinaires";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI28";
+s2="écriture Interactive Et Multimédia";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SI90";
+s2="Séminaire De Communication Des Connaissances Technologiques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SL";
+s2="Suivi Linguistique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SO04";
+s2="Initiation Au Droit";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SO05";
+s2="Sociologie, Organisations Et Dynamiques Des Collectifs";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SP01";
+s2="Un Corps Pour Comprendre Et Apprendre";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="SP02";
+s2="Conduire Un Projet Sportif";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),4));
+s1="TN16";
+s2="étude Interculturelle";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TSH"),2));
+s1="TO01";
+s2="Module De Preparation Au Toeic";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MT34";
+s2="Analyse 2 : Mesures, Intégrations, Probabilités";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="MT37";
+s2="Logiques, Quelques Approfondissements Mathématiques Et Philosophiques";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="MT38";
+s2="Probabilités";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="AP";
+s2="Atelier Projet";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),4));
+s1="API06";
+s2="Analyse De Donnees Et Data Mining (Apprentissage)";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),3));
+s1="API07";
+s2="Architecture Des Applications Internet, Programmation Web Et Securite (Apprentissage)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),4));
+s1="API08";
+s2="Ihm Et Multimédia (Apprentissage)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),4));
+s1="API09";
+s2="Méthodes Et Outils Pour L'Optimisation Et La Simulation (Apprentissage)";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),3));
+s1="API10";
+s2="Méthodes De Vérification Et Validation De Logiciel Et Programmation Sous Linux (Apprentissage)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="BA01";
+s2="Equipements Techniques Du Batiment";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="BA02";
+s2="Gestion Technique Du Patrimoine Immobilier";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="BA04";
+s2="Conversion Et Gestion Des Energies Renouvelables";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="BA09";
+s2="Introduction Au Calcul Des Structures Du Batiment";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="BI01";
+s2="Modeles Pour La Bioinformatique";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="BL30";
+s2="Physiologie Des Systèmes Intégrés";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="BL40";
+s2="Génie Cellulaire";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="BM02";
+s2="Organes Artificiels Et Biorheologie";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="BM08";
+s2="Modélisation Des Systèmes Biomécaniques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="BT06";
+s2="Analyse Des Produits Biologiques Et Alimentaires";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="BT10";
+s2="Risques Biologiques Et Sécurité Alimentaire";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="BT21";
+s2="Biotechnologies Moleculaires Et Genie Genetique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="BT22";
+s2="Les Agroressources";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="CM06";
+s2="Calcul D'Une Opération Industrielle";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="CM40";
+s2="Catalyse Heterogene";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="CT02";
+s2="Maitrise Statistique Des Processus";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="CT04";
+s2="Controles Non Destructifs";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="DI03";
+s2="Conception Formelle Des Produits";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="DI05";
+s2="Methodologie Et Analyse De La Valeur";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="DI06";
+s2="Analyse Des Produits De Consommation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="EG01";
+s2="Ergonomie";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="EN14";
+s2="Fonctions Électroniques Pour L'Ingénieur";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="EV01";
+s2="Procédés De Traitement Des Déchets";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="FPP02";
+s2="Fiabilite Et Ingenierie Robuste De Produits (Apprentissage)";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="FQ07";
+s2="La Qualité Des Services A L'Industrie";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="GE38";
+s2="Management Et Outils D'Aide à La Créativité Industrielle Et à L'Innovation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="GE39";
+s2="Management Et Marketing De L'Innovation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="GPL01";
+s2="Gestion De Production Et Erp (Apprentissage)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="IA04";
+s2="Systèmes Multiagents";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="LO17";
+s2="Indexation Et Recherche D'Information";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="LO18";
+s2="Projets Multimédia Pour La Formation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="MAT03";
+s2="Mecanique Des Materiaux (Apprentissage)";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MB11";
+s2="Révision D'Analyse Et D'Algèbre (Gb, Gi, Gsu)";
+UV(s1,s2,m,true,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MC01";
+s2="Machines Électriques";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MC05";
+s2="Machines De Transfert De Fluides";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MC07";
+s2="Électronique De Puissance";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),3));
+s1="MEQ03";
+s2="Dynamique Des Solides (Apprentissage)";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MI03";
+s2="Systèmes Temps Réel";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MP02";
+s2="Introduction Aux Méthodes De La Gpao";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="MQ02";
+s2="Mécanique Des Solides Déformables";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ04";
+s2="Polymères";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ06";
+s2="Modélisation Des Structures Par Éléments Finis";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ08";
+s2="Elaboration Et Proprietes D'Usage Des Metaux";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ09";
+s2="Mécanique Des Vibrations II";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ10";
+s2="Comportement Mécanique Des Matériaux";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ11";
+s2="Mise En Oeuvre Des Matériaux";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ14";
+s2="Optimisation En Mécanique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MQ19";
+s2="Dynamique Des Structures";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MS02";
+s2="Principes Physiques Des Capteurs Et Instrumentation";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="MS03";
+s2="Pratique Expérimentale En Acoustique Et Vibrations";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="NF11";
+s2="Théorie Des Langages De Programmation";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF24";
+s2="Modelisation Et Simulation Des Procedes";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF26";
+s2="Data Warehouse Et Outils Décisionnels";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF28";
+s2="Ingénierie Des Systèmes Intéractifs";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="NF33";
+s2="Conception Et Architecture De Systèmes Numériques Informatiques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="PS05";
+s2="Fondements De L'Acoustique Et Modélisations";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="RO04";
+s2="Optimisation Et Recherche Opérationnelle";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="SCI08";
+s2="Introduction A L'Ingenierie Systeme";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="SR03";
+s2="Architecture Des Applications Internet";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="SY05";
+s2="Conduite Des Procédés";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SY06";
+s2="Analyse Et Traitement Du Signal";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SY09";
+s2="Analyse Des Données Et Data Mining";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="SY12";
+s2="Modélisation Et Performance Des Systèmes De Production";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="SY15";
+s2="Automatique Avancée";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="SY26";
+s2="Télécommunications";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TA02";
+s2="Évaluation Économique Des Procédés";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TF07";
+s2="Calcul Des Échangeurs Thermiques Industriels";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TF08";
+s2="Hydrodynamique Des Systèmes Dispersés";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="TMI01";
+s2="Conception Niveau 2 (Apprentissage)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),3));
+s1="TMI05";
+s2="Fabrication Assistee Par Ordinateur Et Machines A Commande Numerique (Apprentissage)";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN12";
+s2="Conception Mécanique";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN13";
+s2="Dimensionnement Pour La Conception Des Systemes Mecaniques";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN15";
+s2="Création De Produit, D'Activité, D'Entreprise";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN24";
+s2="Technologies De Fabrication Et Outils Méthodes";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="TN29";
+s2="Outils De Definition Et De Developpement De Systemes";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),3));
+s1="TN30";
+s2="Xao En Milieu Professionnel";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="UB02";
+s2="Systemes De Transport Urbain";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="UB06";
+s2="Mises En Scènes Urbaines";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),6));
+s1="UB08";
+s2="Hydrologie Urbaine";
+UV(s1,s2,m,false,true);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),5));
+s1="UR01";
+s2="Droit De L'Urbanisme, De La Construction Et De L'Environnement";
+UV(s1,s2,m,false,false);
+
+m.clear();
+m.insert(pair<Categorie, unsigned int> (tCat.getElement("TM"),6));
+s1="UXD01";
+s2="Design D'Experience";
+UV(s1,s2,m,false,false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+        m.clear();
         m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),7));
-        std::string s1="EE32";
-        std::string s2="titre";
+         s1="EE32";
+         s2="titre";
         UV newUV(s1,s2,m,true,true);
         UV* pUV=&newUV;
 
@@ -174,7 +1738,7 @@ int main(int argc, char *argv[]) {
 
 
         //pour afficher dans la console...
-        newUV.display();
+        //newUV.display();
 
 
         for(std::vector<UV>::iterator it= tUV.getIterator();it !=tUV.end();it++)
@@ -211,7 +1775,7 @@ int main(int argc, char *argv[]) {
         conds.push_back(condition2);
         conds.push_back(condition3);
 
-        Formation nF("Nom Formation1","Description Formation1",m1,m2);
+        Formation nF("Nom Formation1","Description Formation1",m1,m2,conds);
 
         Formation nF2("Nom Formation2","Description Formation2",m1,m2);
 
@@ -290,26 +1854,26 @@ int main(int argc, char *argv[]) {
 //        dos.addInscription(ni3);
 //        qDebug()<<"****************";
         //qDebug()<<"Test2"<<getUVgivingCredits(tCat.getElement("CS"),dos);
-        Dossier test=completeDossier(dos,std::map<UV,int>());
-        qDebug()<<"Dossier valider ?"<<test.isCompletelyValidated();
+//        Dossier test=completeDossier(dos,std::map<UV,int>());
+//        qDebug()<<"Dossier valider ?"<<test.isCompletelyValidated();
 
        //création d'un étudiant
-//       QDate date(2014,5,3);
-//       Etudiant e1(dos,1320123,"nom","prenom",date);
-//       Etudiant e2(dos,1320123,"nom","prenom",date);
-//       //Database db=Database("c:/sqlite/lo21.db");
-//      Database db=Database("e:/sqlite/lo21_2.db");
-//       db.save();
-//       db.load();
-//       tUV.getElement("EE32").display();
-//       qDebug() <<tUV.size();
-//       tUV.clear();
-//       qDebug() <<tUV.size();
-//       tFormation.getElement("Nom Formation1");
-//       if(tFormation.alreadyExist("Nom Formation2")) qDebug()<<"marche";
-//       if(tFormation.alreadyExist("Nom Forgrrgrgrgmation1")) qDebug()<<"marchepas";
-//       tEtudiant.getElement("nompreno");
-//       qDebug()<<"Ca marche";
+      QDate date(2014,5,3);
+      Etudiant e1(dos,1320123,"nom","prenom",date);
+      Etudiant e2(dos,1320123,"nom","prenom",date);
+      //Database db=Database("c:/sqlite/lo21.db");
+     Database db=Database("e:/sqlite/lo21_3.db");
+      db.save();
+      db.load();
+      //tUV.getElement("EE32").display();
+      qDebug() <<tUV.size();
+      tUV.clear();
+      qDebug() <<tUV.size();
+      tFormation.getElement("Nom Formation1");
+      if(tFormation.alreadyExist("Nom Formation2")) qDebug()<<"marche";
+      if(tFormation.alreadyExist("Nom Forgrrgrgrgmation1")) qDebug()<<"marchepas";
+      tEtudiant.getElement("nompreno");
+      qDebug()<<"Ca marche";
     }
     catch(std::exception& e)
     {
