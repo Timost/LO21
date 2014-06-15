@@ -59,7 +59,6 @@ UV StringToUV(const QString& str){//renvoie une référence vers la catégorie s
 
 void UV::destroy()
 {
-    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
      if(tEtudiant.size()>0)//pour chaque étudiant, on enlève les isncriptions
      {

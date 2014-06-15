@@ -2,8 +2,9 @@
 #include "ui_modifiernote.h"
 
 ModifierNote::ModifierNote(QWidget *parent) :
-    QDialog(parent), note(NULL), b(0),
-    ui(new Ui::ModifierNote)
+    QDialog(parent),
+    ui(new Ui::ModifierNote),
+    b(0),note(NULL)
 {
     ui->setupUi(this);
     this->connect();

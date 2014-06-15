@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QTableWidget>
 #include "Etudiant.h"
+#include <QMessageBox>
 namespace Ui {
 class gererPrevision;
 }

@@ -81,7 +81,6 @@ void Note::setRang(unsigned int r)
 
  void Note::destroy()
  {
-     TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
      TemplateManager<Etudiant>& tEtudiant=TemplateManager<Etudiant>::getInstance();
       if(tEtudiant.size()>0)//pour chaque étudiant, on enlève les isncriptions
       {

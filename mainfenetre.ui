@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="UVTab">
      <attribute name="title">
@@ -97,6 +97,11 @@
       <column>
        <property name="text">
         <string>Supprimer</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Solutions</string>
        </property>
       </column>
      </widget>

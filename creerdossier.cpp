@@ -215,7 +215,7 @@ void creerDossier::suivant()
     ui->FormationTable_2->hide();
     ui->FormationText2->hide();
     ui->Suivant->hide();
-    ui->Valider->setEnabled(false);
+    ui->Valider->setEnabled(true);
 
     QObject::disconnect(ui->Valider, SIGNAL(pressed()),  this, SLOT(validerFormation()));
     QObject::disconnect(ui->Suivant, SIGNAL(pressed()),  this, SLOT(suivant()));

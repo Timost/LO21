@@ -100,6 +100,8 @@ void MainFenetre::updateEtudiant()
         ui->EtudiantTable->setCellWidget(i, 3, modif);
         QPushButton* suppr=new QPushButton("Supprimer");
         ui->EtudiantTable->setCellWidget(i, 4, suppr);
+        QPushButton* prevs=new QPushButton("Calculer Solution");
+        ui->EtudiantTable->setCellWidget(i, 5, prevs);
         login->setFlags(Qt::ItemIsEnabled);
         nom->setFlags(Qt::ItemIsEnabled);
         prenom->setFlags(Qt::ItemIsEnabled);
@@ -117,6 +119,12 @@ void MainFenetre::updateEtudiant()
         QObject::connect(modif, SIGNAL(clicked()), sig2, SLOT(map()));
         sig2->setMapping(modif, i);
         QObject::connect(sig2, SIGNAL(mapped(int)), this, SLOT(modifierEtudiant(int)));
+        //config prevs
+        QSignalMapper* sig3 = new QSignalMapper(this);
+        QObject::connect(prevs, SIGNAL(clicked()), sig3, SLOT(map()));
+        sig3->setMapping(prevs, i);
+        QObject::connect(sig3, SIGNAL(mapped(int)), this, SLOT(previsionsEtudiant(int)));
+
     }
 }
 
@@ -381,7 +389,16 @@ void MainFenetre::modifierEtudiant(int i)
     delete fenModif;
     updateEtudiant();
 }
+void MainFenetre::previsionsEtudiant(int i)
+{
+    qDebug()<<"TEst";
+    TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
+    Etudiant& e=tEtu.getIterator()[i];
+    gererPrevision* fen=new gererPrevision(e);
 
+    fen->exec();
+    delete fen;
+}
 void MainFenetre::modifierCategorie(int i)
 {
     TemplateManager<Categorie>& tCat=TemplateManager<Categorie>::getInstance();
@@ -585,7 +602,6 @@ void MainFenetre::test()
 
     fen->exec();
     delete fen;
-
 }
 
 

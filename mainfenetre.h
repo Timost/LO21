@@ -55,6 +55,7 @@ private slots:
     void confirmerdeleteSemestre(int i);
     void modifierUV(int i);
     void modifierEtudiant(int i);
+    void previsionsEtudiant(int);
     void modifierFormation(int i);
     void modifierCategorie(int i);
     void modifierNote(int i);
