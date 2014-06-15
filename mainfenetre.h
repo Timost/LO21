@@ -9,7 +9,6 @@
 #include <QFileDialog>
 #include <QPushButton>
 #include "modifieretudiant.h"
-#include "modifierform.h"
 #include "modifieruv_fen.h"
 #include "editerdossier.h"
 #include "creerdossier.h"

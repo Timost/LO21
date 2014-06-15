@@ -2,10 +2,8 @@
 #define FORMATION_H
 
 #include "uv.h"
-#include "enums.h"
 #include <map>
 #include <QString>
-#include "Exception.h"
 #include "EntityStd.h"
 #include <QDebug>
 #include "Condition.h"

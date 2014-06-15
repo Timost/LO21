@@ -1,7 +1,6 @@
 #ifndef INSCRIPTION_H
 #define INSCRIPTION_H
 #include "Note.h"
-#include "enums.h"
 #include "Semestre.h"
 #include "uv.h"
 

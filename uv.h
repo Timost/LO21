@@ -3,7 +3,6 @@
 #include <string>
 #include <map>
 #include "EntityStd.h"
-#include "enums.h"
 #include "Categorie.h"
 #include <QTextStream>
 #include <QString>
