@@ -32,6 +32,7 @@ public:
     unsigned int getAnnee() const { return annee; }
 };
 
+
 inline bool operator==(Semestre s1, Semestre s2)
 {
     return ((s1.getSaison()==s2.getSaison())&&(s1.getAnnee()==s2.getAnnee()));

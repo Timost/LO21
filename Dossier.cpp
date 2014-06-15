@@ -27,6 +27,20 @@ void Dossier::deleteFormation(QString f)
     deleteFormation(&(tForm.getElement(f)));
 }
 
+std::vector<Inscription> Dossier::getSemestreInscritpion(Semestre s)
+{
+    std::vector<Inscription> res;
+    for(std::vector<Inscription>::iterator it = inscri.begin(); it!=inscri.end();it++)
+    {
+        if (it->getSemestre()==s)
+        {
+            qDebug()<<"Test getSemestreInscritpion "<<it->getSemestre().getCode()<< " s :"<< s.getCode();
+            res.push_back(*it);
+        }
+    }
+    return res;
+}
+
 
 void Dossier::addInscription(Inscription i)//ajoute une inscription au dossier
 {
@@ -34,7 +48,14 @@ void Dossier::addInscription(Inscription i)//ajoute une inscription au dossier
     {
         throw DossierException("Erreur : cette Inscription fait déjà partie du dossier.");
     }
-    inscri.push_back(i);
+    if(getSemestreInscritpion(i.getSemestre()).size()<NB_MAX_INSCR)
+    {
+        inscri.push_back(i);
+    }
+    else
+    {
+         throw DossierException("Erreur : Le nombre maximum d'inscription est atteint");
+    }
 }
 
 void Dossier::deleteInscription(Inscription i)//supprime une inscription du dossier
@@ -121,6 +142,33 @@ std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >
     return res;
 }
 
+std::map<Formation*,std::vector<Condition> > Dossier::getNotvalidatedConditions()
+{
+    bool testRes;
+    std::map<Formation*,std::vector<Condition> > res;
+    for(std::vector<Formation*>::iterator it=forma.begin();it!=forma.end();it++)
+    {
+        std::vector<Condition> condsToTest= (*it)->getConditions();
+        std::vector<Condition> condsNotValidated;
+
+        for(std::vector<Condition>::iterator it2=condsToTest.begin();it2!=condsToTest.end();it2++)
+        {
+            std::vector<Condition>temp;
+            temp.push_back(*it2);
+            testRes= ConditionChecker( temp,"cc",*this).evaluate();
+            if(!testRes)
+            {
+                condsNotValidated.push_back(*it2);
+            }
+        }
+        if(condsNotValidated.size()>0)
+        {
+            res[(*it)]=condsNotValidated;
+        }
+    }
+    return res;
+}
+
 unsigned int Dossier::getCreditsCategorieOneLevel(QString s)//retourne le nombre de crédits pour une catégorie donnée sans prendre en compte ses sous catégories
 {
     unsigned int res=0;
@@ -181,7 +229,7 @@ std::vector<Inscription>::iterator Dossier::findUVInscription(UV u)
     myIT res = findUVInscription(u,begin,end);
     if(res==end)
     {
-        throw DossierException("Erreur findUVInscription : cette UV n'est pas dans les inscriptions");
+        throw DossierException("Erreur findUVInscription : cette UV n'est pas dans les inscriptions :"+u.getCode());
     }
     else
     {
@@ -207,10 +255,198 @@ bool Dossier::isUvValidated(UV u)
         return res->validee();
     }
 }
+bool Dossier::isUvEnCours(UV u)
+{
+    typedef std::vector<Inscription>::iterator myIT;
+    myIT begin = inscri.begin();
+    myIT end = inscri.end();
+    myIT res = findUVInscription(u,begin,end);
+    if(res==end)
+    {
+        //qDebug()<<"echec isUvValidated";
+        return false;
+    }
+    else
+    {
+        //qDebug()<<"succes isUvValidated :"<<res->getCode();
+        return res->EnCours();
+    }
+}
+bool Dossier::isCompletelyValidated()
+{
+     std::map< std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > profileToBeCompleted=getDossierCurrentStatus();
+     typedef std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >::iterator my_it;
+     for(my_it it=profileToBeCompleted.begin();it!=profileToBeCompleted.end();it++ )
+     {
+         if(std::get<0>(it->second)>0)
+         {
+             return false;
+         }
+     }
+    qDebug()<<"Conditions complexes non validées : "<<getNotvalidatedConditions().size();
+     return  getNotvalidatedConditions().size()==0;
+}
 
 bool Dossier::conditionsChecked(std::vector<Condition> c)
 {
     return ConditionChecker( c,"cc",*this).evaluate();
 }
 
+QString Dossier::getLastSemestre()
+{
+    TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
+    QString res;
+    std::vector<Inscription>::iterator it = inscri.begin();
+    unsigned int year=it->getSemestre().getAnnee() ;
+    QString Saison=it->getSemestre().getSaison().getNom() ;
 
+    it++;
+    for(; it!=inscri.end() ; it++)
+    {
+        if((it->getSemestre().getAnnee() > year)&&(tSaison.getElement(it->getSemestre().getSaison().getNom()) > tSaison.getElement(Saison)))
+        {
+                year=it->getSemestre().getAnnee() ;
+                Saison=it->getSemestre().getSaison().getNom();
+        }
+    }
+
+    res=Saison+QString::number(year);
+
+    return res;
+}
+
+QString Dossier::getNextSemestre()
+{
+    TemplateManager<Saison>& tSaison=TemplateManager<Saison>::getInstance();
+    TemplateManager<Semestre>& tSemestre=TemplateManager<Semestre>::getInstance();
+    QString currentSemestre = getLastSemestre();
+    QString saison;
+    QString res;
+    unsigned int year;
+    saison=tSemestre.getElement(currentSemestre).getSaison().getNom();
+    year=tSemestre.getElement(currentSemestre).getAnnee();
+
+    if(saison =="Automne")
+    {
+        saison="Printemps";
+
+        year++;
+    }
+    else
+    {
+        saison="Automne";
+    }
+    try
+    {
+        res=tSemestre.getElement(saison+QString::number(year)).getCode();
+    }
+    catch(std::exception& e)
+    {
+        if(QString(e.what()).contains("Erreur getElement : Valeur introuvable. "))
+        {
+            Semestre(tSaison.getElement(saison),year);
+            res=tSemestre.getElement(saison+QString::number(year)).getCode();
+        }
+        else
+        {
+            throw DossierException("Erreur getNextSemestre : "+std::string(e.what()));
+        }
+    }
+    return res;
+}
+
+QString getUVgivingCredits(Categorie c,Dossier& d)
+{
+    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+
+    for(std::vector<UV>::iterator it= tUV.getIterator(); it!= tUV.end();it++)
+    {
+        if((!d.isUvValidated(*it))&&(!d.isUvEnCours(*it)))
+        {
+            if(it->hasCategorie(c))
+            {
+                return it->getCodeQString();
+            }
+        }
+    }
+    return "";
+}
+Dossier completeDossier(Dossier& d, std::map<UV,int> preferences)
+{
+    TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
+    TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
+    TemplateManager<Semestre>& tSemestre=TemplateManager<Semestre>::getInstance();
+    Dossier res=d;
+
+    std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > profileToBeCompleted=res.getDossierCurrentStatus();
+    std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator it=profileToBeCompleted.begin();
+    while((it!=profileToBeCompleted.end())&&(!res.isCompletelyValidated()))
+    {
+        std::vector<Inscription> temp=res.getInscription();
+        qDebug()<<"****** Debut Dossier ******";
+        for(std::vector<Inscription>::iterator it=temp.begin();it!=temp.end();it++)
+        {
+            qDebug()<<"Inscription "<<it->getCode()<<" Semestre : "<<it->getSemestre().getCode();
+        }
+
+        for(std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > ::iterator it2=profileToBeCompleted.begin();it2!=profileToBeCompleted.end();it2++)
+        {
+            qDebug()<<"Formation : "<< std::get<0>(it2->first)->getNom()<<"Catégorie : "<< std::get<1>(it2->first).getCode()<<", crédits à valider : "<< std::get<0>(it2->second)<<" crédits supplémentaires : "<<std::get<1>(it2->second);
+        }
+
+        qDebug()<<"****** Fin Dossier ******";
+        //qDebug()<<"Test";
+        if(std::get<0>(it->second)>0)// si on est en manque de crédis dans cette Catégorie pour cette Formation
+        {
+
+            QString uvPossible=getUVgivingCredits(std::get<1>(it->first),res);
+            if(uvPossible != "")
+            {
+                qDebug()<<"Test2"<<getUVgivingCredits(std::get<1>(it->first),res);
+                qDebug()<<"Test2"<<tSemestre.getElement(res.getNextSemestre()).getCode();
+                if(res.getSemestreInscritpion(tSemestre.getElement(res.getLastSemestre())).size() > NB_MAX_INSCR)
+                {
+                    Inscription temp( tUV.getElement(getUVgivingCredits(std::get<1>(it->first),res)),tSemestre.getElement(res.getNextSemestre()),tNote.getElement("A"));
+                    res.addInscription(temp);
+                }
+                else
+                {
+                    Inscription temp( tUV.getElement(getUVgivingCredits(std::get<1>(it->first),res)),tSemestre.getElement(res.getLastSemestre()),tNote.getElement("B"));
+                    res.addInscription(temp);
+                }
+
+                //qDebug()<<"Test3";
+
+//               qDebug()<<"Test4";
+                profileToBeCompleted= res.getDossierCurrentStatus();
+
+                it=profileToBeCompleted.begin();
+            }
+            else
+            {
+
+
+                throw DossierException("Le dossier ne peux pas être complété. Pas d'uvs disponibles dans la catégorie : "+std::get<1>(it->first).getCodeStdString()+" Credits manquant :"+std::to_string(std::get<0>(it->second)));
+            }
+        }
+        else
+        {
+            it++;
+        }
+    }
+    if(!res.isCompletelyValidated())
+    {
+        std::map<Formation*,std::vector<Condition > > res333=res.getNotvalidatedConditions();
+        for( std::map<Formation*,std::vector<Condition > >::iterator it=res333.begin();it!=res333.end();it++)
+        {
+            qDebug()<<"Test int"<<it->second.size();
+            for(std::vector<Condition >::iterator it2 =it->second.begin() ; it2 != it->second.end() ; it2++ )
+            {
+                qDebug()<<"Formation : "<< it->first->getNom()<<"Condition Non validée: "<< it2->getCond();
+            }
+        }
+        qDebug()<<"Test "<<res333.size();
+        throw DossierException("Une ou des conditions complexes de la formation dossier ne peuvent pas être remplie.");
+    }
+    return res;
+}

@@ -35,7 +35,7 @@ public:
 class Note : public EntityStd
 {
 private :
-    /**
+    /*
      * @brief note
      */
     QString note;

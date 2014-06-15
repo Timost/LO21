@@ -55,6 +55,7 @@ public:
 };
 
 bool operator ==(Saison s1,Saison s2);
+bool operator >(Saison s1,Saison s2);
 Saison StringToSaison(const QString& s);
 
 #endif // SAISON_H

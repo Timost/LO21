@@ -61,7 +61,7 @@ public:
         return titre;
     }
 
-    const std::map<Categorie, unsigned int> getCredits() const
+    std::map<Categorie, unsigned int> getCredits() const
     {
         return credits;
     }
@@ -106,6 +106,11 @@ public:
         credits[c]=creds;
     }
 
+    bool hasCategorie(Categorie c)
+    {
+        return(credits.find(c)!=credits.end());
+    }
+
     void display()
     {
         qDebug()<<"Code :"<<QString(getCode().c_str())<<" titre, "<<QString(getTitre().c_str());//c_str pour les types string
@@ -116,6 +121,8 @@ inline bool operator==(UV u1, UV u2)
 {
     return (u1.getCode()==u2.getCode());
 }
+
+
 
 UV StringToUV(const QString& str);
 QTextStream& operator<<(QTextStream& f, const UV& uv);

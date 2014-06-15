@@ -14,7 +14,6 @@ SOURCES += \
     uv.cpp \
     Formation.cpp \
     Exception.cpp \
-    enums.cpp \
     Etudiant.cpp \
     Dossier.cpp \
     mainfenetre.cpp \
@@ -48,7 +47,6 @@ HEADERS += \
     EntityStd.h \
     uv.h \
     Formation.h \
-    enums.h \
     Semestre.h \
     Exception.h \
     Etudiant.h \

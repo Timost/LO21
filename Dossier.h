@@ -145,6 +145,12 @@ public:
      * @return booléen
      */
     bool isUvValidated(UV u);
+    /**
+     * @brief isUvEnCours permet de savoir si une UV est en cours
+     * @param u L'uv qui nous intéresse
+     * @return vrai si le dossier contient une inscription dont la note n'est pas déterminante
+     */
+    bool isUvEnCours(UV u);
 
     /**
      * @brief addInscription ajoute une inscription au dossier
@@ -169,6 +175,12 @@ public:
      * @return vecteur de pointeur vers des formations.
      */
     std::vector<Formation*> getFormationsNotInDossier();
+    /**
+     * @brief getSemestreInscritpion permet de récupérer l'ensemble des inscriptions pour un semestre dinné
+     * @param s Semestre pour lequel on souhaite filtrer les inscriptions
+     * @return  std::vector<Inscription> contenant les inscriptions du semestre.
+     */
+    std::vector<Inscription> getSemestreInscritpion(Semestre s);
 
     /**
      * @brief getValidatedCredits
@@ -188,8 +200,33 @@ public:
      * @return retourne le nombre de crédits restant à valider par l'étudiant dans chaque catégorie pour chaque formation. le premier entier est pour les crédits restant à valider le deuxième pour les crédits en trop. (std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> >)
      */
     std::map<std::pair<Formation*,Categorie>, std::pair<unsigned int,unsigned int> > getDossierCurrentStatus();
-};
+    /**
+     * @brief getNotvalidatedConditions permet de connaître les conditions qui empêche de valider une formation
+     * @return std::map<Formation*,std::vector<Condition> > qui contient les conditions blocantes par formations
+     */
+    std::map<Formation*,std::vector<Condition> > getNotvalidatedConditions();
 
+    /**
+     * @brief isCompletelyValidated permet de savoir si un dossier à valider toutes ces formations
+     * @return vrai si les formations sont validée
+     */
+    bool isCompletelyValidated();
+
+    /**
+     * @brief getLastSemestre permet de trouver le semestre le plus récent d'un dossier
+     * @return retourne le code du semestre
+     */
+    QString getLastSemestre();
+    QString getNextSemestre();
+};
+/**
+ * @brief getUVgivingCredits permet de récupérer le code d'une UV qui pourrait améliorer le dossier vis-à-vis d'une catégorie
+ * @param c la catégorie dans laquelle on souhaite avoir des crédits
+ * @param d le dossier pour vérifier qu'on ne retourne pas une UV déjà validée
+ * @return  Le code de l'UV si on en a trouvée une, La chaine vide "" sinon.
+ */
+QString getUVgivingCredits(Categorie c, Dossier &d);
+Dossier completeDossier(Dossier& d, std::map<UV,int> preferences);
 
 
 

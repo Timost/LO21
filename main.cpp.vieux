@@ -153,7 +153,7 @@ int main(int argc, char *argv[]) {
 
         //création d'une UV directement
         map<Categorie,unsigned int> m;
-        m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),12));
+        m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),7));
         std::string s1="EE32";
         std::string s2="titre";
         UV newUV(s1,s2,m,true,true);
@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
 
 
         m.clear();
-        m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),5));
+        m.insert(pair<Categorie, unsigned int> (tCat.getElement("CS"),9));
         s1="EE33";
         s2="titre 2";
         UV uv2(s1,s2,m,true,true);
@@ -186,6 +186,7 @@ int main(int argc, char *argv[]) {
 
         Condition condition1("cc.isUvValidated(\"EE32\")");
         Condition condition2("(cc.getValidatedCredits(\"TM\")>12)&&(cc.getValidatedCredits(\"CS\")>19)");
+        Condition condition3("(cc.getValidatedCredits(\"TM\")>25)");
         //qDebug() <<condition1.getCond();
         //condition1.setCond("cc.isUvValidated(\"EE33\")>3");
         //condition1.setCond("cc.test(3)");
@@ -196,7 +197,7 @@ int main(int argc, char *argv[]) {
         //Création d'une formation directement
         std::map<UV*,bool>m1;
         m1.insert(std::pair<UV*,bool> (pUV,false));
-        m1.insert(std::pair<UV*,bool> (pUV2,true));
+        m1.insert(std::pair<UV*,bool> (pUV2,false));
         std::map<Categorie,unsigned int>m2;
         m2.insert(std::pair<Categorie,unsigned int> (StringToCategorie( "CS"),12));
 
@@ -208,9 +209,9 @@ int main(int argc, char *argv[]) {
         std::vector<Condition> conds;
         conds.push_back(condition1);
         conds.push_back(condition2);
+        conds.push_back(condition3);
 
-
-        Formation nF("Nom Formation1","Description Formation1",m1,m2,conds);
+        Formation nF("Nom Formation1","Description Formation1",m1,m2);
 
         Formation nF2("Nom Formation2","Description Formation2",m1,m2);
 
@@ -231,6 +232,7 @@ int main(int argc, char *argv[]) {
         Semestre sem2(tSaison.getElement("Printemps"),2015);
         Inscription nI(uv2,sem1,StringToNote("A"));
         Inscription nI2(newUV,sem2,StringToNote("B"));
+        Inscription ni3(uv2,sem2);
 
         nI.display();
         qDebug() << QString(nI.getUV().getCode().c_str());
@@ -241,16 +243,17 @@ int main(int argc, char *argv[]) {
         //création d'un dossier
         std::vector<Inscription> vInscr;
         vInscr.push_back(nI);
-        vInscr.push_back(nI2);
+        //vInscr.push_back(nI2);
 
         std::vector<Formation*> vForme;
         vForme.push_back(&tFormation.getIterator()[0]);
-        vForme.push_back(&tFormation.getIterator()[1]);
-        vForme.push_back(&tFormation.getIterator()[2]);
+        //vForme.push_back(&tFormation.getIterator()[1]);
+        //vForme.push_back(&tFormation.getIterator()[2]);
 
         Dossier dos(vInscr,vForme);
-        std::vector<Inscription>::iterator itINSC= dos.findUVInscription(StringToUV("EE32"));
-        qDebug()<<"Inscri à cette uv :"<<itINSC->getCode();
+        //dos.addInscription(nI2);
+        //std::vector<Inscription>::iterator itINSC= dos.findUVInscription(StringToUV("EE32"));
+        //qDebug()<<"Inscri à cette uv :"<<itINSC->getCode();
         //qDebug()<<"Validée EE332 ?"<<dos.isUvValidated(StringToUV("EE32"));
         std::vector<Formation*> formationstest=dos.getFormation();
         std::vector<Formation*>::iterator itFormation= formationstest.begin();
@@ -272,6 +275,23 @@ int main(int argc, char *argv[]) {
         {
             qDebug()<<"Formation : "<< std::get<0>(it->first)->getNom()<<"Catégorie : "<< std::get<1>(it->first).getCode()<<", crédits à valider : "<< std::get<0>(it->second)<<" crédits supplémentaires : "<<std::get<1>(it->second);
         }
+
+        std::map<Formation*,std::vector<Condition > > res333=dos.getNotvalidatedConditions();
+        for( std::map<Formation*,std::vector<Condition > >::iterator it=res333.begin();it!=res333.end();it++)
+        {
+            for(std::vector<Condition >::iterator it2 =it->second.begin() ; it2 != it->second.end() ; it2++ )
+            {
+                qDebug()<<"Formation : "<< it->first->getNom()<<"Condition Non validée: "<< it2->getCond();
+            }
+        }
+
+        //dos.getSemestreInscritpion(sem1);
+        //qDebug()<<"****************";
+//        dos.addInscription(ni3);
+//        qDebug()<<"****************";
+        //qDebug()<<"Test2"<<getUVgivingCredits(tCat.getElement("CS"),dos);
+        Dossier test=completeDossier(dos,std::map<UV,int>());
+        qDebug()<<"Dossier valider ?"<<test.isCompletelyValidated();
 
        //création d'un étudiant
 //       QDate date(2014,5,3);

@@ -35,8 +35,20 @@ Saison StringToSaison(const QString& str){//renvoie une référence vers la cat�
        throw SaisonException("Erreur la categorie "+str.toStdString()+" n'existe pas.");
    }
 }
+
 bool operator ==(Saison s1,Saison s2)
 {
     return (s1.getNom()==s2.getNom());
+}
+bool operator >(Saison s1,Saison s2)
+{
+    if((s1.getNom()=="Automne")&&(s2.getNom()=="Printemps"))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 

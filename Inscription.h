@@ -4,6 +4,8 @@
 #include "enums.h"
 #include "Semestre.h"
 #include "uv.h"
+
+#define NB_MAX_INSCR 7
 /**
 * @file inscription.h
 * @version 1
@@ -73,6 +75,11 @@ public:
     bool validee()//retourne vrai si une inscription a été validée
     {
         return (resultat.isValidatory());
+    }
+
+    bool EnCours()
+    {
+        return((!resultat.isEliminatory())&&(!resultat.isValidatory()));
     }
 
     /**
