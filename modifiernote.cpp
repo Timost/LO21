@@ -32,17 +32,24 @@ void ModifierNote::connect()
 
 void ModifierNote::ok()
 {
-    if(b)
+    try
     {
-        note->setDescription(ui->Description->toPlainText());
-        note->setRang(ui->Rang->value());
+        if(b)
+        {
+            note->setDescription(ui->Description->toPlainText());
+            note->setRang(ui->Rang->value());
+        }
+        else
+        {
+            note=new Note(ui->Nom->text(), ui->Description->toPlainText(), ui->Rang->value(), ui->Eliminatoire->value());
+            delete note;
+        }
+        this->close();
     }
-    else
+    catch(std::exception& e)
     {
-        note=new Note(ui->Nom->text(), ui->Description->toPlainText(), ui->Rang->value(), ui->Eliminatoire->value());
-        delete note;
+        QMessageBox::warning(this, "Erreur", e.what());
     }
-    this->close();
 }
 
 void ModifierNote::cancel()

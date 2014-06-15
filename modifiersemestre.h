@@ -2,6 +2,7 @@
 #define MODIFIERSEMESTRE_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "Semestre.h"
 
 namespace Ui {

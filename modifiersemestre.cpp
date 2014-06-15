@@ -24,9 +24,16 @@ void ModifierSemestre::connect()
 
 void ModifierSemestre::ok()
 {
-    TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
-    Semestre(tSai.getIterator()[ui->comboBox->currentIndex()], ui->spinBox->value());
-    this->close();
+    try
+    {
+        TemplateManager<Saison>& tSai=TemplateManager<Saison>::getInstance();
+        Semestre(tSai.getIterator()[ui->comboBox->currentIndex()], ui->spinBox->value());
+        this->close();
+    }
+    catch(std::exception& e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
 }
 
 void ModifierSemestre::cancel()

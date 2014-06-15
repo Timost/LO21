@@ -2,6 +2,7 @@
 #define MODIFIERETUDIANT_H
 #include <QDialog>
 #include <QObject>
+#include <QMessageBox>
 #include "templatemanager.h"
 #include "Dossier.h"
 #include "Etudiant.h"

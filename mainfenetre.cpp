@@ -14,6 +14,7 @@ MainFenetre::MainFenetre(QWidget *parent) :
     //ajout
     QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
     QObject::connect(ui->actionAjouter_UV, SIGNAL(triggered()), this, SLOT(ajouterUV()) );
+    QObject::connect(ui->actionAjouter_Formation, SIGNAL(triggered()), this, SLOT(ajouterFormation()) );
     QObject::connect(ui->actionCategorie, SIGNAL(triggered()), this, SLOT(ajouterCategorie()) );
     QObject::connect(ui->actionSaison, SIGNAL(triggered()), this, SLOT(ajouterSaison()) );
     QObject::connect(ui->actionNote, SIGNAL(triggered()), this, SLOT(ajouterNote()) );
@@ -275,18 +276,32 @@ void MainFenetre::updateSemestre()
 
 void MainFenetre::save()
 {
-    QFileDialog* file= new QFileDialog();
-    QString path = file->getOpenFileName(this, tr("Sauvegarder la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
-    Database db(path.toStdString());
-    db.save();
+    try
+    {
+        QFileDialog* file= new QFileDialog();
+        QString path = file->getOpenFileName(this, tr("Sauvegarder la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
+        Database db(path.toStdString());
+        db.save();
+    }
+    catch(std::exception& e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
 }
 
 void MainFenetre::load()
 {
-    QFileDialog* file= new QFileDialog();
-    QString path = file->getOpenFileName(this, tr("Charger la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
-    Database db(path.toStdString());
-    db.load();
+    try
+    {
+        QFileDialog* file= new QFileDialog();
+        QString path = file->getOpenFileName(this, tr("Charger la base de données"),"C:/",tr("Fichier SQLite (*.db)"));
+        Database db(path.toStdString());
+        db.load();
+    }
+    catch(std::exception &e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
     //on met à jour les tableaux
     updateUV();
     updateEtudiant();
@@ -299,13 +314,29 @@ void MainFenetre::load()
 
 void MainFenetre::deleteUV(int i)
 {
-    TemplateManager<UV>::getInstance().erase(i);
+    try
+    {
+         TemplateManager<UV>::getInstance().erase(i);
+    }
+    catch(std::exception e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
+
     updateUV();
 }
 
 void MainFenetre::deleteEtudiant(int i)
 {
-    TemplateManager<Etudiant>::getInstance().erase(i);
+    try
+    {
+         TemplateManager<Etudiant>::getInstance().erase(i);
+    }
+    catch(std::exception e)
+    {
+        QMessageBox::warning(this, "Erreur", e.what());
+    }
+
     updateEtudiant();
 }
 
@@ -399,11 +430,19 @@ void MainFenetre::deleteSemestre(int i)
     updateSemestre();
 }
 
+void MainFenetre::ajouterFormation()
+{
+    gererFormation* fenModif=new gererFormation();
+    fenModif->exec();
+    updateFormation();
+}
+
 void MainFenetre::modifierFormation(int i)
 {
-    //fenModif=new modifierformation(form);
-    //fenModif.show();
-    //updateFormation();
+    TemplateManager<Formation>& tFor=TemplateManager<Formation>::getInstance();
+    gererFormation* fenModif=new gererFormation(tFor.getIterator()[i]);
+    fenModif->exec();
+    updateFormation();
 }
 
 void MainFenetre::ajouterEtudiant()
