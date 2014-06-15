@@ -60,7 +60,7 @@ private :
     public :
     /**
      * @brief getStrLabel
-     * @return login en std::string
+     * @return login
      */
     std::string getStrLabel() const
     {
@@ -69,11 +69,11 @@ private :
 
     /**
      * @brief Etudiant constructeur de l'Etudiant. Le login sera généré automatiquement. L'étudiant sera automatiquement mis dans le manager.
-     * @param doss Dossier
-     * @param i numero ine int
-     * @param n nom QString
-     * @param p prenom QString
-     * @param d date de naissance QDate
+     * @param doss
+     * @param i numero ine
+     * @param n nom
+     * @param p prenom
+     * @param d date de naissance
      */
     Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d)
     {
@@ -109,10 +109,10 @@ private :
     /**
      * @brief Etudiant constructeur de l'Etudiant. Le login sera vérifié. L'étudiant sera automatiquement mis dans le manager.
      * @param doss Dossier
-     * @param i numero ine int
-     * @param n nom QString
-     * @param p prenom QString
-     * @param d date de naissance QDate
+     * @param i numero ine
+     * @param n nom
+     * @param p prenom
+     * @param d date de naissance
      * @param log login
      */
     Etudiant(Dossier doss, unsigned int i, QString n, QString p, QDate d,  QString log):dos(doss),ine(i),nom(n),prenom(p),dateNaissance(d)
@@ -150,16 +150,16 @@ private :
 
     /**
      * @brief Etudiant cree un Etudiant factice avec un seul dossier nécessaire pour l'interface graphique...
-     * @param dos Dossier
+     * @param dos
      */
     Etudiant(Dossier dos):dos(dos){}
 
     /**
      * @brief Etudiant constructeur d'un Etudiant ayant un dossier vide.  L'étudiant sera automatiquement mis dans le manager.
-     * @param i numero ine int
-     * @param n nom QString
-     * @param p prenom QString
-     * @param d date de naissance QDate
+     * @param i numero ine
+     * @param n nom
+     * @param p prenom
+     * @param d date de naissance
      */
     Etudiant(unsigned int i, QString n, QString p, QDate d)
     {
@@ -168,7 +168,7 @@ private :
 
     /**
      * @brief getDossier getter du Dossier
-     * @return Dossier
+     * @return
      */
     Dossier getDossier() const
     {
@@ -177,7 +177,7 @@ private :
 
     /**
      * @brief getIne getter de l'INE
-     * @return unsigned int
+     * @return
      */
     unsigned int getIne()const
     {
@@ -186,7 +186,7 @@ private :
 
     /**
      * @brief getLogin getter de login
-     * @return const QString
+     * @return
      */
     const QString getLogin()const
     {
@@ -195,7 +195,7 @@ private :
 
     /**
      * @brief getNom getter de nom
-     * @return const QString
+     * @return
      */
     const QString getNom()const
     {
@@ -204,7 +204,7 @@ private :
 
     /**
      * @brief getPrenom getter de prenom
-     * @return const QString
+     * @return
      */
     const QString getPrenom()const
     {
@@ -213,7 +213,7 @@ private :
 
     /**
      * @brief getDateNaissance getter de dateNaissance
-     * @return QDate
+     * @return
      */
     const QDate getDateNaissance()const
     {
@@ -222,7 +222,7 @@ private :
 
     /**
      * @brief setDossier setter du Dossier (pour en remplacer un autre).
-     * @param d Dossier
+     * @param d
      */
     void setDossier(Dossier d)
     {
@@ -231,7 +231,7 @@ private :
 
     /**
      * @brief setIne setter de l'INE
-     * @param i unsigned int
+     * @param i
      */
     void setIne(unsigned int i)
     {
@@ -240,7 +240,7 @@ private :
 
     /**
      * @brief setNom setter de nom
-     * @param n QString
+     * @param n
      */
     void setNom(QString n)
     {
@@ -249,7 +249,7 @@ private :
 
     /**
      * @brief setPrenom setter de prenom
-     * @param pv QString
+     * @param pv
      */
     void setPrenom(QString p)
     {
@@ -258,7 +258,7 @@ private :
 
     /**
      * @brief setDateNaissance setter de dateNaissance
-     * @param da QDate
+     * @param da
      */
     void setDateNaissance(QDate da)
     {

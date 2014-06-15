@@ -28,7 +28,7 @@ public:
 
     /**
      * @brief getStrLabel Fonction virtuel pure pour forcer l'utilisateur à la définir.
-     * @return std::string
+     * @return
      */
     virtual std::string getStrLabel() const =0;
 };
