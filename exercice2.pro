@@ -24,7 +24,6 @@ SOURCES += \
     Condition.cpp \
     ConditionChecker.cpp \
     main2.cpp \
-    editerdossier.cpp \
     creerdossier.cpp \
     Semestre.cpp \
     gererformation.cpp \
@@ -54,7 +53,6 @@ HEADERS += \
     Saison.h \
     Condition.h \
     ConditionChecker.h \
-    editerdossier.h \
     creerdossier.h \
     gererformation.h \
     QTgraphTools.h \

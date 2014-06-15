@@ -4,7 +4,7 @@
 #include "Semestre.h"
 #include "uv.h"
 
-#define NB_MAX_INSCR 7
+#define NB_MAX_INSCR 14
 /**
 * @file inscription.h
 * @version 1
