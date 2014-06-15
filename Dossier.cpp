@@ -34,7 +34,7 @@ std::vector<Inscription> Dossier::getSemestreInscritpion(Semestre s)
     {
         if (it->getSemestre()==s)
         {
-            qDebug()<<"Test getSemestreInscritpion "<<it->getSemestre().getCode()<< " s :"<< s.getCode();
+            qDebug()<<"Test getSemestreInscritpion "<<it->getCode()<<" semestre "<<  it->getSemestre().getCode()<< " s :"<< s.getCode();
             res.push_back(*it);
         }
     }
@@ -46,7 +46,7 @@ void Dossier::addInscription(Inscription i)//ajoute une inscription au dossier
 {
     if(containsInscription(i))
     {
-        throw DossierException("Erreur : cette Inscription fait déjà partie du dossier.");
+        throw DossierException("Erreur : L'Inscription "+i.getCode().toStdString()+" "+i.getSemestre().getCode().toStdString()+" "+ i.getResultat().getNote().toStdString()+" fait déjà partie du dossier.");
     }
     if(getSemestreInscritpion(i.getSemestre()).size()<NB_MAX_INSCR)
     {
@@ -365,13 +365,14 @@ QString getUVgivingCredits(Categorie c,Dossier& d)
         {
             if(it->hasCategorie(c))
             {
+                qDebug()<<"Test getUVgivingCredits uv proposée : "<<it->getCodeQString() <<" !d.isUvValidated(*it) : " <<(!d.isUvValidated(*it))<<" (!d.isUvEnCours(*it)) :"<<(!d.isUvEnCours(*it));
                 return it->getCodeQString();
             }
         }
     }
     return "";
 }
-Dossier completeDossier(Dossier& d, std::map<UV,int> preferences)
+Dossier completeDossier(Dossier d, std::map<UV,int> preferences)
 {
     TemplateManager<UV>& tUV=TemplateManager<UV>::getInstance();
     TemplateManager<Note>& tNote=TemplateManager<Note>::getInstance();
@@ -402,22 +403,22 @@ Dossier completeDossier(Dossier& d, std::map<UV,int> preferences)
             QString uvPossible=getUVgivingCredits(std::get<1>(it->first),res);
             if(uvPossible != "")
             {
-                qDebug()<<"Test2"<<getUVgivingCredits(std::get<1>(it->first),res);
+                qDebug()<<"Test2"<<uvPossible;
                 qDebug()<<"Test2"<<tSemestre.getElement(res.getNextSemestre()).getCode();
-                if(res.getSemestreInscritpion(tSemestre.getElement(res.getLastSemestre())).size() > NB_MAX_INSCR)
+                if(res.getSemestreInscritpion(tSemestre.getElement(res.getLastSemestre())).size() >= NB_MAX_INSCR)
                 {
-                    Inscription temp( tUV.getElement(getUVgivingCredits(std::get<1>(it->first),res)),tSemestre.getElement(res.getNextSemestre()),tNote.getElement("A"));
+                    Inscription temp( tUV.getElement(uvPossible),tSemestre.getElement(res.getNextSemestre()),tNote.getElement("TMP"));
                     res.addInscription(temp);
                 }
                 else
                 {
-                    Inscription temp( tUV.getElement(getUVgivingCredits(std::get<1>(it->first),res)),tSemestre.getElement(res.getLastSemestre()),tNote.getElement("B"));
+                    Inscription temp( tUV.getElement(uvPossible),tSemestre.getElement(res.getLastSemestre()),tNote.getElement("TMP"));
                     res.addInscription(temp);
                 }
 
-                //qDebug()<<"Test3";
+                qDebug()<<"Test3";
 
-//               qDebug()<<"Test4";
+               qDebug()<<"Test4";
                 profileToBeCompleted= res.getDossierCurrentStatus();
 
                 it=profileToBeCompleted.begin();

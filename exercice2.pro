@@ -39,7 +39,8 @@ SOURCES += \
     modifiersaison.cpp \
     modifiersemestre.cpp \
     modifiercategorie.cpp \
-    gerercategorie.cpp
+    gerercategorie.cpp \
+    gererprevision.cpp
 
 HEADERS += \
     templatemanager.h \
@@ -73,7 +74,8 @@ HEADERS += \
     modifiersaison.h \
     modifiersemestre.h \
     modifiercategorie.h \
-    gerercategorie.h
+    gerercategorie.h \
+    gererprevision.h
     main.cpp.vieux
 
 
@@ -94,4 +96,5 @@ FORMS += \
     modifiersaison.ui \
     modifiersemestre.ui \
     modifiercategorie.ui \
-    gerercategorie.ui
+    gerercategorie.ui \
+    gererprevision.ui

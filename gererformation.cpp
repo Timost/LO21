@@ -7,11 +7,6 @@
  * Editeur de conditions
  */
 
-
-
-
-
-
 gererFormation::gererFormation(Formation& f,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::gererFormation)
@@ -326,7 +321,7 @@ void  gererFormation::initGererCategories()
 void gererFormation::validerCategoriesFormation()
 {
     TemplateManager<Categorie>& tCategorie=TemplateManager<Categorie>::getInstance();
-    for(unsigned int i=0; i<ui->tableWidgetCategorie->rowCount();i++)
+    for(int i=0; i<ui->tableWidgetCategorie->rowCount();i++)
     {
           QSpinBox *creds = qobject_cast<QSpinBox*>(ui->tableWidgetCategorie->cellWidget(i,1));
           if(creds!=0)

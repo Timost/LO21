@@ -55,7 +55,7 @@ class TemplateManager
 
     /**
     * @brief Destructeur privé détrusant tous les éléments.
-    * /
+    */
     ~TemplateManager<T>()
     {
         elements.clear();

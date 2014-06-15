@@ -2,16 +2,18 @@
 #include "ui_modifiersaison.h"
 
 ModifierSaison::ModifierSaison(QWidget *parent) :
-    QDialog(parent), sai(NULL), b(0),
-    ui(new Ui::ModifierSaison)
+    QDialog(parent),
+    ui(new Ui::ModifierSaison),
+     b(0),sai(NULL)
 {
     ui->setupUi(this);
     this->connect();
 }
 
 ModifierSaison::ModifierSaison(Saison& s, QWidget *parent) :
-    QDialog(parent), sai(&s), b(1),
-    ui(new Ui::ModifierSaison)
+    QDialog(parent),
+    ui(new Ui::ModifierSaison),
+     b(1),sai(&s)
 {
     ui->setupUi(this);
     ui->Nom->setText(sai->getNom());

@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="UVTab">
      <attribute name="title">
@@ -313,17 +313,15 @@
     <addaction name="actionSaison"/>
     <addaction name="actionSemestre"/>
    </widget>
-   <widget class="QMenu" name="menuRechercher_2">
+   <widget class="QMenu" name="menuAvanc">
     <property name="title">
-     <string>Rechercher</string>
+     <string>Avancé</string>
     </property>
-    <addaction name="actionRechercher_Etudiant"/>
-    <addaction name="actionRechercher_UV"/>
-    <addaction name="actionRechercher_Formation"/>
+    <addaction name="actionGerer_les_sous_cat_gories"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuEdition"/>
-   <addaction name="menuRechercher_2"/>
+   <addaction name="menuAvanc"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionCharger">
@@ -403,6 +401,11 @@
   <action name="actionSemestre">
    <property name="text">
     <string>Semestre</string>
+   </property>
+  </action>
+  <action name="actionGerer_les_sous_cat_gories">
+   <property name="text">
+    <string>Gerer les sous-catégories</string>
    </property>
   </action>
  </widget>

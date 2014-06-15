@@ -18,6 +18,7 @@ MainFenetre::MainFenetre(QWidget *parent) :
     QObject::connect(ui->actionSaison, SIGNAL(triggered()), this, SLOT(ajouterSaison()) );
     QObject::connect(ui->actionNote, SIGNAL(triggered()), this, SLOT(ajouterNote()) );
     QObject::connect(ui->actionSemestre, SIGNAL(triggered()), this, SLOT(ajouterSemestre()) );
+    QObject::connect(ui->actionGerer_les_sous_cat_gories, SIGNAL(triggered()), this, SLOT(gererSousCat()) );
     //Rafraichir
     QObject::connect(ui->actionRafraichir, SIGNAL(triggered()), this, SLOT(refresh()) );
 
@@ -353,6 +354,13 @@ void MainFenetre::deleteCategorie(int i)
     updateCategorie();
 }
 
+void MainFenetre::gererSousCat()
+{
+    gererCategorie* fenModif = new gererCategorie();
+    fenModif->exec();
+    delete fenModif;
+}
+
 void MainFenetre::modifierNote(int i)
 {
     TemplateManager<Note>& tNot=TemplateManager<Note>::getInstance();
@@ -448,12 +456,13 @@ void MainFenetre::ajouterNote()
 
 void MainFenetre::test()
 {
-//    TemplateManager<Formation>& tForm=TemplateManager<Formation>::getInstance();
-//    Formation& f=tForm.getIterator()[0];
-    //gererFormation* fenModif=new gererFormation(f);
-    gererCategorie* fenModif = new gererCategorie();
-    fenModif->exec();
-    delete fenModif;
+    TemplateManager<Etudiant>& tEtu=TemplateManager<Etudiant>::getInstance();
+    Etudiant& e=tEtu.getIterator()[0];
+    gererPrevision* fen=new gererPrevision(e);
+
+    fen->exec();
+    delete fen;
+
 }
 
 

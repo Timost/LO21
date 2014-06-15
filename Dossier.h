@@ -226,7 +226,7 @@ public:
  * @return  Le code de l'UV si on en a trouvée une, La chaine vide "" sinon.
  */
 QString getUVgivingCredits(Categorie c, Dossier &d);
-Dossier completeDossier(Dossier& d, std::map<UV,int> preferences);
+Dossier completeDossier(Dossier d, std::map<UV,int> preferences);
 
 
 

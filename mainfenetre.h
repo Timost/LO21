@@ -19,6 +19,7 @@
 #include "modifiernote.h"
 #include "modifiersemestre.h"
 #include "gerercategorie.h"
+#include "gererprevision.h"
 namespace Ui {
 class MainFenetre;
 }
@@ -59,6 +60,7 @@ private slots:
     void ajouterSaison();
     void ajouterSemestre();
     void ajouterNote();
+    void gererSousCat();
 public:
     explicit MainFenetre(QWidget *parent = 0);
     ~MainFenetre();
