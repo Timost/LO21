@@ -14,6 +14,7 @@ MainFenetre::MainFenetre(QWidget *parent) :
     //ajout
     QObject::connect(ui->actionAjouter_Etudiant, SIGNAL(triggered()), this, SLOT(ajouterEtudiant()) );
     QObject::connect(ui->actionAjouter_UV, SIGNAL(triggered()), this, SLOT(ajouterUV()) );
+    QObject::connect(ui->actionAjouter_Formation, SIGNAL(triggered()), this, SLOT(ajouterFormation()) );
     QObject::connect(ui->actionCategorie, SIGNAL(triggered()), this, SLOT(ajouterCategorie()) );
     QObject::connect(ui->actionSaison, SIGNAL(triggered()), this, SLOT(ajouterSaison()) );
     QObject::connect(ui->actionNote, SIGNAL(triggered()), this, SLOT(ajouterNote()) );
@@ -391,11 +392,19 @@ void MainFenetre::deleteSemestre(int i)
     updateSemestre();
 }
 
+void MainFenetre::ajouterFormation()
+{
+    gererFormation* fenModif=new gererFormation();
+    fenModif->exec();
+    updateFormation();
+}
+
 void MainFenetre::modifierFormation(int i)
 {
-    //fenModif=new modifierformation(form);
-    //fenModif.show();
-    //updateFormation();
+    TemplateManager<Formation>& tFor=TemplateManager<Formation>::getInstance();
+    gererFormation* fenModif=new gererFormation(tFor.getIterator()[i]);
+    fenModif->exec();
+    updateFormation();
 }
 
 void MainFenetre::ajouterEtudiant()

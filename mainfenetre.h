@@ -19,6 +19,8 @@
 #include "modifiernote.h"
 #include "modifiersemestre.h"
 #include "gerercategorie.h"
+#include "gererformation.h"
+
 namespace Ui {
 class MainFenetre;
 }
@@ -56,6 +58,7 @@ private slots:
     void test();
     void ajouterUV();
     void ajouterCategorie();
+    void ajouterFormation();
     void ajouterSaison();
     void ajouterSemestre();
     void ajouterNote();
